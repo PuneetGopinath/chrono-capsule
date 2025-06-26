@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 
 const capsuleSchema = new mongoose.Schema({
-    id: {
+    userId: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     sender: {
         type: String,
@@ -30,8 +29,8 @@ const capsuleSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    encryptionKey: {
-        type: String,
+    encryption: {
+        type: Object,
         required: false
     },
     createdAt: {
