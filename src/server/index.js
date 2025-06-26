@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 
 const capsule = require("./routes/capsuleR");
-//const auth = require("./routes/authR");
+const auth = require("./routes/authR");
 
 const Database = require("./utils/db");
 
@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/capsules", capsule);
-//app.get("/api/auth", auth);
+app.get("/api/auth", auth);
 
 app.use((err, req, res, next) => {
   console.error('❌ Error caught:', err.message);
