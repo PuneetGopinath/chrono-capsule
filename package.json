@@ -1,0 +1,36 @@
+{
+  "name": "chrono-capsule",
+  "version": "0.1.0",
+  "description": "An open-source platform to create encrypted, media-rich digital time capsules with scheduled unlocks",
+  "main": "src/server/index.js",
+  "scripts": {
+    "start": "node src/server/index.js",
+    "dev": "npx nodemon src/server/index.js --watch src -e js,jsx,json,css",
+    "format": "npx prettier --write src",
+    "lint": "npx eslint src",
+    "lint:fix": "npx eslint src --fix"
+  },
+  "author": "PuneetGopinath",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.10.0",
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.16.0",
+    "morgan": "^1.10.0",
+    "nodemailer": "^7.0.3",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0",
+    "eslint": "^9.29.0",
+    "nodemon": "^3.1.10",
+    "prettier": "^3.6.1"
+  }
+}
