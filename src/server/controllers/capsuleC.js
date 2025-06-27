@@ -3,9 +3,9 @@ const { Capsule } = require("../models");
 
 exports.create = async (req, res) => {
     if (!req.user) return res.status(401).json({ error: "Unauthorized"});
-    const { sender, recipient, message, media, unlockDate, isEncrypted } = req.body;
+    const { recipient, message, media, unlockDate, isEncrypted } = req.body;
 
-    if (!sender || !recipient || !message || !unlockDate) {
+    if (!recipient || !message || !unlockDate) {
         return res.status(400).json({ error: "Missing required fields" });
     }
 
@@ -13,6 +13,7 @@ exports.create = async (req, res) => {
     const alg = "AES-256-CBC";
     if (isEncrypted) {
         if (process.env.ENCRYPTION_KEY.length !== 32) {
+            console.log("❌ Invalid encryption key length:", process.env.ENCRYPTION_KEY.length);
             return res.status(500).json({ error: "Encryption key must be 32 bytes long" });
         }
         iv = crypto.randomBytes(16);
@@ -27,13 +28,17 @@ exports.create = async (req, res) => {
         }
     }
 
+    const unlockObj = new Date(unlockDate);
+    if (isNaN(unlockObj.getTime())) {
+        return res.status(400).json({ error: "Invalid unlock date format"})
+    }
+
     const newCapsule = new Capsule({
         userId: req.user.id,
-        sender,
         recipient,
         message: encMsg ?? message,
         media: encMedia ?? media,
-        unlockDate,
+        unlockDate: unlockObj,
         isEncrypted,
         encryption: {
             "msg": iv ? iv.toString("hex") : null,

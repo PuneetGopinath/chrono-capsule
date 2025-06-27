@@ -5,10 +5,6 @@ const capsuleSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    sender: {
-        type: String,
-        required: true
-    },
     recipient: {
         type: String,
         required: true

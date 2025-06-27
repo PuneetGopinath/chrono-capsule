@@ -12,7 +12,7 @@ module.exports = class Database {
                 this.connected = true;
             })
             .catch((err) => {
-                console.error("Database connection error:", err.message);
+                console.log("Database connection error:", err.message);
             });
         return this.connected;
     }
