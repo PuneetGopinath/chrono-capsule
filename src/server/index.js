@@ -2,11 +2,13 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
+const cron = require("node-cron");
 
 const capsule = require("./routes/capsuleR");
 const auth = require("./routes/authR");
 
 const Database = require("./utils/db");
+const unlockCapsules = require("./utils/scheduler");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -55,3 +57,6 @@ app.use((err, req, res, next) => {
       console.log(`🚀 Server is live at http://localhost:${PORT}`);
     });
 })();
+
+// Schedule the capsule unlocking task every hour
+cron.schedule("0 * * * *", unlockCapsules);

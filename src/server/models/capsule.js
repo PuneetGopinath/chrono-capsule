@@ -6,17 +6,25 @@ const capsuleSchema = new mongoose.Schema({
         required: true
     },
     recipient: {
-        type: String,
-        required: true
+        name: {
+            type: String,
+            required: true
+        },
+        email: {
+            type: String,
+            required: true,
+            match: /.+\@.+\..+/ // Basic email validation
+        }
     },
     message: {
         type: String,
         required: true
     },
-    media: {
-        type: String,
-        required: false
-    },
+    media: [{
+        filename: String,
+        path: String,
+        contentType: String
+    }],
     unlockDate: {
         type: Date,
         required: true
@@ -26,8 +34,18 @@ const capsuleSchema = new mongoose.Schema({
         default: false
     },
     encryption: {
-        type: Object,
-        required: false
+        msg: {
+            type: String,
+            required: false
+        },
+        media: {
+            type: String,
+            required: false
+        },
+        algorithm: {
+            type: String,
+            default: "AES-256-CBC"
+        }
     },
     createdAt: {
         type: Date,
