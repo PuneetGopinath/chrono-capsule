@@ -15,9 +15,11 @@ app.use(cors());
 app.use(express.json());
 app.use((req, res, next) => {
     try {
-        const token = req.get("Authorization");
+        let token = req.get("Authorization");
         if (token) {
-            const data = jwt.verify(token, process.env.JWT_SECRET);
+            if (token.startsWith("Bearer ")) token = token.slice(7); // Remove "Bearer " prefix
+            token = token.trim();
+            const data = jwt.verify(token, process.env.JWT_SECRET, { algorithms: ["HS256"] });
             if (data?.id) {
                 req.user = { id: data.id };
             }
@@ -34,8 +36,8 @@ app.get("/", (req, res) => {
     res.send('Chrono-Capsule is running ⏳');
 });
 
-app.get("/api/capsules", capsule);
-app.get("/api/auth", auth);
+app.use("/api/capsules", capsule);
+app.use("/api/auth", auth);
 
 app.use((err, req, res, next) => {
     console.error('❌ Error caught:', err.message);

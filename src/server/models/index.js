@@ -6,6 +6,8 @@ const files = m.map((file) => require(`${__dirname}/${file}`));
 
 const models = {};
 for (let i = 0; i < m.length; i++) {
-    models[m[i].replace(".js", "")] = files[i];
+    let name = m[i].replace(".js", "");
+    name = name.charAt(0).toUpperCase() + name.slice(1); // Capitalize the first letter
+    models[name] = files[i];
 }
 module.exports = models;
