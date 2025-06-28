@@ -18,9 +18,9 @@ const unlockCapsules = async () => {
                     { _id: { $in: unlocked.map(c => c._id) } },
                     { $set: { opened: true } }
                 );
-                console.log("Capsules unlocked and emails sent.");
+                console.log("[✅ Success] Emails sent for unlocked capsules | Current time:", now.toISOString());
             } else {
-                console.log("❌ Failed to send emails for unlocked capsules.");
+                console.log("[❌ Error] Failed to send emails for unlocked capsules.");
             }
         }
     } catch (err) {

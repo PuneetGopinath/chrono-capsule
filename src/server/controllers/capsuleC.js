@@ -35,7 +35,7 @@ exports.create = async (req, res) => {
             }
         }
     } else if (isEncrypted) {
-        console.log("❌ Invalid encryption key length:", process.env.ENCRYPTION_KEY.length);
+        console.log("[❌ Error] Invalid encryption key length:", process.env.ENCRYPTION_KEY.length);
         return res.status(500).json({ error: "Encryption key must be 32 bytes long" });
     }
 
@@ -62,6 +62,7 @@ exports.create = async (req, res) => {
     });
 
     const saved = await newCapsule.save();
+    console.log("[✅ Capsule Created] ID:", saved._id, "| Unlocks at:", saved.unlockDate.toISOString());
     return res.status(201).json(saved);
 };
 

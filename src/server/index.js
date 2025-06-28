@@ -27,7 +27,7 @@ app.use((req, res, next) => {
             }
         }
     } catch (err) {
-        console.log("❌ JWT verification failed:", err.message);
+        console.log("[❌ Error] JWT verification failed:", err.message);
     } finally {
         next();
     }
@@ -38,18 +38,22 @@ app.get("/", (req, res) => {
     res.send("Chrono-Capsule is running ⏳");
 });
 
+app.get("/health", (req, res) => {
+    res.status(200).json({ "status": "OK", "timestamp": new Date().toISOString() });
+});
+
 app.use("/api/capsules", capsule);
 app.use("/api/auth", auth);
 
 app.use((err, req, res, next) => {
-    console.log("❌ Error caught:", err.message);
+    console.log("[❌ Error] Message:", err.message);
     res.status(500).json({ error: err.message || "Server error" });
 });
 
 (async () => {
     await Database.connect();
     if (!Database.connected) {
-        console.error("❌ Failed to connect to the database. Exiting...");
+        console.error("[❌ Error] Failed to connect to the database. Exiting...");
         process.exit(1);
     }
     
