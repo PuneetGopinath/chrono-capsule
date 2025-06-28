@@ -11,5 +11,5 @@ updates:
     #pull-request-branch-name:
       #separator: "-"
     commit-message:
-      prefix: "Github Actions"
+      prefix: ""
       include: "scope"
