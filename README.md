@@ -1,6 +1,6 @@
 # 🕰️Chrono Capsule
 
-An open-source platform to create encrypted, media-rich digital time capsules with scheduled unlocks, i.e. a digital time capsule. Send a message to the future — securely.
+An open-source platform to create encrypted, media-rich digital time capsules built on the MERN stack with scheduled unlocks, i.e. a digital time capsule. Send a message to the future — securely.
 
 ## 🚀 Features
 
@@ -10,6 +10,12 @@ An open-source platform to create encrypted, media-rich digital time capsules wi
 - Email notifications sent upon capsule unlock
 - Capsule history and delivery log *(Dashboard coming soon)*
 - Minimal, responsive UI *(coming soon)*
+
+## 🧱 Built With
+- MongoDB – document-based database
+- Express.js – backend framework
+- React – dynamic capsule interaction (frontend - coming soon)
+- Node.js – JavaScript runtime powering the server
 
 ## Changelog
 
