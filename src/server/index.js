@@ -45,6 +45,12 @@ app.get("/health", (req, res) => {
 app.use("/api/capsules", capsule);
 app.use("/api/auth", auth);
 
+//app.use(express.static(path.join(__dirname, "client-dist")));
+
+//app.get('*', (req, res) => {
+//    res.sendFile(path.join(__dirname, "client-dist/index.html"));
+//});
+
 app.use((err, req, res, next) => {
     console.log("[❌ Error] Message:", err.message);
     res.status(500).json({ error: err.message || "Server error" });

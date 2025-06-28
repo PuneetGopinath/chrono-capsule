@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node src/server/index.js",
     "dev": "npx nodemon src/server/index.js --watch src -e js,jsx,json,css",
+    "dev-frontend": "vite",
+    "build": "vite build",
     "format": "npx prettier --write src",
     "lint": "npx eslint src",
     "lint:fix": "npx eslint src --fix"
@@ -29,9 +31,11 @@
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^4.6.0",
     "concurrently": "^9.2.0",
     "eslint": "^9.30.0",
     "nodemon": "^3.1.10",
-    "prettier": "^3.6.2"
+    "prettier": "^3.6.2",
+    "vite": "^7.0.0"
   }
 }
