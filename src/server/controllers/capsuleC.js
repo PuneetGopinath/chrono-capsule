@@ -11,6 +11,9 @@ exports.create = async (req, res) => {
     if (req.body.media !== undefined && !Array.isArray(media)) {
         return res.status(400).json({ error: "Media must be an array" });
     }
+    if (message.length > 5000) {
+        return res.status(400).json({ error: "Message limit exceeded. Maximum 5000 characters allowed."})
+    }
     if (media.length > 10) {
         return res.status(400).json({ error: "Media limit exceeded. Maximum 10 files allowed."})
     }

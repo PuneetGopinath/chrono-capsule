@@ -18,7 +18,8 @@ const capsuleSchema = new mongoose.Schema({
     },
     message: {
         type: String,
-        required: true
+        required: true,
+        maxLength: 5000
     },
     media: [{
         filename: String,
