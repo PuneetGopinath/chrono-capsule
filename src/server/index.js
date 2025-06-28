@@ -59,4 +59,6 @@ app.use((err, req, res, next) => {
 })();
 
 // Schedule the capsule unlocking task every hour
-cron.schedule("0 * * * *", unlockCapsules);
+cron.schedule("0 * * * *", unlockCapsules, {
+    timezone: process.env.TZ || "Asia/Kolkata"
+});
