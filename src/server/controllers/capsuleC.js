@@ -51,7 +51,7 @@ exports.create = async (req, res) => {
             email: recipientEmail
         },
         message: encMsg ?? message,
-        media: encMedia ?? media,
+        media: encMedia.length ? encMedia : media,
         unlockDate: unlockObj,
         isEncrypted,
         encryption: {
