@@ -7,6 +7,9 @@ body {
     font-family: "Segoe UI", sans-serif;
     background-color: #f8f9fa;
     color: #1e1e1e;
+}
+
+main {
     padding: 2rem;
 }
 
@@ -33,7 +36,8 @@ body {
     font-size: 0.95rem;
 }
 
-.capsule-form input[type="text"] {
+.capsule-form input[type="text"],
+.capsule-form input[type="email"]{
     border-radius: 4px;
     border: 1px solid #ccc;
     width: 20rem;
@@ -78,4 +82,86 @@ body {
 
 .capsule-form button:hover {
     background-color: #3c7ad9;
+}
+
+.suggest-date-cont {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    text-align: center;
+    margin: 1rem 0;
+    gap: 0.5rem;
+}
+
+.suggest-date {
+    background-color: #e9ecef;
+    border-radius: 999px;
+    cursor: pointer;
+    padding: 0.4rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.sugges-date:hover {
+    background-color: #d0d7de;
+    transform: translateY(-2px);
+}
+
+.suggest-date:active {
+    transform: scale(0.96); /* squish effect */
+}
+
+.suggest-date.active {
+    background-color: #4a90e2;
+    color: white;
+}
+
+.reset-chip {
+    background-color: #f8d7da;
+    color: #842029;
+    font-weight: 500;
+    border: 1px solid #f5c2c7;
+}
+
+.reset-chip:hover {
+    background-color: #f1b0b7;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /*Allows it to stack on smaller screens*/
+    margin-top: 4rem;
+    padding: 1.5rem 2rem;
+    background-color: #f1f3f6;
+    color: #444;
+    font-size: 0.95rem;
+    border-top: 1px solid #ddd;
+}
+
+.footer a {
+    color: #4a90e2;
+    text-decoration: none;
+    margin-left: 1rem;
+    transition: color 0.2s ease-in-out;
+}
+
+.footer a:hover {
+    color: #3c7ad9
+}
+
+/* Mobile Stacking */
+@media (max-width: 600px) {
+    .footer {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .footer-right a {
+        margin: 0 0.5rem;
+    }
 }

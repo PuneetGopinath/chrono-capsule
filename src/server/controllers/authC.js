@@ -4,13 +4,35 @@ const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
     const { username, email, password } = req.body;
+
+    if (!username || !email || !password) {
+        return res.status(400).json({ message: "Username, email, and password are required." });
+    }
+
     let exists = await User.findOne({ username });
     if (exists) return res.status(400).json({ message: "Username already exists" });
 
     exists = await User.findOne({ email });
     if (exists) return res.status(400).json({ message: "Email already exists" });
 
-    const user = await User.create({ username, email, password });
+    if (username.length < 3 || username.length > 30) {
+        return res.status(400).json({ message: "Username must be between 3 and 30 characters" });
+    }
+
+    if (password.length < 8 || password.length > 128) {
+        return res.status(400).json({ message: "Password must be between 8 and 128 characters" });
+    }
+
+    const cleanEmail = email.trim().toLowerCase(); // Most email providers are case-insensitive
+
+    if (!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(cleanEmail)) {
+        return res.status(400).json({ message: "Invalid email format" });
+    }
+    if (cleanEmail.length > 254) {
+        return res.status(400).json({ message: "Email is too long" });
+    }
+
+    const user = await User.create({ username, email: cleanEmail , password });
     if (process.env.DEBUG) console.log("User registered:", user.username);
     return res.status(201).json({
         message: "User registered successfully",

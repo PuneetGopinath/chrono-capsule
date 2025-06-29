@@ -5,18 +5,28 @@ exports.create = async (req, res) => {
     if (!req.user) return res.status(401).json({ error: "Unauthorized"});
     const { recipient, recipientEmail, message, media = [], unlockDate, isEncrypted } = req.body;
 
-    if (!recipient || !recipientEmail || !message || !unlockDate) {
+    if (!recipient || !recipientEmail || !message || !unlockDate)
         return res.status(400).json({ error: "Missing required fields" });
-    }
-    if (req.body.media !== undefined && !Array.isArray(media)) {
+
+    if (req.body.media !== undefined && !Array.isArray(media))
         return res.status(400).json({ error: "Media must be an array" });
-    }
-    if (message.length > 5000) {
+
+    if (recipient.length > 64) 
+        return res.status(400).json({ error: "Recipient name exceeds maximum length of 64 characters" });
+
+    const cleanEmail = recipientEmail.trim().toLowerCase(); // Most email providers are case-insensitive
+
+    if (!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(cleanEmail))
+        return res.status(400).json({ message: "Invalid email format" });
+    if (recipientEmail.length > 254)
+        return res.status(400).json({ error: "Recipient email exceeds maximum length of 254 characters" });
+
+    if (message.length > 5000)
         return res.status(400).json({ error: "Message limit exceeded. Maximum 5000 characters allowed."})
-    }
-    if (media.length > 10) {
+
+    if (media.length > 10)
         return res.status(400).json({ error: "Media limit exceeded. Maximum 10 files allowed."})
-    }
+
 
     let iv, ivMedia, encMsg, encMedia = [];
     const alg = "AES-256-CBC";
@@ -51,7 +61,7 @@ exports.create = async (req, res) => {
         userId: req.user.id,
         recipient: {
             name: recipient,
-            email: recipientEmail
+            email: cleanEmail
         },
         message: encMsg ?? message,
         media: encMedia.length ? encMedia : media,

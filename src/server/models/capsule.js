@@ -3,17 +3,20 @@ const mongoose = require("mongoose");
 const capsuleSchema = new mongoose.Schema({
     userId: {
         type: String,
-        required: true
+        required: true,
     },
     recipient: {
         name: {
             type: String,
-            required: true
+            required: true,
+            maxLength: 50
         },
         email: {
             type: String,
             required: true,
-            match: /.+\@.+\..+/ // Basic email validation
+            lowercase: true,
+            match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            maxLength: 254 // Standard max length for email addresses as per RFC 5321
         }
     },
     message: {
