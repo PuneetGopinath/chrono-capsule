@@ -33,6 +33,16 @@ export default function CapsuleForm() {
 
     const [ selectedLabel, setSelectedLabel ] = useState(null);
 
+    const [ fadeReset, setFadeReset ] = useState(false);
+    const handleReset = () => {
+        setFadeReset(true);
+        setTimeout(() => {
+            setSelectedLabel(null);
+            setDate(valD);
+            setFadeReset(false);
+        }, 200);
+    };
+
     return (
         <main>
             <div className="capsule-form">
@@ -90,12 +100,9 @@ export default function CapsuleForm() {
                         ))}
                         { selectedLabel && (
                             <span
-                                className="suggest-date reset-chip"
+                                className={`suggest-date reset-chip${fadeReset ? " fade-out" : ""}`}
                                 title="Reset selected suggestion to a year from now"
-                                onClick={() => {
-                                    setSelectedLabel(null);
-                                    setDate(valD);
-                                }}
+                                onClick={handleReset}
                             >
                                 Reset
                             </span>

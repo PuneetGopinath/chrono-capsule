@@ -159,10 +159,18 @@ main {
     color: #842029;
     font-weight: 500;
     border: 1px solid #f5c2c7;
+    opacity: 1;
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .reset-chip:hover {
     background-color: #f1b0b7;
+}
+
+.reset-chip.fade-out {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
 }
 
 .footer {
