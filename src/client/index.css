@@ -1,3 +1,81 @@
 * {
     box-sizing: border-box;
 }
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background-color: #f8f9fa;
+    color: #1e1e1e;
+    padding: 2rem;
+}
+
+.capsule-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.capsule-form h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.capsule-form label {
+    display: block;
+    margin-top: 1rem;
+    margin-bottom: 0.25rem;
+    color: #444;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.capsule-form input[type="text"] {
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 20rem;
+    margin-top: 0.25rem;
+    padding: 0.5rem;
+}
+
+.capsule-form textarea,
+.capsule-form input[type="file"],
+.capsule-form input[type="datetime-local"] {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    margin-top: 0.25rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #fefefe;
+    box-sizing: border-box;
+}
+
+.capsule-form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.capsule-form input[type="file"] {
+    background-color: #fff;
+}
+
+.capsule-form button {
+    margin-top: 1.5rem;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    background-color: #4a90e2;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out
+}
+
+.capsule-form button:hover {
+    background-color: #3c7ad9;
+}
