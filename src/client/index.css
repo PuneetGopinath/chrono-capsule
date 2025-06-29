@@ -9,6 +9,42 @@ body {
     color: #1e1e1e;
 }
 
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2rem;
+    background-color: #fefefe;
+    border-bottom: 1px solid #ddd;
+    font-family: "Inter", sans-serif;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.brand a {
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #1a1a1a;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.25rem;
+}
+
+.nav-links a {
+    color: #444;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: #0077ff;
+}
+
 main {
     padding: 2rem;
 }
