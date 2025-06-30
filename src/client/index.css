@@ -2,20 +2,56 @@
     box-sizing: border-box;
 }
 
+:root {
+    /* Colors for light theme */
+    --bg: #f8f9fa;
+    --bg-header: #fefefe;
+    --bg-body: #ffffff;
+    --bg-footer: #f1f3f6;
+    --bg-darker: #bcbcbc;
+    --header-border: #ddd;
+    --light-text: #444;
+    --darker-text: #333;
+    --nav-links-hover: #0077ff;
+    --text: #1a1a1a;
+    --border: #ccc;
+    --accent: #4a90e2;
+    --accent-hover: #3c7ad9;
+    --chip-bg: #e9ecef;
+    --chip-text: #333;
+}
+
+body.dark {
+    /* Colors for dark theme */
+    --bg: #121212;
+    --bg-header: #1e1e1e;
+    --bg-body: #1a1a1a;
+    --bg-footer: #181818;
+    --bg-darker: #434343;
+    --header-border: #333;
+    --light-text: #b0b0b0;
+    --darker-text: #e0e0e0;
+    --text: #f5f5f5;
+    --border: #444;
+    --chip-bg: #2a2a2a;
+    --chip-text: #e0e0e0;
+}
+
 body {
     margin: 0;
-    font-family: "Segoe UI", sans-serif;
-    background-color: #f8f9fa;
-    color: #1e1e1e;
+    font-family: "Inter", sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 1.25rem 2rem;
-    background-color: #fefefe;
-    border-bottom: 1px solid #ddd;
+    background-color: var(--bg-header);
+    border-bottom: 1px solid var(--header-border);
     font-family: "Inter", sans-serif;
     position: sticky;
     top: 0;
@@ -26,33 +62,53 @@ body {
     font-size: 1.3rem;
     font-weight: 700;
     text-decoration: none;
-    color: #1a1a1a;
+    color: var(--text);
 }
 
 .nav-links {
     display: flex;
     gap: 1.25rem;
+    margin-left: auto;
+    margin-right: 0.5rem;
 }
 
 .nav-links a {
-    color: #444;
+    color: var(--light-text);
     font-weight: 500;
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 .nav-links a:hover {
-    color: #0077ff;
+    color: var(--nav-links-hover);
+}
+
+.theme-toggle {
+    background-color: transparent;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: var(--accent);
+    padding: 0.4rem;
+    border-radius: 6px;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.theme-toggle:hover {
+    transform: rotate(15deg) scale(1.1);
+    color: var(--accent-hover);
 }
 
 main {
-    padding: 2rem;
+    max-width: 640px;
+    margin: 2rem auto;
+    padding: 0 1rem;
 }
 
 .capsule-form {
     max-width: 600px;
     margin: 0 auto;
-    background: #ffffff;
+    background: var(--bg-body);
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -60,47 +116,46 @@ main {
 
 .capsule-form h2 {
     margin-bottom: 1.5rem;
-    color: #333;
+    color: var(--darker-text);
 }
 
 .capsule-form label {
     display: block;
     margin-top: 1rem;
     margin-bottom: 0.25rem;
-    color: #444;
+    color: var(--light-text);
     font-weight: 600;
     font-size: 0.95rem;
 }
 
-.capsule-form input[type="text"],
-.capsule-form input[type="email"]{
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    width: 20rem;
-    margin-top: 0.25rem;
-    padding: 0.5rem;
+input,
+textarea {
+    background-color: var(--bg);
+    color: var(--text);
+    border: 1px solid #888;
+    border-radius: 6px;
+    width: 100%;
+    font-size: 1rem;
+    transition: all 0.2s ease;
 }
 
-.capsule-form textarea,
-.capsule-form input[type="file"],
-.capsule-form input[type="datetime-local"] {
-    width: 100%;
-    padding: 0.75rem;
-    font-size: 1rem;
-    margin-top: 0.25rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background: #fefefe;
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+.capsule-form input,
+.capsule-form textarea {
     box-sizing: border-box;
+    margin-top: 0.25rem;
+    padding: 0.5rem;
 }
 
 .capsule-form textarea {
     resize: vertical;
     min-height: 120px;
-}
-
-.capsule-form input[type="file"] {
-    background-color: #fff;
 }
 
 .checkbox-wrap {
@@ -115,7 +170,7 @@ main {
 }
 
 .checkbox-wrap input[type="checkbox"] {
-    accent-color: #4a90e2; /* Modern browsers */
+    accent-color: var(--accent); /* Modern browsers */
     width: 1.1rem;
     height: 1.1rem;
     cursor: pointer;
@@ -123,21 +178,27 @@ main {
     margin: 1rem;
 }
 
-.capsule-form button {
+.capsule-form button[type="submit"] {
     margin-top: 1.5rem;
     border: none;
     padding: 0.75rem 1.5rem;
     border-radius: 8px;
-    background-color: #4a90e2;
+    background-color: var(--accent);
     color: white;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s ease-in-out
+    transition: transform 0.1s ease, box-shadow 0.2s ease;
 }
 
-.capsule-form button:hover {
-    background-color: #3c7ad9;
+.capsule-form button[type="submit"]:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    background-color: var(--accent-hover);
+}
+
+.capsule-form button[type="submit"]:active {
+    transform: scale(0.98);
 }
 
 .suggest-date-cont {
@@ -150,27 +211,31 @@ main {
 }
 
 .suggest-date {
-    background-color: #e9ecef;
+    display: inline-block;
+    background-color: var(--chip-bg);
     border-radius: 999px;
     cursor: pointer;
     padding: 0.4rem 1rem;
     font-size: 0.9rem;
     font-weight: 500;
-    color: #333;
-    transition: background-color 0.2s ease, transform 0.15s ease;
+    color: var(--chip-text);
+    transition: all 0.2s ease;
+    margin: 0.25rem;
 }
 
 .sugges-date:hover {
-    background-color: #d0d7de;
-    transform: translateY(-2px);
+    background-color: color-mix(in srgb, var(--accent) 10%, var(--chip-bg));
+    transform: translateY(-1px);
 }
 
 .suggest-date:active {
     transform: scale(0.96); /* squish effect */
+    background-color: var(--accent-hover);
+    color: white;
 }
 
 .suggest-date.active {
-    background-color: #4a90e2;
+    background-color: var(--accent);
     color: white;
 }
 
@@ -200,21 +265,21 @@ main {
     flex-wrap: wrap; /*Allows it to stack on smaller screens*/
     margin-top: 4rem;
     padding: 1.5rem 2rem;
-    background-color: #f1f3f6;
-    color: #444;
+    background-color: var(--bg-footer);
+    color: var(--light-text);
     font-size: 0.95rem;
     border-top: 1px solid #ddd;
 }
 
 .footer a {
-    color: #4a90e2;
+    color: var(--accent);
     text-decoration: none;
     margin-left: 1rem;
     transition: color 0.2s ease-in-out;
 }
 
 .footer a:hover {
-    color: #3c7ad9
+    color: var(--accent-hover);
 }
 
 /* Mobile Stacking */

@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
 
 import Header from "./components/Header";
 import Home from "./components/Home";
@@ -7,6 +8,10 @@ import Dashboard from "./components/Dashboard";
 import Footer from "./components/Footer";
 
 export default function App() {
+    useEffect(() => {
+        document.body.classList.add("dark"); // starts in dark mode
+    }, []);
+
     return (
         <>
             <BrowserRouter>
