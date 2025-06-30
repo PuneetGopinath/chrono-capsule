@@ -43,14 +43,19 @@ export default function CapsuleForm() {
         }, 200);
     };
 
+    const handleSubmit = (event) => {
+        event.preventDefault(); // Prevent refreshing the page
+    }
+
     return (
         <main>
             <div className="capsule-form">
                 <h2>Create a capsule</h2>
-                <form action="/api/capsules/create" method="POST">
+                <form action="/api/capsules/create" method="POST" onSubmit={handleSubmit}>
                     <label>Recipient Name:</label>
                     <input
                         type="text"
+                        name="recipient"
                         placeholder="Enter recipient's name"
                         maxLength="64"
                     />
@@ -58,6 +63,7 @@ export default function CapsuleForm() {
                     <label>Recipient Email:</label>
                     <input
                         type="email"
+                        name="recipientEmail"
                         placeholder="Enter recipient's email"
                         maxLength="254"
                     />
@@ -65,6 +71,7 @@ export default function CapsuleForm() {
                     <label>Message:</label>
                     <textarea
                         value={message}
+                        name="message"
                         onChange={(e) => setMessage(e.target.value)}
                         placeholder="Write your message to the future..."
                         maxLength={maxChars}
@@ -75,6 +82,7 @@ export default function CapsuleForm() {
                     <label>Media Upload (max 10):</label>
                     <input
                         type="file"
+                        name="media"
                         multiple
                         accept="image/*, video/*, audio/*"
                     />
@@ -82,6 +90,7 @@ export default function CapsuleForm() {
                     <label>Unlock Date:</label>
                     <input
                         type="datetime-local"
+                        name="unlockDate"
                         min={now.toISOString().slice(0, 16)}
                         value={date.toISOString().slice(0, 16)}
                         onChange={(e) => setDate(new Date(e.target.value))}
@@ -108,6 +117,11 @@ export default function CapsuleForm() {
                             </span>
                         )}
                     </div>
+
+                    <label className="checkbox-wrap">
+                        Would you like the contents to be encrypted?
+                        <input type="checkbox" name="isEncrypted" />
+                    </label>
 
                     <button type="submit">Lock It In A Capsule</button>
                 </form>

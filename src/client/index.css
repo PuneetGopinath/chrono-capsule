@@ -23,7 +23,7 @@ body {
 }
 
 .brand a {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-weight: 700;
     text-decoration: none;
     color: #1a1a1a;
@@ -101,6 +101,26 @@ main {
 
 .capsule-form input[type="file"] {
     background-color: #fff;
+}
+
+.checkbox-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.checkbox-wrap input[type="checkbox"] {
+    accent-color: #4a90e2; /* Modern browsers */
+    width: 1.1rem;
+    height: 1.1rem;
+    cursor: pointer;
+    vertical-align: middle;
+    margin: 1rem;
 }
 
 .capsule-form button {
@@ -198,6 +218,13 @@ main {
 }
 
 /* Mobile Stacking */
+@media (max-width: 480px) {
+    .checkbox-wrap {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
 @media (max-width: 600px) {
     .footer {
         flex-direction: column;
