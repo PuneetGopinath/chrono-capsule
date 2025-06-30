@@ -158,6 +158,14 @@ textarea:focus {
     min-height: 120px;
 }
 
+input[type="datetime-local"] {
+    color-scheme: light;
+}
+
+.dark input[type="datetime-local"] {
+    color-scheme: dark;
+}
+
 .checkbox-wrap {
     display: flex;
     flex-direction: row;
