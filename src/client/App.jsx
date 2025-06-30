@@ -9,7 +9,13 @@ import Footer from "./components/Footer";
 
 export default function App() {
     useEffect(() => {
-        document.body.classList.add("dark"); // starts in dark mode
+        const savedTheme = localStorage.getItem("theme");
+
+        if (savedTheme === "light") {
+            document.body.classList.remove("dark");
+        } else {
+            document.body.classList.add("dark");
+        }
     }, []);
 
     return (

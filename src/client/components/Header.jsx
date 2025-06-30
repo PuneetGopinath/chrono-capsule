@@ -5,8 +5,9 @@ export default function Header() {
     const [ isDark, setIsDark ] = useState(true);
 
     const toggleTheme = () => {
-        document.body.classList.toggle("dark");
-        setIsDark(document.body.classList.contains("dark"));
+        const is_dark = document.body.classList.toggle("dark");
+        setIsDark(is_dark);
+        localStorage.setItem("theme", is_dark ? "dark" : "light");
     };
 
     return (
