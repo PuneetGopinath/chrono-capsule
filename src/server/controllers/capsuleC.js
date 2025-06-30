@@ -1,9 +1,10 @@
 const crypto = require("crypto");
+
 const { Capsule } = require("../models");
 
 exports.create = async (req, res) => {
     if (!req.user) return res.status(401).json({ error: "Unauthorized"});
-    const { recipient, recipientEmail, message, media = [], unlockDate, isEncrypted } = req.body;
+    const { recipient = null, recipientEmail = null, message = null, media = [], unlockDate = null, isEncrypted = false } = req.body;
 
     if (!recipient || !recipientEmail || !message || !unlockDate)
         return res.status(400).json({ error: "Missing required fields" });
