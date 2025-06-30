@@ -158,6 +158,22 @@ textarea:focus {
     min-height: 120px;
 }
 
+.add-media {
+    margin-top: 0.5rem;
+    background: none;
+    border: 1px dashed var(--accent);
+    color: var(--accent);
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+}
+
+.add-media:hover {
+    background-color: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
 input[type="datetime-local"] {
     color-scheme: light;
 }

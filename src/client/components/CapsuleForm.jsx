@@ -25,11 +25,18 @@ export default function CapsuleForm() {
 
     const now = new Date();
     now.setMinutes(now.getMinutes() - now.getTimezoneOffset()); // Adjust to local time
-    //TODO: Validate that unlock date is at least 1 hour in the future
+    const min = new Date(now);
+    min.setHours(min.getHours() + 1); // Minimum unlock date is 1 hour from now
     const valD = new Date(now);
     valD.setFullYear(now.getFullYear() + 1); // Default unlock date is 1 year from now
 
     const [date, setDate] = useState(valD);
+
+    const [ mediaLinks, setMediaLinks ] = useState([
+        {
+            path: ""
+        }
+    ]);
 
     const [ selectedLabel, setSelectedLabel ] = useState(null);
 
@@ -48,6 +55,10 @@ export default function CapsuleForm() {
 
         const form = event.target;
         const formData = new FormData(form);
+
+        if (new Date(formData.get("unlockDate") < min)) {
+            return alert("Unlock Date must be at least 1 hour from now.");
+        }
 
         try {
             console.log(formData);
@@ -120,19 +131,44 @@ export default function CapsuleForm() {
                     />
                     <div>{message.length}/{maxChars} characters</div>
 
-                    <label>Media Upload (max 10):</label>
-                    <input
-                        type="file"
-                        name="media"
-                        multiple
-                        accept="image/*, video/*, audio/*"
-                    />
+                    <label>Media Links (max 10):</label>
+                    {mediaLinks.map((obj, index) => {
+                        return (<input
+                            key={index}
+                            type="text"
+                            name={`media${index}`}
+                            placeholder={`Media Link ${index + 1}`}
+                            value={obj.path}
+                            onChange={(e) => {
+                                const updatedLinks = [...mediaLinks];
+                                updatedLinks[index].path = e.target.value;
+                                setMediaLinks(updatedLinks);
+                            }}
+                        />);
+                    })}
+                    <button
+                        type="button"
+                        className="add-media"
+                        onClick={() => {
+                            const count = mediaLinks.length;
+                            if (count >= 10) {
+                                return alert("You can only add up to 10 media links.");
+                            }
+                            const previousPath = mediaLinks[count - 1].path;
+                            if (previousPath === "") {
+                                return alert("Please fill the previous media link before adding a new one.");
+                            }
+                            setMediaLinks([...mediaLinks, { path: "" }]);
+                        }}
+                    >
+                        Add More Media Links
+                    </button>
 
-                    <label>Unlock Date:</label>
+                    <label>Unlock Date (At least one hour from now):</label>
                     <input
                         type="datetime-local"
                         name="unlockDate"
-                        min={now.toISOString().slice(0, 16)}
+                        min={min.toISOString().slice(0, 16)}
                         value={date.toISOString().slice(0, 16)}
                         onChange={handleDateChange}
                         required
