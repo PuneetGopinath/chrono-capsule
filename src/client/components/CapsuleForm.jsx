@@ -43,9 +43,44 @@ export default function CapsuleForm() {
         }, 200);
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault(); // Prevent refreshing the page
+
+        const form = event.target;
+        const formData = new FormData(form);
+
+        try {
+            console.log(formData);
+            const res = await fetch("/api/capsules/create", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`
+                },
+                body: formData
+            });
+            const data = await res.json();
+
+            if (res.ok) {
+                alert("Capsule created successfully!");
+                form.reset(); // Reset the form
+                setMessage("");
+                setDate(valD);
+                setSelectedLabel(null);
+            } else {
+                alert("Error creating capsule");
+                console.log("[❌ Error] details:", data);
+            }
+        } catch (err) {
+            console.log("[❌ Error] Failed to create capsule:", err);
+        }
     }
+
+    const handleDateChange = (e) => {
+        const d = new Date(e.target.value);
+        d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+        setDate(d);
+        setSelectedLabel(null);
+    };
 
     return (
         <main>
@@ -58,6 +93,8 @@ export default function CapsuleForm() {
                         name="recipient"
                         placeholder="Enter recipient's name"
                         maxLength="64"
+                        required
+                        aria-required="true"
                     />
 
                     <label>Recipient Email:</label>
@@ -66,6 +103,8 @@ export default function CapsuleForm() {
                         name="recipientEmail"
                         placeholder="Enter recipient's email"
                         maxLength="254"
+                        required
+                        aria-required="true"
                     />
 
                     <label>Message:</label>
@@ -76,6 +115,8 @@ export default function CapsuleForm() {
                         placeholder="Write your message to the future..."
                         maxLength={maxChars}
                         rows="6"
+                        required
+                        aria-required="true"
                     />
                     <div>{message.length}/{maxChars} characters</div>
 
@@ -93,7 +134,9 @@ export default function CapsuleForm() {
                         name="unlockDate"
                         min={now.toISOString().slice(0, 16)}
                         value={date.toISOString().slice(0, 16)}
-                        onChange={(e) => setDate(new Date(e.target.value))}
+                        onChange={handleDateChange}
+                        required
+                        aria-required="true"
                     />
                     <p className="suggest-label">Pick a quick future date from today ⏱️</p>
                     <div className="suggest-date-cont">
@@ -122,6 +165,8 @@ export default function CapsuleForm() {
                         Would you like the contents to be encrypted?
                         <input type="checkbox" name="isEncrypted" />
                     </label>
+
+                    <input type="hidden" name="timezoneOffset" value={now.getTimezoneOffset()} />
 
                     <button type="submit">Lock It In A Capsule</button>
                 </form>
