@@ -225,6 +225,13 @@ input[type="datetime-local"] {
     transform: scale(0.98);
 }
 
+.form-container small {
+    display: block;
+    margin-top: 0.25rem;
+    color: color-mix(in srgb, var(--text) 30%, transparent);
+    font-size: 0.9rem;
+}
+
 .suggest-date-cont {
     display: flex;
     flex-wrap: wrap;

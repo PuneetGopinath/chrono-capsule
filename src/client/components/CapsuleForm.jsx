@@ -1,18 +1,20 @@
 import { useState } from "react";
 
 const suggestions = [
+    { text: "1 Hour", days: 0, hours: 1 },
     { text: "1 Week", days: 7 },
     { text: "1 Month", days: 30 },
     { text: "6 Months", days: 182 },
     { text: "1 Year", days: 365 }
 ];
 
-function SuggestDate({ text, days, setDate, isActive, setSelectedLabel }) {
+function SuggestDate({ text, days, hours, setDate, isActive, setSelectedLabel }) {
     return <span className={`suggest-date${ isActive ? " active" : ""}`} title={`Unlocks in ${text.toLowerCase()} from today`} onClick={() => {
-                const d = new Date();
-                d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+                const d = new Date(); // Already in local time
                 d.setDate(d.getDate() + days);
+                d.setHours(d.getHours() + hours);
                 setDate(d);
+                console.log(d);
                 setSelectedLabel(text);
             }}>
                 {text}
@@ -23,12 +25,11 @@ export default function CapsuleForm() {
     const [message, setMessage] = useState("");
     const maxChars = 5000;
 
-    const now = new Date();
-    now.setMinutes(now.getMinutes() - now.getTimezoneOffset()); // Adjust to local time
-    const min = new Date(now);
+    // Since this will run on client side, we automatically receive the local time.
+    const min = new Date();
     min.setHours(min.getHours() + 1); // Minimum unlock date is 1 hour from now
-    const valD = new Date(now);
-    valD.setFullYear(now.getFullYear() + 1); // Default unlock date is 1 year from now
+    const valD = new Date();
+    valD.setFullYear(valD.getFullYear() + 1); // Default unlock date is 1 year from now
 
     const [date, setDate] = useState(valD);
 
@@ -55,19 +56,20 @@ export default function CapsuleForm() {
 
         const form = event.target;
         const formData = new FormData(form);
-
-        if (new Date(formData.get("unlockDate") < min)) {
+        const obj = Object.fromEntries(formData.entries());
+        console.log("Minimum:", min, "\nUnlock Date Submitted:", new Date(formData.get("unlockDate")));
+        if (new Date(formData.get("unlockDate")) < min) {
             return alert("Unlock Date must be at least 1 hour from now.");
         }
 
         try {
-            console.log(formData);
             const res = await fetch("/api/capsules/create", {
                 method: "POST",
                 headers: {
-                    "Authorization": `Bearer ${localStorage.getItem("token")}`
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                    "Content-Type": "application/json"
                 },
-                body: formData
+                body: JSON.stringify(obj)
             });
             const data = await res.json();
 
@@ -83,6 +85,7 @@ export default function CapsuleForm() {
             }
         } catch (err) {
             console.log("[❌ Error] Failed to create capsule:", err);
+            alert("An error occurred while trying to create the capsule. Please try again later.")
         }
     }
 
@@ -93,9 +96,20 @@ export default function CapsuleForm() {
         setSelectedLabel(null);
     };
 
+    const toLocalISOString = (date) => {
+        const pad = (num) => num.toString().padStart(2, "0");
+
+        const year = date.getFullYear();
+        const month = pad(date.getMonth() + 1); // Since months are 0 indexed
+        const day = pad(date.getDate());
+        const hours = pad(date.getHours());
+        const minutes = pad(date.getMinutes());
+        return `${year}-${month}-${day}T${hours}:${minutes}`;
+    }
+
     return (
         <main>
-            <div className="capsule-form">
+            <div className="form-container capsule">
                 <h2>Create a capsule</h2>
                 <form action="/api/capsules/create" method="POST" onSubmit={handleSubmit}>
                     <label>Recipient Name:</label>
@@ -164,12 +178,12 @@ export default function CapsuleForm() {
                         Add More Media Links
                     </button>
 
-                    <label>Unlock Date (At least one hour from now):</label>
+                    <label>Unlock Date:</label><small>At least an hour from now - by default, a year later</small>
                     <input
                         type="datetime-local"
                         name="unlockDate"
-                        min={min.toISOString().slice(0, 16)}
-                        value={date.toISOString().slice(0, 16)}
+                        min={toLocalISOString(min).slice(0, 16)}
+                        value={toLocalISOString(date).slice(0, 16)}
                         onChange={handleDateChange}
                         required
                         aria-required="true"
@@ -181,6 +195,7 @@ export default function CapsuleForm() {
                                 key={s.text}
                                 text={s.text}
                                 days={s.days}
+                                hours={s.hours ?? 0}
                                 setDate={setDate}
                                 isActive={selectedLabel === s.text}
                                 setSelectedLabel={setSelectedLabel}
@@ -202,7 +217,7 @@ export default function CapsuleForm() {
                         <input type="checkbox" name="isEncrypted" />
                     </label>
 
-                    <input type="hidden" name="timezoneOffset" value={now.getTimezoneOffset()} />
+                    <input type="hidden" name="timezoneOffset" value={new Date().getTimezoneOffset()} />
 
                     <button type="submit">Lock It In A Capsule</button>
                 </form>
