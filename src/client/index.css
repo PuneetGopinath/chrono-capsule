@@ -105,7 +105,7 @@ main {
     padding: 0 1rem;
 }
 
-.capsule-form {
+.form-container {
     max-width: 600px;
     margin: 0 auto;
     background: var(--bg-body);
@@ -114,12 +114,12 @@ main {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-.capsule-form h2 {
+.form-container h2 {
     margin-bottom: 1.5rem;
     color: var(--darker-text);
 }
 
-.capsule-form label {
+.form-container label {
     display: block;
     margin-top: 1rem;
     margin-bottom: 0.25rem;
@@ -146,14 +146,14 @@ textarea:focus {
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 30%, transparent);
 }
 
-.capsule-form input,
-.capsule-form textarea {
+.form-container input,
+.form-container textarea {
     box-sizing: border-box;
     margin-top: 0.25rem;
     padding: 0.5rem;
 }
 
-.capsule-form textarea {
+.form-container textarea {
     resize: vertical;
     min-height: 120px;
 }
@@ -202,7 +202,7 @@ input[type="datetime-local"] {
     margin: 1rem;
 }
 
-.capsule-form button[type="submit"] {
+.form-container button[type="submit"] {
     margin-top: 1.5rem;
     border: none;
     padding: 0.75rem 1.5rem;
@@ -215,13 +215,13 @@ input[type="datetime-local"] {
     transition: transform 0.1s ease, box-shadow 0.2s ease;
 }
 
-.capsule-form button[type="submit"]:hover {
+.form-container button[type="submit"]:hover {
     transform: scale(1.02);
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
     background-color: var(--accent-hover);
 }
 
-.capsule-form button[type="submit"]:active {
+.form-container button[type="submit"]:active {
     transform: scale(0.98);
 }
 
@@ -280,6 +280,34 @@ input[type="datetime-local"] {
     opacity: 0;
     transform: scale(0.95);
     pointer-events: none;
+}
+
+.pwd-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.pwd-container input {
+    width: 100%;
+    padding-right: 2.5rem;
+    box-sizing: border-box;
+}
+
+.view-button {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1rem;
+    user-select: none;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.view-button:hover {
+    opacity: 1;
 }
 
 .footer {

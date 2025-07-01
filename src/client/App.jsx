@@ -3,6 +3,7 @@ import { useEffect } from "react";
 
 import Header from "./components/Header";
 import Home from "./components/Home";
+import Login from "./components/Login";
 import CapsuleForm from "./components/CapsuleForm";
 import Dashboard from "./components/Dashboard";
 import Footer from "./components/Footer";
@@ -24,6 +25,7 @@ export default function App() {
                 <Header />
                 <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="/login" element={<Login />} />
                     <Route path="/create" element={<CapsuleForm />} />
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="*" element={<h1>404 Not Found</h1>} />
