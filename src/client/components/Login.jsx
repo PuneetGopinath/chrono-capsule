@@ -3,6 +3,7 @@
 // License: MIT
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
     const [ showPwd, setShowPwd ] = useState(false);
@@ -15,6 +16,7 @@ export default function Login() {
 
 
     const handleSubmit = async (event) => {
+        const navigate = useNavigate();
         event.preventDefault();
 
         const form = event.target;
@@ -33,8 +35,9 @@ export default function Login() {
 
             if (res.ok) {
                 alert("Logged in successfully!");
+                console.log("[✅ Success] Logged in successfully!");
                 localStorage.setItem("token", data.token);
-                window.location.href="/"; // Redirect to home page
+                navigate("/"); // Redirect to home page
             } else {
                 console.log("[❌ Error] Login failed:", data.message);
                 alert(data.message || "Login failed. Please check your credentials.");
