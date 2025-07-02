@@ -1,21 +1,37 @@
 # 🕰️Chrono Capsule
 
-An open-source platform to create encrypted, media-rich digital time capsules built on the MERN stack with scheduled unlocks, i.e. a digital time capsule. Send a message to the future — securely.
+**Preserve a moment. Deliver it to the future.** An open-source platform to create encrypted, media-rich digital time capsules built on the MERN stack with scheduled unlocks, i.e. a digital time capsule. Send a message to the future — securely.
 
 ## 🚀 Features
 
-- Create Chrono Capsules with text, images, audio or video. *(UI coming soon)*
+- Auth system with login/register
+- Capsule creation with text and media links
+- Inline error handling and form validation
 - End-to-end encryption for secure messages and media
 - Scheduled to be unlocked for future delivery
-- Email notifications sent upon capsule unlock
-- Capsule history and delivery log *(Dashboard coming soon)*
-- Minimal, responsive UI *(coming soon)*
+- Email notifications on Capsule unlock via EJS templates + SMTP
+- Minimal, responsive UI
 
 ## 🧱 Built With
 - MongoDB – document-based database
 - Express.js – backend framework
-- React – dynamic capsule interaction (frontend - coming soon)
+- React – dynamic capsule interaction
 - Node.js – JavaScript runtime powering the server
+
+## Setup
+
+### (if you want to run a local instance)
+
+1. Clone the repo and install dependencies
+```
+git clone https://github.com/PuneetGopinath/chrono-capsule
+cd chrono-capsule
+npm install
+```
+
+2. Create a `.env` file based on `.env.example` and fill in details
+
+3. Run `npm run dev` & `npm run dev-frontend` (Not yet production ready)
 
 ## Changelog
 
@@ -23,6 +39,7 @@ An open-source platform to create encrypted, media-rich digital time capsules bu
 
 ## 📃 License
 
+MIT © 2025 [Puneet Gopinath](https://github.com/PuneetGopinath)
 This project is licensed under the MIT License — you’re free to use, fork, modify, and share.
 
 ## ❤️ Contributing
