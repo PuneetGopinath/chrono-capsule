@@ -1,6 +1,6 @@
 // © 2025 Puneet Gopinath. All rights reserved.
 // Filename: src/server/controllers/authC.js
-// License: MIT
+// License: MIT (see LICENSE)
 
 const { User } = require("../models");
 const bcrypt = require("bcryptjs");

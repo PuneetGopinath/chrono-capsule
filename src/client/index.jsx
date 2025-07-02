@@ -1,6 +1,6 @@
 // © 2025 Puneet Gopinath. All rights reserved.
 // Filename: src/client/index.jsx
-// License: MIT
+// License: MIT (see LICENSE)
 
 import { createRoot } from "react-dom/client";
 

@@ -1,6 +1,6 @@
 // © 2025 Puneet Gopinath. All rights reserved.
 // Filename: src/client/components/Home.jsx
-// License: MIT
+// License: MIT (see LICENSE)
 
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";

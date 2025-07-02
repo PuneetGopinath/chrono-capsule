@@ -1,6 +1,6 @@
 // © 2025 Puneet Gopinath. All rights reserved.
 // Filename: src/server/utils/db.js
-// License: MIT
+// License: MIT (see LICENSE)
 
 module.exports = class Database {
     constructor() {

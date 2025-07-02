@@ -1,10 +1,10 @@
 // © 2025 Puneet Gopinath. All rights reserved.
 // Filename: src/server/models/index.js
-// License: MIT
+// License: MIT (see LICENSE)
 
 const m = require("fs")
     .readdirSync(__dirname)
-    .filter((file) => file !== "index.js" && file.endsWith(".js"))
+    .filter((file) => file !== "index.js" && file.endsWith(".js"));
 
 const files = m.map((file) => require(`${__dirname}/${file}`));
 

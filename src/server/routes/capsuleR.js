@@ -1,6 +1,6 @@
 // © 2025 Puneet Gopinath. All rights reserved.
 // Filename: src/server/routes/capsuleR.js
-// License: MIT
+// License: MIT (see LICENSE)
 
 const express = require("express");
 const router = express.Router();

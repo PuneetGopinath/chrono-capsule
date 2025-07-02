@@ -1,6 +1,6 @@
 // © 2025 Puneet Gopinath. All rights reserved.
 // Filename: src/server/models/user.js
-// License: MIT
+// License: MIT (see LICENSE)
 
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");

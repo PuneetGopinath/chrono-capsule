@@ -1,6 +1,6 @@
 // © 2025 Puneet Gopinath. All rights reserved.
 // Filename: src/server/utils/mailer.js
-// License: MIT
+// License: MIT (see LICENSE)
 
 const nodemailer = require("nodemailer");
 const ejs = require("ejs");

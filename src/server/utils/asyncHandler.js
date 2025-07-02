@@ -1,6 +1,6 @@
 // © 2025 Puneet Gopinath. All rights reserved.
 // Filename: src/server/utils/asyncHandler.js
-// License: MIT
+// License: MIT (see LICENSE)
 
 const asyncHandler = (fn) => {
     return (req, res, next) => {

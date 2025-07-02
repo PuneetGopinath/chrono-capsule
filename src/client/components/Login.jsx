@@ -1,6 +1,6 @@
 // © 2025 Puneet Gopinath. All rights reserved.
 // Filename: src/client/components/Login.jsx
-// License: MIT
+// License: MIT (see LICENSE)
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

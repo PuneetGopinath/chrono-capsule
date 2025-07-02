@@ -1,6 +1,6 @@
 // © 2025 Puneet Gopinath. All rights reserved.
 // Filename: src/client/components/NotLoggedIn.jsx
-// License: MIT
+// License: MIT (see LICENSE)
 
 import { useNavigate } from "react-router-dom";
 
