@@ -1,3 +1,7 @@
+// © 2025 Puneet Gopinath. All rights reserved.
+// Filename: src/client/components/Footer.jsx
+// License: MIT
+
 import { Link } from "react-router-dom";
 
 export default function Footer() {

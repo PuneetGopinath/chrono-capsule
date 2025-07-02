@@ -4,6 +4,8 @@
 
 import { useState } from "react";
 
+import NotLoggedIn from "./NotLoggedIn";
+
 const suggestions = [
     { text: "1 Hour", days: 0, hours: 1 },
     { text: "1 Week", days: 7 },
@@ -26,6 +28,10 @@ function SuggestDate({ text, days, hours, setDate, isActive, setSelectedLabel })
 }
 
 export default function CapsuleForm() {
+    if (!localStorage.getItem("token")) {
+        return <NotLoggedIn text="To access this page, you need to be logged in." />;
+    }
+
     const [message, setMessage] = useState("");
     const maxChars = 5000;
 

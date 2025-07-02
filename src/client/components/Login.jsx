@@ -5,7 +5,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import LoggedIn from "./LoggedIn";
+
 export default function Login() {
+    if (localStorage.getItem("token")) {
+        return <LoggedIn text="To login into another account, you have to logout" />;
+    }
+
     const [ showPwd, setShowPwd ] = useState(false);
     const toggleVisibility = () => {
         setShowPwd(!showPwd);

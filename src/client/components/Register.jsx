@@ -5,7 +5,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import LoggedIn from "./LoggedIn"
+
 export default function Register() {
+    if (localStorage.getItem("token")) {
+        return <LoggedIn text="To register a new account, you have to logout" />;
+    }
+
     const navigate = useNavigate();
     const [ showPwd, setShowPwd ] = useState(false);
     const [ showConfirmPwd, setShowConfirmPwd ] = useState(false);
