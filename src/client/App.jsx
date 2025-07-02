@@ -11,6 +11,8 @@ import About from "./components/About";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import CapsuleForm from "./components/CapsuleForm";
+import Terms from "./components/Terms";
+import Privacy from "./components/Privacy";
 import Footer from "./components/Footer";
 
 export default function App() {
@@ -34,6 +36,8 @@ export default function App() {
                     <Route path="/register" element={<Register />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/create" element={<CapsuleForm />} />
+                    <Route path="/terms" element={<Terms />} />
+                    <Route path="/privacy" element={<Privacy />} />
                     <Route path="*" element={<h1>404 Not Found</h1>} />
                 </Routes>
                 <Footer />

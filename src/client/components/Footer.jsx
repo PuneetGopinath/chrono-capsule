@@ -15,8 +15,8 @@ export default function Footer() {
 
             <div className="footer-right">
                 <Link to="/about">About</Link>
-                <Link href="/terms">Terms</Link>
-                <Link href="/privacy">Privacy</Link>
+                <Link to="/terms">Terms & Conditions</Link>
+                <Link to="/privacy">Privacy Policy</Link>
                 <a href="mailto:puneet.26g@gmail.com">Contact</a>
             </div>
         </footer>
