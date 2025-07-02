@@ -7,6 +7,7 @@ const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const cron = require("node-cron");
+const path = require("path");
 
 const capsule = require("./routes/capsuleR");
 const auth = require("./routes/authR");
@@ -38,9 +39,9 @@ app.use((req, res, next) => {
 
 });
 
-app.get("/", (req, res) => {
-    res.send("Chrono-Capsule is running ⏳");
-});
+//app.get("/", (req, res) => {
+//    res.send("Chrono-Capsule is running ⏳");
+//});
 
 app.get("/health", (req, res) => {
     res.status(200).json({ "status": "OK", "timestamp": new Date().toISOString() });
@@ -49,11 +50,11 @@ app.get("/health", (req, res) => {
 app.use("/api/capsules", capsule);
 app.use("/api/auth", auth);
 
-//app.use(express.static(path.join(__dirname, "client-dist")));
+app.use(express.static(path.join(__dirname, "client-dist")));
 
-//app.get('*', (req, res) => {
-//    res.sendFile(path.join(__dirname, "client-dist/index.html"));
-//});
+app.get("/:path(*)", (req, res) => {
+    res.sendFile(path.join(__dirname, "client-dist/index.html"));
+});
 
 app.use((err, req, res, next) => {
     console.log("[❌ Error] Message:", err.message);
