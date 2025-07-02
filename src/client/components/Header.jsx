@@ -22,7 +22,10 @@ export default function Header() {
             </div>
             <nav className="nav-links">
                 <Link to="/about">About</Link>
-                {loggedIn ? <Link to="/create">Create Capsule</Link> : <><Link to="/login">Login</Link><Link to="/register">Register</Link></>}
+                    {loggedIn ? <><Link to="/create">Create Capsule</Link><button onClick={() => {
+                        localStorage.removeItem("token");
+                        window.location.href = "/login";
+                    }}>Logout</button></> : <><Link to="/login">Login</Link><Link to="/register">Register</Link></>}
             </nav>
             <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle dark mode">
                 <span className="icon" role="icon" aria-label="theme icon">

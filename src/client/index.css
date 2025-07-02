@@ -78,14 +78,20 @@ body {
     margin-right: 0.5rem;
 }
 
-.nav-links a {
+.nav-links a,
+.nav-links button {
     color: var(--light-text);
     font-weight: 500;
     text-decoration: none;
     transition: color 0.2s ease;
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+    cursor: pointer;
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links button:hover {
     color: var(--nav-links-hover);
 }
 
