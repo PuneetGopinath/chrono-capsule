@@ -111,6 +111,35 @@ main {
     padding: 0 1rem;
 }
 
+.about-project,
+.about-author {
+    max-width: 600px;
+    margin: 2rem auto;
+    background: var(--bg-body);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 600px) {
+    .about-project,
+    .about-author {
+        padding: 1.5rem;
+        margin: 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+.about-author a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.about-author a:hover {
+    color: var(--accent-hover);
+}
+
 .form-container {
     max-width: 600px;
     margin: 0 auto;

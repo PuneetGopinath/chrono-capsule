@@ -7,6 +7,7 @@ import { useEffect } from "react";
 
 import Header from "./components/Header";
 import Home from "./components/Home";
+import About from "./components/About";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import CapsuleForm from "./components/CapsuleForm";
@@ -29,6 +30,7 @@ export default function App() {
                 <Header />
                 <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="/about" element={<About />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/create" element={<CapsuleForm />} />
