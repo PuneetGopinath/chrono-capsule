@@ -1,3 +1,7 @@
+// © 2025 Puneet Gopinath. All rights reserved.
+// Filename: src/client/components/Login.jsx
+// License: MIT
+
 import { useState } from "react";
 
 export default function Login() {

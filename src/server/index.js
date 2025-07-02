@@ -1,3 +1,7 @@
+// © 2025 Puneet Gopinath. All rights reserved.
+// Filename: src/server/index.js
+// License: MIT
+
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");

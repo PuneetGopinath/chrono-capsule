@@ -1,3 +1,7 @@
+// © 2025 Puneet Gopinath. All rights reserved.
+// Filename: src/server/utils/mailer.js
+// License: MIT
+
 const nodemailer = require("nodemailer");
 
 const decrypt = require("./decrypt");

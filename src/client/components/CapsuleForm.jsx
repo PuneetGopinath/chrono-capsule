@@ -1,3 +1,7 @@
+// © 2025 Puneet Gopinath. All rights reserved.
+// Filename: src/client/components/CapsuleForm.jsx
+// License: MIT
+
 import { useState } from "react";
 
 const suggestions = [

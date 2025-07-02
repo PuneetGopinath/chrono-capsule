@@ -1,3 +1,7 @@
+// © 2025 Puneet Gopinath. All rights reserved.
+// Filename: src/server/models/capsule.js
+// License: MIT
+
 const mongoose = require("mongoose");
 
 const capsuleSchema = new mongoose.Schema({

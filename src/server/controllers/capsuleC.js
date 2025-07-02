@@ -1,3 +1,7 @@
+// © 2025 Puneet Gopinath. All rights reserved.
+// Filename: src/server/controllers/capsuleC.js
+// License: MIT
+
 const crypto = require("crypto");
 
 const { Capsule } = require("../models");

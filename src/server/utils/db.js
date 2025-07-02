@@ -1,3 +1,7 @@
+// © 2025 Puneet Gopinath. All rights reserved.
+// Filename: src/server/utils/db.js
+// License: MIT
+
 module.exports = class Database {
     constructor() {
         this.models = require("../models");

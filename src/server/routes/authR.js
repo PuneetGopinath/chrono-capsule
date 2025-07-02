@@ -1,3 +1,7 @@
+// © 2025 Puneet Gopinath. All rights reserved.
+// Filename: src/server/routes/authR.js
+// License: MIT
+
 const express = require("express");
 const router = express.Router();
 

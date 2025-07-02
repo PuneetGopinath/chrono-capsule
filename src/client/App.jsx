@@ -1,3 +1,7 @@
+// © 2025 Puneet Gopinath. All rights reserved.
+// Filename: src/client/App.jsx
+// License: MIT
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 

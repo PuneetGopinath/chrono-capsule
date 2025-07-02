@@ -1,3 +1,7 @@
+// © 2025 Puneet Gopinath. All rights reserved.
+// Filename: src/server/models/index.js
+// License: MIT
+
 const m = require("fs")
     .readdirSync(__dirname)
     .filter((file) => file !== "index.js" && file.endsWith(".js"))

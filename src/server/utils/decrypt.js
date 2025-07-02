@@ -1,3 +1,7 @@
+// © 2025 Puneet Gopinath. All rights reserved.
+// Filename: src/server/utils/decrypt.js
+// License: MIT
+
 const crypto = require("crypto");
 
 const decrypt = (encryptedHex, ivHex, key, alg) => {
