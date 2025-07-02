@@ -4,7 +4,7 @@
 
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/home.css";
+import "../home.css";
 
 export default function Home() {
     const loggedin = !!localStorage.getItem("token");
