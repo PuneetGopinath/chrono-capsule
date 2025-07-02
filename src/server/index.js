@@ -52,7 +52,7 @@ app.use("/api/auth", auth);
 
 app.use(express.static(path.join(__dirname, "client-dist")));
 
-app.get("/:path(*)", (req, res) => {
+app.get(/.*/, (req, res) => {
     res.sendFile(path.join(__dirname, "client-dist/index.html"));
 });
 
