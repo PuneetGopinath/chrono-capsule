@@ -11,7 +11,7 @@ exports.create = async (req, res) => {
     if (!req.body) {
         return res.status(400).json({ message: "Request body is required" });
     }
-    const { recipient = null, recipientEmail = null, message = null, media = [], unlockDate = null, isEncrypted = false } = req.body;
+    const { recipient = null, recipientEmail = null, message = null, media = [], unlockDate = null, isEnc = false } = req.body;
 
     if (!recipient || !recipientEmail || !message || !unlockDate)
         return res.status(400).json({ error: "Missing required fields" });
@@ -38,6 +38,8 @@ exports.create = async (req, res) => {
 
     if (media.length > 10)
         return res.status(400).json({ error: "Media limit exceeded. Maximum 10 files allowed."})
+
+    const isEncrypted = isEnc === "on";
 
 
     let iv, ivMedia, encMsg, encMedia = [];

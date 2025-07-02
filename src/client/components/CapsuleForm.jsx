@@ -3,6 +3,7 @@
 // License: MIT
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import NotLoggedIn from "./NotLoggedIn";
 
@@ -32,6 +33,8 @@ export default function CapsuleForm() {
         return <NotLoggedIn text="To access this page, you need to be logged in." />;
     }
 
+    const navigate = useNavigate();
+
     const [ error, setError ] = useState(null);
     const [ error2, setError2 ] = useState(null);
 
@@ -41,6 +44,8 @@ export default function CapsuleForm() {
     // Since this will run on client side, we automatically receive the local time.
     const min = new Date();
     min.setHours(min.getHours() + 1); // Minimum unlock date is 1 hour from now
+    min.setSeconds(0);
+    min.setMilliseconds(0); // When we set the min value in the form, it auto truncates seconds and milliseconds, to make date validation work properly, we set them to 0
     const valD = new Date();
     valD.setFullYear(valD.getFullYear() + 1); // Default unlock date is 1 year from now
 
@@ -93,6 +98,7 @@ export default function CapsuleForm() {
                 setMessage("");
                 setDate(valD);
                 setSelectedLabel(null);
+                navigate("/");
             } else {
                 setError("Error creating capsule");
                 window.scrollTo(0, 0);
@@ -232,7 +238,7 @@ export default function CapsuleForm() {
 
                     <label className="checkbox-wrap">
                         Would you like the contents to be encrypted?
-                        <input type="checkbox" name="isEncrypted" />
+                        <input type="checkbox" name="isEnc" />
                     </label>
 
                     <input type="hidden" name="timezoneOffset" value={new Date().getTimezoneOffset()} />
