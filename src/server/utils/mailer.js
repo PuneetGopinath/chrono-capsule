@@ -30,8 +30,8 @@ const mailer = async (capsules) => {
                 c = decrypt(_c, process.env.ENCRYPTION_KEY);
             } else 
                 c = _c;
-            const text = ejs.renderFile(textPath, { name: c.recipient.name, msg: c.message });
-            const html = ejs.renderFile(htmlPath, { name: c.recipient.name, msg: c.message });
+            const text = await ejs.renderFile(textPath, { name: c.recipient.name, msg: c.message });
+            const html = await ejs.renderFile(htmlPath, { name: c.recipient.name, msg: c.message });
             const info = await transporter.sendMail({
                 from: `"Chrono Capsule" <${process.env.SMTP_USER}>`, // sender address
                 to: c.recipient.email, // list of receivers
