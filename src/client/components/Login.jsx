@@ -3,7 +3,6 @@
 // License: MIT (see LICENSE)
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import LoggedIn from "./LoggedIn";
 
@@ -21,8 +20,6 @@ export default function Login() {
             document.querySelector(".view-button").type = "text";
         }
     };
-
-    const navigate = useNavigate();
 
 
     const handleSubmit = async (event) => {
@@ -47,7 +44,7 @@ export default function Login() {
                 alert("Logged in successfully!");
                 console.log("[✅ Success] Logged in successfully!");
                 localStorage.setItem("token", data.token);
-                navigate("/"); // Redirect to home page
+                window.location.href = "/"; // Redirect to home page
             } else {
                 console.log("[❌ Error] Login failed:", data.message);
                 setError(data.message || "Login failed. Please check your credentials.");
