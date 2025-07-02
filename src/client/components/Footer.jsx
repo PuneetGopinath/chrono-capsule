@@ -12,7 +12,7 @@ export default function Footer() {
                 <Link to="/about">About</Link>
                 <Link href="/terms">Terms</Link>
                 <Link href="/privacy">Privacy</Link>
-                <a href="mailto:support@xxx.com">Contact</a>
+                <a href="mailto:puneet.26g@gmail.com">Contact</a>
             </div>
         </footer>
     );
