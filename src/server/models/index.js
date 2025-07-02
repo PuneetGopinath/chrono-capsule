@@ -4,7 +4,7 @@
 
 const m = require("fs")
     .readdirSync(__dirname)
-    .filter((file) => file !== "index.js" && file.endsWith(".js"));
+    .filter((file) => file !== "index.js" && file.endsWith(".js") && !file.startsWith("."));
 
 const files = m.map((file) => require(`${__dirname}/${file}`));
 
