@@ -51,10 +51,12 @@ export default function Login() {
             } else {
                 console.log("[❌ Error] Login failed:", data.message);
                 setError(data.message || "Login failed. Please check your credentials.");
+                window.scrollTo(0, 0);
             }
         } catch (err) {
             console.log("[❌ Error] Failed to login", err);
-            setError("An error occured while trying to log in. Please try again later.")
+            setError("An error occured while trying to log in. Please try again later.");
+            window.scrollTo(0, 0);
         }
     };
 

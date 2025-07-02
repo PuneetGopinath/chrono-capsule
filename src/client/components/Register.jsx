@@ -54,7 +54,8 @@ export default function Register() {
         const obj = Object.fromEntries(formData.entries());
 
         if (obj.password !== obj.confirmPassword) {
-            return alert("Passwords do not match. Please try again.");
+            setError("Passwords do not match. Please try again.");
+            return window.scrollTo(0, 0);
         }
 
         try {
@@ -75,10 +76,12 @@ export default function Register() {
             } else {
                 console.log("[❌ Error] Register failed:", data.message);
                 setError(data.message || "Registration failed. Please check your credentials.");
+                window.scrollTo(0, 0);
             }
         } catch (err) {
             console.log("[❌ Error] Failed to register", err);
-            setError("An error occured while trying to register. Please try again later.")
+            setError("An error occured while trying to register. Please try again later.");
+            window.scrollTo(0, 0);
         }
     };
 
