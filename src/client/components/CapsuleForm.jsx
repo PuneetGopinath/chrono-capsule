@@ -32,6 +32,9 @@ export default function CapsuleForm() {
         return <NotLoggedIn text="To access this page, you need to be logged in." />;
     }
 
+    const [ error, setError ] = useState(null);
+    const [ error2, setError2 ] = useState(null);
+
     const [message, setMessage] = useState("");
     const maxChars = 5000;
 
@@ -69,7 +72,7 @@ export default function CapsuleForm() {
         const obj = Object.fromEntries(formData.entries());
         console.log("Minimum:", min, "\nUnlock Date Submitted:", new Date(formData.get("unlockDate")));
         if (new Date(formData.get("unlockDate")) < min) {
-            return alert("Unlock Date must be at least 1 hour from now.");
+            return setError("Unlock Date must be at least 1 hour from now.");
         }
 
         try {
@@ -90,12 +93,12 @@ export default function CapsuleForm() {
                 setDate(valD);
                 setSelectedLabel(null);
             } else {
-                alert("Error creating capsule");
+                setError("Error creating capsule");
                 console.log("[❌ Error] details:", data);
             }
         } catch (err) {
             console.log("[❌ Error] Failed to create capsule:", err);
-            alert("An error occurred while trying to create the capsule. Please try again later.")
+            setError("An error occurred while trying to create the capsule. Please try again later.")
         }
     }
 
@@ -121,6 +124,7 @@ export default function CapsuleForm() {
         <main>
             <div className="form-container capsule">
                 <h2>Create a capsule</h2>
+                {error && <div className="error-msg">{error}</div>}
                 <form action="/api/capsules/create" method="POST" onSubmit={handleSubmit}>
                     <label>Recipient Name:</label>
                     <input
@@ -156,6 +160,7 @@ export default function CapsuleForm() {
                     <div>{message.length}/{maxChars} characters</div>
 
                     <label>Media Links (max 10):</label>
+                    {error2 && <div className="error-msg">{error2}</div>}
                     {mediaLinks.map((obj, index) => {
                         return (<input
                             key={index}
@@ -176,11 +181,11 @@ export default function CapsuleForm() {
                         onClick={() => {
                             const count = mediaLinks.length;
                             if (count >= 10) {
-                                return alert("You can only add up to 10 media links.");
+                                return setError2("You can only add up to 10 media links.");
                             }
                             const previousPath = mediaLinks[count - 1].path;
                             if (previousPath === "") {
-                                return alert("Please fill the previous media link before adding a new one.");
+                                return setError2("Please fill the previous media link before adding a new one.");
                             }
                             setMediaLinks([...mediaLinks, { path: "" }]);
                         }}

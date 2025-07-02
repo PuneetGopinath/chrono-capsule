@@ -13,6 +13,8 @@ export default function Register() {
     }
 
     const navigate = useNavigate();
+    const [ error, setError ] = useState(null);
+
     const [ showPwd, setShowPwd ] = useState(false);
     const [ showConfirmPwd, setShowConfirmPwd ] = useState(false);
     const toggleVisibility = (e) => {
@@ -72,11 +74,11 @@ export default function Register() {
                 navigate("/"); // Redirect to home page
             } else {
                 console.log("[❌ Error] Register failed:", data.message);
-                alert(data.message || "Registration failed. Please check your credentials.");
+                setError(data.message || "Registration failed. Please check your credentials.");
             }
         } catch (err) {
             console.log("[❌ Error] Failed to register", err);
-            alert("An error occured while trying to register. Please try again later.")
+            setError("An error occured while trying to register. Please try again later.")
         }
     };
 
@@ -84,6 +86,7 @@ export default function Register() {
         <main>
             <div className="form-container login">
                 <h2>Register</h2>
+                {error && <div className="error-msg">{error}</div>}
                 <form action="/api/auth/register" method="POST" onSubmit={handleSubmit}>
                     <label>Username:</label>
                     <input

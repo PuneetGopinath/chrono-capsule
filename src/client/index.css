@@ -176,6 +176,16 @@ main {
     color: var(--darker-text);
 }
 
+.error-msg {
+    background: #ffe5e5;
+    color: #e63946;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
 .form-container label {
     display: block;
     margin-top: 1rem;

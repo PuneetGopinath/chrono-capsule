@@ -12,6 +12,8 @@ export default function Login() {
         return <LoggedIn text="To login into another account, you have to logout" />;
     }
 
+    const [ error, setError ] = useState(null);
+
     const [ showPwd, setShowPwd ] = useState(false);
     const toggleVisibility = () => {
         setShowPwd(!showPwd);
@@ -46,11 +48,11 @@ export default function Login() {
                 navigate("/"); // Redirect to home page
             } else {
                 console.log("[❌ Error] Login failed:", data.message);
-                alert(data.message || "Login failed. Please check your credentials.");
+                setError(data.message || "Login failed. Please check your credentials.");
             }
         } catch (err) {
             console.log("[❌ Error] Failed to login", err);
-            alert("An error occured while trying to log in. Please try again later.")
+            setError("An error occured while trying to log in. Please try again later.")
         }
     };
 
@@ -58,6 +60,7 @@ export default function Login() {
         <main>
             <div className="form-container login">
                 <h2>Login</h2>
+                {error && <div className="error-msg">{error}</div>}
                 <form action="/api/auth/login" method="POST" onSubmit={handleSubmit}>
                     <label>Username:</label>
                     <input
