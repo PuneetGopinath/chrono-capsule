@@ -8,6 +8,9 @@ const { Capsule } = require("../models");
 
 exports.create = async (req, res) => {
     if (!req.user) return res.status(401).json({ error: "Unauthorized"});
+    if (!req.body) {
+        return res.status(400).json({ message: "Request body is required" });
+    }
     const { recipient = null, recipientEmail = null, message = null, media = [], unlockDate = null, isEncrypted = false } = req.body;
 
     if (!recipient || !recipientEmail || !message || !unlockDate)

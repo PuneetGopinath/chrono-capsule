@@ -7,6 +7,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
+    if (!req.body) {
+        return res.status(400).json({ message: "Request body is required" });
+    }
     const { username = null, email = null, password = null } = req.body;
 
     if (!username || !email || !password) {
@@ -46,6 +49,9 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
     if (req.user) return res.status(400).json({ message: "Already logged in" });
+    if (!req.body) {
+        return res.status(400).json({ message: "Request body is required" });
+    }
     const { username = null, password = null } = req.body;
     const user = await User.findOne({ username });
     let isMatch;

@@ -125,7 +125,7 @@ export default function CapsuleForm() {
             <div className="form-container capsule">
                 <h2>Create a capsule</h2>
                 {error && <div className="error-msg">{error}</div>}
-                <form action="/api/capsules/create" method="POST" onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <label>Recipient Name:</label>
                     <input
                         type="text"

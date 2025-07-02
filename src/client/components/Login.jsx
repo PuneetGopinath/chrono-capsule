@@ -22,14 +22,16 @@ export default function Login() {
         }
     };
 
+    const navigate = useNavigate();
+
 
     const handleSubmit = async (event) => {
-        const navigate = useNavigate();
         event.preventDefault();
 
         const form = event.target;
         const formData = new FormData(form);
         const obj = Object.fromEntries(formData.entries());
+        console.log(obj);
 
         try {
             const res = await fetch("/api/auth/login", {
@@ -61,7 +63,7 @@ export default function Login() {
             <div className="form-container login">
                 <h2>Login</h2>
                 {error && <div className="error-msg">{error}</div>}
-                <form action="/api/auth/login" method="POST" onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <label>Username:</label>
                     <input
                         type="text"

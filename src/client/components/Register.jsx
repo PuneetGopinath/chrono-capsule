@@ -87,7 +87,7 @@ export default function Register() {
             <div className="form-container login">
                 <h2>Register</h2>
                 {error && <div className="error-msg">{error}</div>}
-                <form action="/api/auth/register" method="POST" onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <label>Username:</label>
                     <input
                         type="text"
