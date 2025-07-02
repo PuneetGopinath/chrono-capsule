@@ -1,21 +1,27 @@
-# Changelog v0
+# Changelog v1
 
 Note that the displayed date is in the format `dd-mm-yyyy`
 
-## [v0.1.0]
+## [v1.0.0-alpha]
 
-> **Released:** `28-06-2025`
+> **Released:** `02-07-2025`
 
 ### Added features
-- Capsule creation with support for encryption of message and media (using AES-256-CBC) \[BACKEND ONLY\]
-- Support up to 5000 characters in messages and a maximum of 10 media files per capsule
-- User registration and login \[BACKEND ONLY\]
-- AES-256-CBC decryption prior to delivery of email
-- Email delivery via SMTP using HTML + text
-- Cron based unlock scheduler
-- Health route check (`/health`)
+- Login & Register pages
+- Home & About pages
+- Also created placeholder for Privacy Policy, Terms & Conditions
+- Implemented both dark and light themes
+- SMTP email setup using nodemailer and EJS templates
+- Use localStorage for saving theme preference and user login token
+- Capsules can be created using text and media links
+- Added limits for various fields in user schema and capsule schema
+- Validate username, email & password lengths in auth controller
+- Validate if unlock date is at least an hour later (frontend), 50 mins later (backend)
+
+### Bugs fixed
+- If request body is empty, return status 400 in response
 
 ### Chores
-- Added `README.md` 😁, `dependabot.yml`, `CHANGELOG.md` and `ISSUE_TEMPLATE`
+- Bump nodemailer from 7.0.3 to 7.0.4 [#6](https://github.com/PuneetGopinath/chrono-capsule/pull/6)
 
-[v0.1.0]: https://github.com/PuneetGopinath/chrono-capsule/releases/tag/v0.1.0
+[v1.0.0-alpha]: https://github.com/PuneetGopinath/chrono-capsule/releases/tag/v1.0.0-alpha
