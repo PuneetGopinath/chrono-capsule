@@ -72,6 +72,7 @@ export default function CapsuleForm() {
         const obj = Object.fromEntries(formData.entries());
         console.log("Minimum:", min, "\nUnlock Date Submitted:", new Date(formData.get("unlockDate")));
         if (new Date(formData.get("unlockDate")) < min) {
+            window.scrollTo(0, 0); // Scroll to top if error
             return setError("Unlock Date must be at least 1 hour from now.");
         }
 
@@ -94,11 +95,13 @@ export default function CapsuleForm() {
                 setSelectedLabel(null);
             } else {
                 setError("Error creating capsule");
+                window.scrollTo(0, 0);
                 console.log("[❌ Error] details:", data);
             }
         } catch (err) {
             console.log("[❌ Error] Failed to create capsule:", err);
-            setError("An error occurred while trying to create the capsule. Please try again later.")
+            setError("An error occurred while trying to create the capsule. Please try again later.");
+            window.scrollTo(0, 0);
         }
     }
 
