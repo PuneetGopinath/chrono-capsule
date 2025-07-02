@@ -7,6 +7,7 @@ const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const cron = require("node-cron");
+//const path = require("path");
 
 const capsule = require("./routes/capsuleR");
 const auth = require("./routes/authR");
@@ -51,7 +52,7 @@ app.use("/api/auth", auth);
 
 //app.use(express.static(path.join(__dirname, "client-dist")));
 
-//app.get('*', (req, res) => {
+//app.get(/.*/, (req, res) => {
 //    res.sendFile(path.join(__dirname, "client-dist/index.html"));
 //});
 
