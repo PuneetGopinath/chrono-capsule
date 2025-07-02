@@ -45,8 +45,8 @@ exports.create = async (req, res) => {
         encMsg = cipher.update(message, "utf8", "hex");
         encMsg += cipher.final("hex");
         if (media) {
-            ivMedia = crypto.randomBytes(16); // TODO: Generate a new IV for each media file
-            for (let i = 0; i < media.length; i++) {//Think of scaling later
+            ivMedia = crypto.randomBytes(16);
+            for (let i = 0; i < media.length; i++) {
                 encMedia[i] = {};
                 const cipherM = crypto.createCipheriv("AES-256-CBC", process.env.ENCRYPTION_KEY, ivMedia);
                 encMedia[i].filename = cipherM.update(media[i].filename, "utf8", "hex");

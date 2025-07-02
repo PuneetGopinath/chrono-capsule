@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 export default function Header() {
+    const loggedIn = !!localStorage.getItem("token");
     const [ isDark, setIsDark ] = useState(true);
 
     const toggleTheme = () => {
@@ -21,8 +22,7 @@ export default function Header() {
             </div>
             <nav className="nav-links">
                 <Link to="/about">About</Link>
-                <Link to="/login">Login</Link>
-                <Link to="/register">Register</Link>
+                {loggedIn ? <Link to="/create">Create Capsule</Link> : <><Link to="/login">Login</Link><Link to="/register">Register</Link></>}
             </nav>
             <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle dark mode">
                 <span className="icon" role="icon" aria-label="theme icon">

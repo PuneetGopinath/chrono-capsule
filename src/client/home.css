@@ -1,0 +1,128 @@
+/*
+    © 2025 Puneet Gopinath. All rights reserved.
+    Filename: src/client/home.css
+    License: MIT
+*/
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --color-1: #d5e8f7;
+    --color-2: #edf2fb;
+    --bg-btn: #1976d2;
+    --bg-btn-hover: #125ea0;
+}
+
+body.dark {
+    --color-1: #131c31;
+    --color-2: #1e2c4a;
+    --bg-btn: #6c63ff;
+    --bg-btn-hover: #5851db;
+}
+
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    font-family: "Inter", sans-serif;
+    color: var(--text);
+}
+
+.hero-image {
+    text-align: center;
+    margin-bottom: 3rem;
+    border-radius: 12px;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, var(--color-1), var(--color-2));
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+@keyframes fadeSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.hero-image {
+    animation: fadeSlideIn 0.8s ease-out;
+}
+
+.tagline {
+    font-size: 1.2rem;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+}
+
+.main-button {
+    background-color: var(--bg-btn);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.main-button:hover {
+    background-color: var(--bg-btn-hover);
+}
+
+ol {
+    padding-left: 1.25rem;
+    margin: 2rem 0;
+}
+
+ol li {
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+}
+
+h3 {
+    margin-top: 2.5rem;
+    font-size: 1.5rem;
+}
+
+.text {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-top: 0.75rem;
+}
+
+@media (max-width: 600px) {
+    .hero-image {
+        padding: 2.5rem 1.25rem;
+    }
+
+    .hero-image h1 {
+        font-size: 2.25rem;
+    }
+
+    .tagline {
+        font-size: 1rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .main-button {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+
+    ol {
+        padding-left: 1.2rem;
+        font-size: 0.95rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+}

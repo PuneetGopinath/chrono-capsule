@@ -40,8 +40,6 @@ const mailer = async (capsules) => {
                 html,
                 attachments: c.media ? c.media : []
             });
-            //TODO: Optimize for scalability
-            //TODO: Store delivery receipts? (Maybe - Is it required?)
             sent.push(info);
         }
         if (process.env.DEBUG) console.log("No. of emails sent:", sent.length);

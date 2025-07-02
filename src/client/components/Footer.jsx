@@ -10,6 +10,7 @@ export default function Footer() {
             <div className="footer-left">
                 <p>&copy; {new Date().getFullYear()} Puneet Gopinath</p>
                 <p>Time-locked thoughts from your present self</p>
+                <p>v1.0.0-alpha — built with curiosity by Puneet Gopinath</p>
             </div>
 
             <div className="footer-right">

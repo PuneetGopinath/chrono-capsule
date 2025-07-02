@@ -8,7 +8,7 @@ export default function About() {
             <section className="about-project">
                 <h1>🪐 About Chrono Capsule</h1>
                 <p>
-                    Chrono Capsule is a time-traveling message vault — a place where you can write to the future, lock your thoughts, and let them unlock when the time is right. Whether it’s a note to your future self, a surprise for a friend, or a memory sealed in digital amber, Chrono Capsule helps you preserve moments that matter.<br /><br />Built with care, curiosity, and a sprinkle of nostalgia, this project is a tribute to time, memory, and the magic of waiting.
+                    Chrono Capsule is a time-traveling message vault — a place where you can write to the future, lock your thoughts, and let them unlock when the time is right. Whether it’s a birthday wish, a note to your future self, a surprise for a friend, or a memory sealed in digital amber, Chrono Capsule helps you preserve moments that matter.<br /><br />Built with care, curiosity, and a sprinkle of nostalgia, this project is a tribute to time, memory, and the magic of waiting.
                 </p>
             </section>
             <hr />
