@@ -26,7 +26,7 @@ const unlockCapsules = async () => {
             } else {
                 console.log("[❌ Error] Failed to send emails for unlocked capsules.");
             }
-        }
+        } else if (process.env.DEBUG) console.log("🔓 No capsules to be unlocked at this time.");
     } catch (err) {
         console.log("Error unlocking capsules:", err);
     }
