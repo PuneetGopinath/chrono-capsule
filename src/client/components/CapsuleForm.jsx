@@ -133,6 +133,7 @@ export default function CapsuleForm() {
         <main>
             <div className="form-container capsule">
                 <h2>Create a capsule</h2>
+                <div style={{ color: "red", "font-size": "0.75rem" }}>Capsules with unlock date before 11th July will NOT be mailed (Due to SMTP Issues)</div>
                 {error && <div className="error-msg">{error}</div>}
                 <form onSubmit={handleSubmit}>
                     <label>Recipient Name:</label>
