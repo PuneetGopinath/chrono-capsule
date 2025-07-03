@@ -4,12 +4,12 @@ Note that the displayed date is in the format `dd-mm-yyyy`
 
 ## [v1.0.0-beta]
 
-> **Released:** `soon`
+> **Released:** `04-07-2025`
 
 ### Bugs fixed
 - Import home.css in Home react component, otherwise it doesn't show up in production build
 - Fix bug in RegExp of route handling for production built files
-- Added a missing "await" keyword before ejs.renderFile to return string instead of a Promise
+- Added a missing `await` keyword before ejs.renderFile to return string instead of a Promise
 - Change navigation method to window.location.href after login, this helps update the links in the header of the site.
 - Improve debug logging
 
