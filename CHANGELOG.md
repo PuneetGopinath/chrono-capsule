@@ -13,6 +13,7 @@ Note that the displayed date is in the format `dd-mm-yyyy`
 - Change navigation method to window.location.href after login, this helps update the links in the header of the site.
 - Improve debug logging
 - UX enhancement: changed capsule unlock scheduler from **every hour** to **every 10 minutes**
+- Fix raw text EJS template: replace `\n`(ejs renders it as text) with actual new lines
 
 
 ## [v1.0.0-alpha]
