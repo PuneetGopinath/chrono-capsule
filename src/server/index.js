@@ -73,7 +73,7 @@ app.use((err, req, res, next) => {
     });
 })();
 
-// Schedule the capsule unlocking task every hour
-cron.schedule("0 * * * *", unlockCapsules, {
+// Schedule the capsule unlocking task every 10 minutes
+cron.schedule("*/10 * * * *", unlockCapsules, {
     timezone: process.env.TZ || "Asia/Kolkata"
 });
