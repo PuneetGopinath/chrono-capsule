@@ -12,9 +12,8 @@ Note that the displayed date is in the format `dd-mm-yyyy`
 - Added a missing `await` keyword before ejs.renderFile to return string instead of a Promise
 - Change navigation method to window.location.href after login, this helps update the links in the header of the site.
 - Improve debug logging
+- UX enhancement: changed capsule unlock scheduler from **every hour** to **every 10 minutes**
 
-### Chores
-- None
 
 ## [v1.0.0-alpha]
 
