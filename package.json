@@ -1,6 +1,6 @@
 {
   "name": "chrono-capsule",
-  "version": "1.0.0-alpha",
+  "version": "1.0.0",
   "description": "An open-source platform to create encrypted, media-rich digital time capsules with scheduled unlocks",
   "main": "src/server/index.js",
   "scripts": {

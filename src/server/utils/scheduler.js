@@ -6,7 +6,7 @@ const { Capsule } = require("../models");
 const mailer = require("./mailer");
 
 const unlockCapsules = async () => {
-    if (process.env.DEBUG) console.log("🔓 Checking for capsules to be unlocked...");
+    if (process.env.DEBUG) console.log("🔓 Checking for capsules to be unlocked... || Current time:", new Date().toISOString());
     try {
         const now = new Date();
         const unlocked = await Capsule.find({
@@ -22,7 +22,7 @@ const unlockCapsules = async () => {
                     { _id: { $in: unlocked.map(c => c._id) } },
                     { $set: { opened: true } }
                 );
-                console.log("[✅ Success] Emails sent for unlocked capsules | Current time:", now.toISOString());
+                console.log("[✅ Success] Emails sent for unlocked capsules");
             } else {
                 console.log("[❌ Error] Failed to send emails for unlocked capsules.");
             }
