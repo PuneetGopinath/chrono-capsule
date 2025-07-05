@@ -2,9 +2,13 @@
 // Filename: src/server/controllers/authC.js
 // License: MIT (see LICENSE)
 
-const { User } = require("../models");
+const { v4, validate: uuidValidate } = require("uuid");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+
+const { User } = require("../models");
+const sendConfirmation = require("../utils/sendConfirmation");
+const { send } = require("vite");
 
 exports.register = async (req, res) => {
     if (!req.body) {
@@ -39,7 +43,21 @@ exports.register = async (req, res) => {
         return res.status(400).json({ message: "Email is too long" });
     }
 
-    const user = await User.create({ username, email: cleanEmail , password });
+    const token = v4();
+    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours from now
+
+    const user = await User.create({
+        username,
+        email: cleanEmail,
+        password,
+        verification: {
+            token,
+            expiresAt
+        }
+    }); // Password will be hashed automatically by the pre-save hook
+
+    sendConfirmation(user.username, user.email, token);
+
     if (process.env.DEBUG) console.log("User registered:", user.username);
     return res.status(201).json({
         message: "User registered successfully",
@@ -63,4 +81,38 @@ exports.login = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { algorithm: "HS256", expiresIn: "7d" });
     if (process.env.DEBUG) console.log("User logged in:", user.username, "\nJWT Token:", token);
     return res.status(200).json({ message: "Login successful", token});
+};
+
+exports.verify = async (req, res) => {
+    if (!req.params || !req.params.token) {
+        return res.status(400).json({ message: "Verification token is required" });
+    }
+    const { token } = req.params;
+
+    if (!uuidValidate(token)) {
+        return res.status(400).json({ message: "Invalid token format" });
+    }
+
+    const user = await User.findOne({ "verification.token": token });
+
+    if (!user) {
+        return res.status(404).json({ message: "Invalid token" });
+    }
+
+    if (user.verified) {
+        return res.status(400).json({ message: "User already verified" });
+    }
+
+    if (user.verification.expiresAt < (new Date())) {
+        return res.status(400).json({ message: "Token has expired" });
+    }
+
+    user.verification.token = null;
+    user.verification.expiresAt = null;
+    user.verified = true;
+
+    await user.save();
+
+    if (process.env.DEBUG) console.log(`[VERIFY] User ${user.email} verified at ${new Date().toISOString()}`);
+    return res.status(200).json({ message: "User verified successfully", id: user._id });
 };
