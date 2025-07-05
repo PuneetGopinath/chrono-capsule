@@ -4,7 +4,7 @@
 
 const { User } = require("../models");
 
-const { v4 } = require("uuid");
+const { v4, validate: uuidValidate } = require("uuid");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -84,6 +84,11 @@ exports.verify = async (req, res) => {
         return res.status(400).json({ message: "Verification token is required" });
     }
     const { token } = req.params;
+
+    if (!uuidValidate(token)) {
+        return res.status(400).json({ message: "Invalid token format" });
+    }
+
     const user = await User.findOne({ "verification.token": token });
 
     if (!user) {
