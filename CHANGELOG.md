@@ -2,6 +2,13 @@
 
 Note that the displayed date is in the format `dd-mm-yyyy`
 
+## [v1.1.0]
+
+> **Released:** `not yet`
+
+### Bug fixes
+- Change hard-coded version number in the footer to use variable from environment
+
 ## [v1.0.0]
 
 > **Released:** `05-07-2025`
