@@ -19,8 +19,8 @@ const transporter = nodemailer.createTransport({
 });
 
 const mailer = async (capsules) => {
-    const htmlPath = path.join(__dirname, "../templates", "email.ejs");
-    const textPath = path.join(__dirname, "../templates", "email.txt.ejs");
+    const htmlPath = path.join(__dirname, "../templates", "capsule.ejs");
+    const textPath = path.join(__dirname, "../templates", "capsule.txt.ejs");
 
     try {
         const sent = [];
