@@ -2,6 +2,19 @@
 
 Note that the displayed date is in the format `dd-mm-yyyy`
 
+## [v1.0.0]
+
+> **Released:** `05-07-2025`
+
+### What’s Included
+All enhancements and fixes from the beta release:
+- Capsule unlock scheduler runs every 10 minutes for improved responsiveness
+- Production build bugs patched, including CSS import, route matching, and login redirect
+- Minor bug fixes
+
+### 📦 Notes
+No changes to code were made after the beta release — this version simply marks the shift from "pre-release" to "stable". Ready for public use!
+
 ## [v1.0.0-beta]
 
 > **Released:** `04-07-2025`
@@ -38,5 +51,6 @@ Note that the displayed date is in the format `dd-mm-yyyy`
 ### Chores
 - Bump nodemailer from 7.0.3 to 7.0.4 [#6](https://github.com/PuneetGopinath/chrono-capsule/pull/6)
 
+[v1.0.0]: https://github.com/PuneetGopinath/chrono-capsule/releases/tag/v1.0.0
 [v1.0.0-beta]: https://github.com/PuneetGopinath/chrono-capsule/releases/tag/v1.0.0-beta
 [v1.0.0-alpha]: https://github.com/PuneetGopinath/chrono-capsule/releases/tag/v1.0.0-alpha
