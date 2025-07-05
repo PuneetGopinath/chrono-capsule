@@ -10,7 +10,7 @@ export default function Footer() {
             <div className="footer-left">
                 <p>&copy; {new Date().getFullYear()} Puneet Gopinath</p>
                 <p>Time-locked thoughts from your present self</p>
-                <p>${process.env?.VERSION || "v1.0.0"} — built with curiosity by Puneet Gopinath</p>
+                <p>v{process.env?.VERSION || "1.0.0"} — built with curiosity by Puneet Gopinath</p>
             </div>
 
             <div className="footer-right">
