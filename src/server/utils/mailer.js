@@ -33,7 +33,7 @@ const mailer = async (capsules) => {
             const text = await ejs.renderFile(textPath, { name: c.recipient.name, msg: c.message });
             const html = await ejs.renderFile(htmlPath, { name: c.recipient.name, msg: c.message });
             const info = await transporter.sendMail({
-                from: `"Chrono Capsule" <${process.env.SMTP_USER}>`, // sender address
+                from: `"Chrono Capsule" <${process.env.SMTP_SENDER}>`, // sender address
                 to: c.recipient.email, // list of receivers
                 subject: "Your Chrono Capsule is Unlocked!", // Subject line
                 text,
