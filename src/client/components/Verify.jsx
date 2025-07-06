@@ -124,6 +124,7 @@ export default function Verify() {
                         <h1>Verification Failed</h1>
                         <p>Error: {error?.message ?? error}</p>
                         <form onSubmit={handleResend} hidden={error?.verified ? true : false}>
+                            <label htmlFor="email">Enter your email to resend verification:</label>
                             <input type="email" name="email" placeholder="xyz@example.com" hidden={loggedin ? true : false} />
                             <button type="submit">Resend Verification</button>
                         </form>
