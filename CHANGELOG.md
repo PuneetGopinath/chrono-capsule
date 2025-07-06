@@ -2,6 +2,14 @@
 
 Note that the displayed date is in the format `dd-mm-yyyy`
 
+## [v1.0.1]
+
+> **Released:** `06-07-2025`
+
+### Bugs fixed
+- Introduced new environment variable SMTP_SENDER to define the visible `from` address in an email
+- SMTP Sender mismatch: Resolved email delivery failure due to a different SMTP Sender rather than the SMTP User
+
 ## [v1.0.0]
 
 > **Released:** `05-07-2025`
