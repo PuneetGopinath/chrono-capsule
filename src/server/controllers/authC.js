@@ -99,7 +99,7 @@ exports.verify = async (req, res) => {
     const user = await User.findOne({ "verification.token": token });
 
     if (!user) {
-        return res.status(404).json({ ...obj, message: "Invalid token" });
+        return res.status(404).json({ ...obj, message: "Invalid token. Make sure you're using the latest link provided." });
     }
 
     if (user.verified) {

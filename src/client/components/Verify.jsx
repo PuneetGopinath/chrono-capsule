@@ -18,6 +18,7 @@ export default function Verify() {
     const [ verified, setVerified ] = useState(false);
     const [ error, setError ] = useState(null);
     const [ notice, setNotice ] = useState(null);
+    const [ cooldown, setCooldown ] = useState(0);
 
     const loggedin = !!localStorage.getItem("token");
 
@@ -51,6 +52,7 @@ export default function Verify() {
 
     const handleResend = async (event) => {
         event.preventDefault();
+        setCooldown(30);
         if (loading || verified) return;
 
         const form = event.target;
@@ -111,6 +113,13 @@ export default function Verify() {
         }
     }, [verified]);
 
+    useEffect(() => {
+        if (cooldown > 0) {
+            const timer = setTimeout(() => setCooldown(prev => prev - 1), 1000);
+            return () => clearTimeout(timer);
+        }
+    }, [cooldown]);
+
     return (
         <main>
                 {loading ? (
@@ -126,7 +135,7 @@ export default function Verify() {
                         <form onSubmit={handleResend} hidden={error?.verified ? true : false}>
                             <label htmlFor="email">Enter your email to resend verification:</label>
                             <input type="email" name="email" placeholder="xyz@example.com" hidden={loggedin ? true : false} />
-                            <button type="submit">Resend Verification</button>
+                            <button type="submit" disabled={cooldown > 0}>Resend Verification</button>
                         </form>
                     </>
                 )
