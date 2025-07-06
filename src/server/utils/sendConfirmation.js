@@ -23,10 +23,10 @@ const textPath = path.join(__dirname, "../templates", "confirm.txt.ejs");
 
 const sendConfirmation = async (name, email, token) => {
     if (process.env.DEBUG) console.log("[🔔] Sending confirmation email to:", name);
-    const link = `${website}/verify/${token}`;
+    const verifyLink = `${website}/verify/${token}`;
     try {
-        const html = await ejs.renderFile(htmlPath, { name, link, website });
-        const text = await ejs.renderFile(textPath, { name, link, website });
+        const html = await ejs.renderFile(htmlPath, { name, verifyLink, website });
+        const text = await ejs.renderFile(textPath, { name, verifyLink, website });
 
         const info = await transporter.sendMail({
             from: `"Chrono Capsule" <${process.env.SMTP_SENDER || process.env.SMTP_USER}>`,
