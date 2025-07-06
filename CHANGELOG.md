@@ -2,6 +2,14 @@
 
 Note that the displayed date is in the format `dd-mm-yyyy`
 
+## [v1.1.0]
+
+> **Released:** `soon`
+
+### New Features
+
+- Verify the email entered by the user while creating an account [#7]
+
 ## [v1.0.1]
 
 > **Released:** `06-07-2025`
@@ -58,6 +66,8 @@ No changes to code were made after the beta release — this version simply mark
 
 ### Chores
 - Bump nodemailer from 7.0.3 to 7.0.4 [#6](https://github.com/PuneetGopinath/chrono-capsule/pull/6)
+
+[#7]: https://github.com/PuneetGopinath/chrono-capsule/pull/7
 
 [v1.0.0]: https://github.com/PuneetGopinath/chrono-capsule/releases/tag/v1.0.0
 [v1.0.0-beta]: https://github.com/PuneetGopinath/chrono-capsule/releases/tag/v1.0.0-beta
