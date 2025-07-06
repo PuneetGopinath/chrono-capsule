@@ -17,6 +17,10 @@ export default function Verify() {
     const [ loading, setLoading ] = useState(true);
     const [ verified, setVerified ] = useState(false);
     const [ error, setError ] = useState(null);
+    const [ notice, setNotice ] = useState(null);
+
+    const loggedin = !!localStorage.getItem("token");
+
     const verify = async (token) => {
         if (!isValidUUID(token)) {
             setLoading(false);
@@ -34,7 +38,7 @@ export default function Verify() {
             if (res.ok) {
                 setVerified(true);
             } else {
-                setError(data.message || "Verification failed.");
+                setError(data || "Verification failed. Please try again.");
                 console.log("Verification error:", data);
             }
         } catch (error) {
@@ -42,6 +46,43 @@ export default function Verify() {
             setError("Unexpected error occurred during verification.");
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleResend = async (event) => {
+        event.preventDefault();
+        if (loading || verified) return;
+
+        const form = event.target;
+        const formData = new FormData(form);
+        const email = formData.get("email").trim().toLowerCase();
+
+        if (!email && !loggedin)
+            return setError("Email is required to resend verification.");
+        
+        if (!loggedin && !(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(email)) {
+            return setError("Invalid email format.");
+        }
+
+        try {
+            const headers = {
+                "Content-Type": "application/json",
+                ...(loggedin && { "Authorization": `Bearer ${localStorage.getItem("token")}` })
+            };
+            const res = await fetch("/api/auth/resend", {
+                method: "POST",
+                headers,
+                body: loggedin ? null : JSON.stringify({ email }),
+            });
+            const data = await res.json();
+            if (res.ok) {
+                setNotice("Verification email resent successfully. Please check your inbox.");
+            } else {
+                setError(data.message || "Something went wrong. Try resending the verification email.");
+            }
+        } catch (err) {
+            console.log("Error resending verification email:", err);
+            setError("Unexpected error occurred while resending verification email.");
         }
     };
 
@@ -81,8 +122,15 @@ export default function Verify() {
                 : error ? (
                     <>
                         <h1>Verification Failed</h1>
-                        <p>Error: {error}</p>
+                        <p>Error: {error?.message ?? error}</p>
+                        <form onSubmit={handleResend} hidden={error?.verified ? true : false}>
+                            <input type="email" name="email" placeholder="xyz@example.com" hidden={loggedin ? true : false} />
+                            <button type="submit">Resend Verification</button>
+                        </form>
                     </>
+                )
+                : notice ? (
+                    <p style={{ color: "green", fontSize: "1.1rem" }}>{notice}</p>
                 )
                 : (
                     <>
