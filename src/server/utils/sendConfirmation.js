@@ -29,7 +29,7 @@ const sendConfirmation = async (name, email, token) => {
         const text = await ejs.renderFile(textPath, { name, link, website });
 
         const info = await transporter.sendMail({
-            from: `"Chrono Capsule" <${process.env.SMTP_USER}>`,
+            from: `"Chrono Capsule" <${process.env.SMTP_SENDER || process.env.SMTP_USER}>`,
             to: email,
             subject: "Confirm your Chrono Capsule account",
             text,
