@@ -119,6 +119,7 @@ export default function Verify() {
             return () => clearTimeout(timer);
         }
     }, [cooldown]);
+    // TODO: Add a live countdown of the cooldown timer
 
     return (
         <main>
@@ -136,6 +137,7 @@ export default function Verify() {
                             <label htmlFor="email">Enter your email to resend verification:</label>
                             <input type="email" name="email" placeholder="xyz@example.com" hidden={loggedin ? true : false} />
                             <button type="submit" disabled={cooldown > 0}>Resend Verification</button>
+                            <p style={{ color: "red", fontSize: "0.9rem", display: (cooldown > 0) ? "block" : "none" }}>Try again in {cooldown} seconds.</p>
                         </form>
                     </>
                 )
