@@ -22,7 +22,7 @@ const htmlPath = path.join(__dirname, "../templates", "confirm.ejs");
 const textPath = path.join(__dirname, "../templates", "confirm.txt.ejs");
 
 const sendConfirmation = async (name, email, token) => {
-    if (process.env.DEBUG) console.log("[🔔] Sending confirmation email to:", name);
+    if (process.env.DEBUG) console.log("[🔔] Sending confirmation email for", name);
     const verifyLink = `${website}/verify/${token}`;
     try {
         const html = await ejs.renderFile(htmlPath, { name, verifyLink, website });
@@ -35,7 +35,7 @@ const sendConfirmation = async (name, email, token) => {
             text,
             html
         });
-        if (process.env.DEBUG) console.log("[✅] Confirmation email sent to ", name);
+        if (process.env.DEBUG) console.log("[✅] Confirmation email sent for", name);
 
         return info;
     } catch (err) {

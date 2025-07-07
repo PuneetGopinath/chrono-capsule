@@ -143,7 +143,10 @@ export default function Verify() {
                     </>
                 )
                 : notice ? (
-                    <p className="notice">{notice}</p>
+                    <>
+                        <h1>Verification Email Sent</h1>
+                        <p className="notice">{notice}</p>
+                    </>
                 )
                 : (
                     <>
