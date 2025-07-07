@@ -9,6 +9,9 @@ Note that the displayed date is in the format `dd-mm-yyyy`
 ### New Features
 
 - Verify the email entered by the user while creating an account [#7]
+    - Send verification email on registration
+    - User verifies using the link sent
+    - User can resend verification if link expires (expires in 1 day)
 
 ## [v1.0.1]
 
