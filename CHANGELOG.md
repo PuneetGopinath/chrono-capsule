@@ -12,6 +12,7 @@ Note that the displayed date is in the format `dd-mm-yyyy`
     - Send verification email on registration
     - User verifies using the link sent
     - User can resend verification if link expires (expires in 1 day)
+    - Added rate limit to 5 users per IP for the resend confirmation route
 
 ## [v1.0.1]
 
