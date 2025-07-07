@@ -8,7 +8,6 @@ const jwt = require("jsonwebtoken");
 
 const { User } = require("../models");
 const sendConfirmation = require("../utils/sendConfirmation");
-const { send } = require("vite");
 
 const trimEmail = email => email.trim().toLowerCase();
 
@@ -130,7 +129,7 @@ exports.resendVerification = async (req, res) => {
     const user = await User.findOne(req.user?.id ? { _id: req.user.id } : { email: trimEmail(email) });
 
     if (!user) {
-        return res.status(404).json({ message: "User not found" });
+        return res.status(200).json({ message: "If the user exists, a verification link will be sent." });
     }
 
     if (user.verified) {
@@ -145,5 +144,5 @@ exports.resendVerification = async (req, res) => {
     await user.save();
 
     await sendConfirmation(user.username, user.email, token);
-    return res.status(200).json({ message: "New verification link sent." });
+    return res.status(200).json({ message: "If the user exists, a verification link will be sent." });
 };
