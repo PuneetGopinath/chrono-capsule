@@ -124,7 +124,6 @@ export default function Verify() {
             return () => clearTimeout(timer);
         }
     }, [cooldown]);
-    // TODO: Add a live countdown of the cooldown timer
 
     return (
         <main>

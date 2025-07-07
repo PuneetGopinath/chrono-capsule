@@ -5,12 +5,20 @@
 const express = require("express");
 const router = express.Router();
 
+const rateLimit = require("express-rate-limit");
+
 const { register, login, verify, resendVerification } = require("../controllers/authC");
 const asyncHandler = require("../utils/asyncHandler");
+
+const resendLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000, // 1 hour
+    max: 5, // limit each IP to 5 requests per window
+    message: "Too many resend attempts, please try again later.",
+});
 
 router.post("/register", asyncHandler(register));
 router.post("/login", asyncHandler(login));
 router.get("/verify/:token", asyncHandler(verify));
-router.post("/resend", asyncHandler(resendVerification));
+router.post("/resend", resendLimiter, asyncHandler(resendVerification));
 
 module.exports = router;
