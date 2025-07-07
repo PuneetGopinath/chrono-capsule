@@ -3,7 +3,7 @@
 // License: MIT (see LICENSE)
 
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { validate as uuidValidate, version as uuidVersion } from "uuid";
 
 const isValidUUID = (token) => {
@@ -11,6 +11,7 @@ const isValidUUID = (token) => {
 };
 
 export default function Verify() {
+    const navigate = useNavigate();
     const { token } = useParams();
 
     const [ redirectSec, setRedirectSec ] = useState(5);
@@ -104,7 +105,7 @@ export default function Verify() {
                 setRedirectSec(prev => {
                     if (prev <= 1) {
                         clearInterval(interval);
-                        window.location.href = "/";
+                        navigate("/");
                         return 0;
                     }
                     return prev - 1;
