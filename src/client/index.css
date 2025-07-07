@@ -471,6 +471,18 @@ input[type="datetime-local"] {
     }
 }
 
+button:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+button:disabled:hover {
+    transform: none;
+    box-shadow: none;
+    background-color: #ccc;
+}
+
 .hide {
     display: none;
 }
