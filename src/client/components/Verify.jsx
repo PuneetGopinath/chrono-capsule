@@ -134,15 +134,15 @@ export default function Verify() {
                         <h1>Verification Failed</h1>
                         <p>Error: {error?.message ?? error}</p>
                         <form onSubmit={handleResend} hidden={error?.verified ? true : false}>
-                            <label htmlFor="email">Enter your email to resend verification:</label>
+                            <label htmlFor="email" className={loggedin ? "hide" : ""}>Enter your email to resend verification:</label>
                             <input type="email" name="email" placeholder="xyz@example.com" hidden={loggedin ? true : false} />
-                            <button type="submit" disabled={cooldown > 0}>Resend Verification</button>
-                            <p style={{ color: "red", fontSize: "0.9rem", display: (cooldown > 0) ? "block" : "none" }}>Try again in {cooldown} seconds.</p>
+                            <button type="submit" disabled={cooldown > 0} className="auth-button">Resend Verification</button>
+                            <p className={`cooldown${cooldown > 0 ? "" : " hide"}`}>Try again in {cooldown} seconds.</p>
                         </form>
                     </>
                 )
                 : notice ? (
-                    <p style={{ color: "green", fontSize: "1.1rem" }}>{notice}</p>
+                    <p className="notice">{notice}</p>
                 )
                 : (
                     <>

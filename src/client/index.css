@@ -410,6 +410,23 @@ input[type="datetime-local"] {
     opacity: 1;
 }
 
+.notice {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    border: 1px solid #ffeeba;
+}
+
+.cooldown {
+    color: #8a8a8a;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    display: block;
+}
+
 .footer {
     display: flex;
     justify-content: space-between;
@@ -452,4 +469,8 @@ input[type="datetime-local"] {
     .footer-right a {
         margin: 0 0.5rem;
     }
+}
+
+.hide {
+    display: none;
 }
