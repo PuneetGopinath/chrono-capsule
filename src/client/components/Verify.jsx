@@ -134,7 +134,7 @@ export default function Verify() {
                 : error ? (
                     <>
                         <h1>Verification Failed</h1>
-                        <p>Error: {error?.message ?? error}</p>
+                        <p aria-live="polite">Error: {error?.message ?? error}</p>
                         <form onSubmit={handleResend} hidden={error?.verified ? true : false}>
                             <label htmlFor="email" className={loggedin ? "hide" : ""}>Enter your email to resend verification:</label>
                             <input type="email" name="email" placeholder="xyz@example.com" hidden={loggedin ? true : false} />
@@ -146,13 +146,13 @@ export default function Verify() {
                 : notice ? (
                     <>
                         <h1>Verification Email Sent</h1>
-                        <p className="notice">{notice}</p>
+                        <p className="notice" aria-live="polite">{notice}</p>
                     </>
                 )
                 : (
                     <>
                         <h1>✅ Your email has been verified!</h1>
-                        <p>Thank you for verifying your email.</p>
+                        <p aria-live="polite">Thank you for verifying your email.</p>
                         <a href="/" className="auth-button">Home</a>
                         <p>Redirecting to home in {redirectSec} seconds.</p>
                     </>
