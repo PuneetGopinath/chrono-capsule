@@ -23,7 +23,7 @@ export default function Verify() {
 
     const loggedin = !!localStorage.getItem("token");
 
-    const verify = async (token) => {
+    const verify = async (token, signal) => {
         if (!isValidUUID(token)) {
             setLoading(false);
             return setError("Invalid verification token.");
@@ -35,6 +35,7 @@ export default function Verify() {
                 headers: {
                     "Content-Type": "application/json",
                 },
+                signal
             });
             const data = await res.json();
             if (res.ok) {
@@ -92,7 +93,9 @@ export default function Verify() {
 
     useEffect(() => {
         if (token) {
-            verify(token);
+            const controller = new AbortController();
+            verify(token, controller.signal);
+            return () => controller.abort(); // Cleanup on unmount
         } else {
             setLoading(false);
             setError("No verification token provided.");
