@@ -78,6 +78,7 @@ export default function Verify() {
             });
             const data = await res.json();
             if (res.ok) {
+                setError(null);
                 setNotice("Verification email resent successfully. Please check your inbox.");
             } else {
                 setError(data.message || "Something went wrong. Try resending the verification email.");
