@@ -23,7 +23,20 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    verified: {
+        type: Boolean,
+        default: false
+    },
+    verification: {
+        token: {
+            type: String,
+            index: true
+        },
+        expiresAt: {
+            type: Date
+        }
+    },
 });
 
 userSchema.pre("save", async function(next) {
