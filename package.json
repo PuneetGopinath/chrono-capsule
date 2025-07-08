@@ -1,6 +1,6 @@
 {
   "name": "chrono-capsule",
-  "version": "1.0.1",
+  "version": "1.1.0-dev",
   "description": "An open-source platform to create encrypted, media-rich digital time capsules with scheduled unlocks",
   "main": "src/server/index.js",
   "scripts": {
@@ -18,9 +18,10 @@
     "axios": "^1.10.0",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
-    "dotenv": "^17.0.0",
+    "dotenv": "^17.0.1",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
+    "express-rate-limit": "^7.5.1",
     "express-validator": "^7.2.1",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
@@ -29,12 +30,13 @@
     "node-cron": "^4.1.1",
     "nodemailer": "^7.0.4",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.6.0",
     "concurrently": "^9.2.0",
-    "eslint": "^9.30.0",
+    "eslint": "^9.30.1",
     "nodemon": "^3.1.10",
     "prettier": "^3.6.2",
     "react-router-dom": "^7.6.3",

@@ -18,10 +18,12 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-const mailer = async (capsules) => {
-    const htmlPath = path.join(__dirname, "../templates", "email.ejs");
-    const textPath = path.join(__dirname, "../templates", "email.txt.ejs");
+const website = process.env.WEBSITE_URL || "https://capsule.puneetg.me";
 
+const htmlPath = path.join(__dirname, "../templates", "capsule.ejs");
+const textPath = path.join(__dirname, "../templates", "capsule.txt.ejs");
+
+const mailer = async (capsules) => {
     try {
         const sent = [];
         for (const _c of capsules) {
@@ -30,8 +32,8 @@ const mailer = async (capsules) => {
                 c = decrypt(_c, process.env.ENCRYPTION_KEY);
             } else 
                 c = _c;
-            const text = await ejs.renderFile(textPath, { name: c.recipient.name, msg: c.message });
-            const html = await ejs.renderFile(htmlPath, { name: c.recipient.name, msg: c.message });
+            const text = await ejs.renderFile(textPath, { name: c.recipient.name, msg: c.message, website });
+            const html = await ejs.renderFile(htmlPath, { name: c.recipient.name, msg: c.message, website });
             const info = await transporter.sendMail({
                 from: `"Chrono Capsule" <${process.env.SMTP_SENDER || process.env.SMTP_USER}>`, // sender address
                 to: c.recipient.email, // list of receivers
