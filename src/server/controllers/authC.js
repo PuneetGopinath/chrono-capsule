@@ -57,7 +57,7 @@ exports.register = async (req, res) => {
         }
     }); // Password will be hashed automatically by the pre-save hook
 
-    sendConfirmation(user.username, user.email, token);
+    await sendConfirmation(user.username, user.email, token);
 
     if (process.env.DEBUG) console.log("User registered:", user.username);
     return res.status(201).json({
