@@ -30,7 +30,8 @@ const userSchema = new mongoose.Schema({
     },
     verification: {
         token: {
-            type: String
+            type: String,
+            index: true
         },
         expiresAt: {
             type: Date
