@@ -4,13 +4,19 @@
 
 const crypto = require("crypto");
 
-const { Capsule } = require("../models");
+const { User, Capsule } = require("../models");
 
 exports.create = async (req, res) => {
     if (!req.user) return res.status(401).json({ error: "Unauthorized"});
     if (!req.body) {
         return res.status(400).json({ message: "Request body is required" });
     }
+
+    const user = await User.findById(req.user.id);
+    if (!user || !user.verified) {
+        return res.status(403).json({ error: "You must verify your account before creating a capsule." });
+    }
+
     const { recipient = null, recipientEmail = null, message = null, media = [], unlockDate = null, isEnc = false } = req.body;
 
     if (!recipient || !recipientEmail || !message || !unlockDate)
