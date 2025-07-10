@@ -7,43 +7,43 @@ const crypto = require("crypto");
 const { User, Capsule } = require("../models");
 
 exports.create = async (req, res) => {
-    if (!req.user) return res.status(401).json({ error: "Unauthorized"});
+    if (!req.user) return res.status(401).json({ message: "Unauthorized"});
     if (!req.body) {
         return res.status(400).json({ message: "Request body is required" });
     }
 
     const user = await User.findById(req.user.id).select("verified");
     if (!user?.verified) {
-        return res.status(403).json({ error: "You must verify your account before creating a capsule." });
+        return res.status(403).json({ message: "You must verify your account before creating a capsule." });
     }
 
     const { recipient = null, recipientEmail = null, message = null, media = [], unlockDate = null, isEnc = false } = req.body;
 
     if (!recipient || !recipientEmail || !message || !unlockDate)
-        return res.status(400).json({ error: "Missing required fields" });
+        return res.status(400).json({ message: "Missing required fields" });
 
     if (req.body.media !== undefined && !Array.isArray(media))
-        return res.status(400).json({ error: "Media must be an array" });
+        return res.status(400).json({ message: "Media must be an array" });
 
     if (recipient.length > 64)
-        return res.status(400).json({ error: "Recipient name exceeds maximum length of 64 characters" });
+        return res.status(400).json({ message: "Recipient name exceeds maximum length of 64 characters" });
     
     const d = new Date(unlockDate);
     if (isNaN(d.getTime() || d.getTime() < (Date.now() + 50 * 60 * 1000))) // Give them grace time, instead of 1 hour, a 50 min check at backend is good to go, UX is our priority
-        return res.status(400).json({ error: "Unlock date must be at least 50 minutes in the future at the time of submission."})
+        return res.status(400).json({ message: "Unlock date must be at least 50 minutes in the future at the time of submission."})
 
     const cleanEmail = recipientEmail.trim().toLowerCase(); // Most email providers are case-insensitive
 
     if (!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(cleanEmail))
         return res.status(400).json({ message: "Invalid email format" });
     if (recipientEmail.length > 254)
-        return res.status(400).json({ error: "Recipient email exceeds maximum length of 254 characters" });
+        return res.status(400).json({ message: "Recipient email exceeds maximum length of 254 characters" });
 
     if (message.length > 5000)
-        return res.status(400).json({ error: "Message limit exceeded. Maximum 5000 characters allowed."})
+        return res.status(400).json({ message: "Message limit exceeded. Maximum 5000 characters allowed."})
 
     if (media.length > 10)
-        return res.status(400).json({ error: "Media limit exceeded. Maximum 10 files allowed."})
+        return res.status(400).json({ message: "Media limit exceeded. Maximum 10 files allowed."})
 
     const isEncrypted = isEnc === "on";
 
@@ -69,12 +69,12 @@ exports.create = async (req, res) => {
         }
     } else if (isEncrypted) {
         console.log("[❌ Error] Invalid encryption key length:", process.env.ENCRYPTION_KEY.length);
-        return res.status(500).json({ error: "Encryption key must be 32 bytes long" });
+        return res.status(500).json({ message: "Encryption key must be 32 bytes long" });
     }
 
     const unlockObj = new Date(unlockDate);
     if (isNaN(unlockObj.getTime())) {
-        return res.status(400).json({ error: "Invalid unlock date format"})
+        return res.status(400).json({ message: "Invalid unlock date format"})
     }
 
     const newCapsule = new Capsule({
