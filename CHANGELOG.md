@@ -13,6 +13,11 @@ Note that the displayed date is in the format `dd-mm-yyyy`
     - User verifies using the link sent
     - User can resend verification if link expires (expires in 1 day)
     - Added rate limit to 5 users per IP for the resend confirmation route
+    - Validate if the user is verified before allowing them to create capsules
+
+### Bugs Fixed
+
+- Configure express to trust specific proxy headers from process.env.TRUSTED_PROXIES
 
 ## [v1.0.1]
 
