@@ -12,8 +12,8 @@ exports.create = async (req, res) => {
         return res.status(400).json({ message: "Request body is required" });
     }
 
-    const user = await User.findById(req.user.id);
-    if (!user || !user.verified) {
+    const user = await User.findById(req.user.id).select("verified");
+    if (!user?.verified) {
         return res.status(403).json({ error: "You must verify your account before creating a capsule." });
     }
 
