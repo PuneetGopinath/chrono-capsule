@@ -18,6 +18,15 @@ const unlockCapsules = require("./utils/scheduler");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+if (process.env.TRUSTED_PROXIES && process.env.TRUSTED_PROXIES.length > 0) {
+    const trustedProxies = process.env.TRUSTED_PROXIES?.split(",").map(p => p.trim());
+    app.set("trust proxy", trustedProxies);
+    console.log("[✅ Info] Trusted proxies configured:", trustedProxies);
+} else {
+    app.set("trust proxy", "127.0.0.1"); // Default to localhost if no trusted proxies are set
+    console.log("[⚠️ Warning] No trusted proxies configured. Defaulting to localhost");
+}
+
 app.use(cors());
 app.use(express.json());
 app.use((req, res, next) => {
@@ -58,7 +67,7 @@ app.use("/api/auth", auth);
 
 app.use((err, req, res, next) => {
     console.log("[❌ Error] Message:", err.message);
-    res.status(500).json({ error: err.message || "Server error" });
+    res.status(500).json({ message: err.message || "Server error" });
 });
 
 (async () => {
