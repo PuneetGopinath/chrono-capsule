@@ -4,22 +4,75 @@
     License: MIT (see LICENSE)
 %>
 <!DOCTYPE html>
-<html>
-    <body style="font-family:Arial, sans-serif; line-height:1.6; color:#333;">
-        <div style="max-width:600px; margin:auto; padding:20px; box-sizing: border-box">
-            <h2 style="color: #4a90e2;">👋 Welcome to Chrono Capsule, <%= name %>!</h2>
-            <p>Before we start unlocking timelines, please verify your email:</p>
-            <a href="<%= verifyLink %>" style="padding: 10px 20px; background-color: #4b7bec; color: white; border-radius: 4px; text-decoration: none;">
-            Verify Email
-            </a>
-            <p style="color: #555;">This link expires in 24 hours.</p>
-            <p>If you didn't create an account, you can safely ignore this email.</p>
-            <p style="font-size: 1rem; color: #333;">Unable to click on the link above? Copy and paste this URL in your browser</p>
-            <a href="<%= verifyLink %>" style="color: #4b7bec; text-decoration: none;">
-                <%= verifyLink %>
-            </a>
-            <p style="font-size:0.9em; color:#666;">Thank you for using Chrono Capsule. Keep traveling through time responsibly ⏳</p>
-            <a href="<%= website %>" style="display:inline-block; padding:10px 15px;">Visit Chrono Capsule</a>
-        </div>
+<html lang="en">
+    <body style="font-family:Arial, sans-serif; color: #333; margin:0; padding:0;">
+        <!-- Outer container -->
+        <table
+            width="100%"
+            cellspacing="0"
+            cellpadding="0"
+            style="background-color: #f4f4f4; padding: 20px 0; margin: 0;"
+        >
+            <tr>
+                <td align="center">
+                <!-- Inner container -->
+                    <table
+                        width="600"
+                        cellpadding="0"
+                        cellspacing="0"
+                        style="background-color: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); line-height:1.6; color:#333;"
+                    >
+                        <!-- Logo placeholder -->
+                        <!-- <tr>
+                            <td align="center" style="padding: 20px;">
+                                <div style="width: 120px; height: 40px; background-color: #ddd; border-radius: 4px;">
+                                </div>
+                            </td>
+                        </tr> -->
+
+                        <!-- Header and Body -->
+                        <tr>
+                            <td style="padding: 0 40px 20px;">
+                                <h2 style="color: #4a90e2; margin-top: 5px;">👋 Welcome to Chrono Capsule, <%= name %>!</h2>
+                                <p>Click the button below to confirm your email address and start sending messages through time.</p>
+                                <p style="text-align: center; margin: 20px 0;">
+                                    <a
+                                        href="<%= verifyLink %>"
+                                        style="display: inline-block; padding: 10px 20px; background-color: #4b7bec; color: #fff; border-radius: 4px; text-decoration: none; font-weight: bold;"
+                                    >
+                                        Confirm Email
+                                    </a>
+                                </p>
+                                <p style="color:#555; margin-bottom:24px;">
+                                    This link expires in 24 hours.
+                                </p>
+                                <p>If you didn't create an account, you can safely ignore this email.</p>
+                                <p style="color: #333; font-size: 0.9em; margin-top: 24px;">If the button doesn’t work, copy and paste this link in your browser:</p>
+                                <p style="word-break: break-all; color: #4b7bec; font-size: 0.9em;">
+                                    <a href="<%= verifyLink %>" style="color: #4b7bec; text-decoration: none;">
+                                        <%= verifyLink %>
+                                    </a>
+                                </p>
+                            </td>
+                        </tr>
+
+                        <!-- Footer -->
+                        <tr>
+                            <td
+                                align="center"
+                                style="padding: 20px; background-color: #f5f5f5; font-size: 0.8em; color: #666; border-top: 1px solid #eaeaea;"
+                            >
+                                <p style="margin: 4px 0;">Thank you for using Chrono Capsule. Keep traveling through time responsibly ⏳</p>
+                                <p style="margin: 4px 0;">
+                                    <a href="<%= website %>" style="color: #4b7bec; text-decoration: none;">
+                                        Visit Chrono Capsule
+                                    </a>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
     </body>
 </html>
