@@ -29,8 +29,10 @@ exports.create = async (req, res) => {
         return res.status(400).json({ message: "Recipient name exceeds maximum length of 64 characters" });
     
     const d = new Date(unlockDate);
-    if (isNaN(d.getTime()) || d.getTime() < (Date.now() + 50 * 60 * 1000)) // Give them grace time, instead of 1 hour, a 50 min check at backend is good to go, UX is our priority
-        return res.status(400).json({ message: "Unlock date must be at least 50 minutes in the future at the time of submission."})
+    if (isNaN(d.getTime()))
+        return res.status(400).json({ message: "Invalid unlock date format" });
+    //if (isNaN(d.getTime()) || d.getTime() < (Date.now() + 50 * 60 * 1000)) // Give them grace time, instead of 1 hour, a 50 min check at backend is good to go, UX is our priority
+    //    return res.status(400).json({ message: "Unlock date must be at least 50 minutes in the future at the time of submission."})
 
     const cleanEmail = recipientEmail.trim().toLowerCase(); // Most email providers are case-insensitive
 

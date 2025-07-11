@@ -43,13 +43,14 @@ export default function CapsuleForm() {
 
     // Since this will run on client side, we automatically receive the local time.
     const min = new Date();
-    min.setHours(min.getHours() + 1); // Minimum unlock date is 1 hour from now
+    //min.setHours(min.getHours() + 1); // Minimum unlock date is 1 hour from now
+    min.setMinutes(min.getMinutes() + 5);
     min.setSeconds(0);
     min.setMilliseconds(0); // When we set the min value in the form, it auto truncates seconds and milliseconds, to make date validation work properly, we set them to 0
-    const valD = new Date();
-    valD.setFullYear(valD.getFullYear() + 1); // Default unlock date is 1 year from now
+    //const valD = new Date();
+    //valD.setFullYear(valD.getFullYear() + 1); // Default unlock date is 1 year from now
 
-    const [date, setDate] = useState(valD);
+    const [date, setDate] = useState(min); //useState(valD);
 
     const [ mediaLinks, setMediaLinks ] = useState([
         {
@@ -64,7 +65,8 @@ export default function CapsuleForm() {
         setFadeReset(true);
         setTimeout(() => {
             setSelectedLabel(null);
-            setDate(valD);
+            //setDate(valD);
+            setDate(min);
             setFadeReset(false);
         }, 200);
     };
@@ -76,10 +78,10 @@ export default function CapsuleForm() {
         const formData = new FormData(form);
         const obj = Object.fromEntries(formData.entries());
         console.log("Minimum:", min, "\nUnlock Date Submitted:", new Date(formData.get("unlockDate")));
-        if (new Date(formData.get("unlockDate")) < min) {
-            window.scrollTo(0, 0); // Scroll to top if error
-            return setError("Unlock Date must be at least 1 hour from now.");
-        }
+        //if (new Date(formData.get("unlockDate")) < min) {
+        //    window.scrollTo(0, 0); // Scroll to top if error
+        //    return setError("Unlock Date must be at least 1 hour from now.");
+        //}
 
         try {
             const res = await fetch("/api/capsules/create", {
@@ -96,7 +98,8 @@ export default function CapsuleForm() {
                 alert("Capsule created successfully!");
                 form.reset(); // Reset the form
                 setMessage("");
-                setDate(valD);
+                //setDate(valD);
+                setDate(min);
                 setSelectedLabel(null);
                 navigate("/");
             } else {
@@ -202,7 +205,7 @@ export default function CapsuleForm() {
                         Add More Media Links
                     </button>
 
-                    <label>Unlock Date:</label><small>At least an hour from now - by default, a year later</small>
+                    <label>Unlock Date:</label><small>Must be at least 5 minutes later - temporarily allowed</small>{/*<small>At least an hour from now - by default, a year later</small>*/}
                     <input
                         type="datetime-local"
                         name="unlockDate"
