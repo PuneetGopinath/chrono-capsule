@@ -31,7 +31,7 @@ const sendConfirmation = async (name, email, token) => {
         const info = await transporter.sendMail({
             from: `"Chrono Capsule" <${process.env.SMTP_SENDER || process.env.SMTP_USER}>`,
             to: email,
-            subject: "Confirm your Chrono Capsule account",
+            subject: `Confirm your Chrono Capsule account, ${name}!`,
             text,
             html
         });
