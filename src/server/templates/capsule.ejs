@@ -5,16 +5,60 @@
 %>
 <!DOCTYPE html>
 <html>
-    <body style="font-family:Arial, sans-serif; line-height:1.6; color:#333;">
-        <div style="max-width:600px; margin:auto; padding:20px; box-sizing: border-box">
-            <h2 style="color: #4a90e2;">📬 <span style="display:none;">New Capsule:</span> A Chrono Capsule Has Arrived!</h2>
-            <p>Hello <strong><%= name %></strong>,</p>
-            <p>🚀 The future has arrived...! A capsule addressed to you has just been unlocked—feel free to explore the message and any attached media.</p>
-            <blockquote style="font-size: 1.1em; color: #444; background: #f9f9f9; padding: 10px 15px; border-left: 4px solid #4a90e2;">
-                <%= msg %>
-            </blockquote>
-            <p style="font-size:0.9em; color:#666;">Thank you for using Chrono Capsule. Keep traveling through time responsibly ⏳</p>
-            <a href="<%= website %>" style="display:inline-block; padding:10px 15px;">Visit Chrono Capsule</a>
-        </div>
+    <body style="font-family:Arial, sans-serif; color: #333; margin:0; padding:0;">
+        <!-- Outer container -->
+        <table
+            width="100%"
+            cellspacing="0"
+            cellpadding="0"
+            style="background-color: #f4f4f4; padding: 20px 0; margin: 0;"
+        >
+            <tr>
+                <td align="center">
+                <!-- Inner container -->
+                    <table
+                        width="600"
+                        cellpadding="0"
+                        cellspacing="0"
+                        style="background-color: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); line-height:1.6; color:#333;"
+                    >
+                        <!-- Logo placeholder -->
+                        <!-- <tr>
+                            <td align="center" style="padding: 20px;">
+                                <div style="width: 120px; height: 40px; background-color: #ddd; border-radius: 4px;">
+                                </div>
+                            </td>
+                        </tr> -->
+
+                        <!-- Header and Body -->
+                        <tr>
+                            <td style="padding: 0 40px 20px;">
+                                <h2 style="color: #4a90e2; margin-top: 10px;">📬<span style="display:none;">New Capsule:</span> A Chrono Capsule Has Arrived!</h2>
+                                <p>Hello <strong><%= name %></strong>,</p>
+                                <p>🚀 The future has arrived...! A capsule addressed to you has just been unlocked—feel free to explore the message and any attached media.</p>
+                                <blockquote style="font-size: 1.1em; color: #444; background: #f9f9f9; padding: 10px 15px; border-left: 4px solid #4a90e2;">
+                                    <%= msg %>
+                                </blockquote>
+                            </td>
+                        </tr>
+
+                        <!-- Footer -->
+                        <tr>
+                            <td
+                                align="center"
+                                style="padding: 20px; background-color: #f5f5f5; font-size: 0.8em; color: #666; border-top: 1px solid #eaeaea;"
+                            >
+                                <p style="margin: 4px 0;">Thank you for using Chrono Capsule. Keep traveling through time responsibly ⏳</p>
+                                <p style="margin: 4px 0;">
+                                    <a href="<%= website %>" style="color: #4b7bec; text-decoration: none;">
+                                        Visit Chrono Capsule
+                                    </a>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
     </body>
 </html>
