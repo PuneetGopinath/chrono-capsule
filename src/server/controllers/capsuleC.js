@@ -95,7 +95,7 @@ exports.create = async (req, res) => {
     });
 
     const saved = await newCapsule.save();
-    console.log("[✅ Capsule Created] ID:", saved._id, "| Unlocks at:", saved.unlockDate.toISOString());
+    console.log("[✅ Capsule Created] ID:", saved._id.toHexString(), "| Unlocks at:", saved.unlockDate.toISOString());
     return res.status(201).json(saved);
 };
 
