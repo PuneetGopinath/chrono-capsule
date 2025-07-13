@@ -21,8 +21,9 @@ import Verify from "./components/Verify";
 import CapsuleForm from "./components/dashboard/CapsuleForm";
 
 export default function App() {
+    let savedTheme = localStorage.getItem("theme");
     useEffect(() => {
-        const savedTheme = localStorage.getItem("theme");
+        savedTheme = localStorage.getItem("theme");
 
         if (savedTheme === "light") {
             document.body.classList.remove("dark");
@@ -34,7 +35,7 @@ export default function App() {
     return (
         <>
             <BrowserRouter>
-                <Header />
+                <Header savedTheme={savedTheme}/>
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />

@@ -7,9 +7,9 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-export default function Header() {
+export default function Header({ savedTheme }) {
     const loggedIn = !!localStorage.getItem("token");
-    const [ isDark, setIsDark ] = useState(true);
+    const [ isDark, setIsDark ] = useState(savedTheme === "dark");
 
     const toggleTheme = () => {
         const is_dark = document.body.classList.toggle("dark");
