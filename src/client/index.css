@@ -71,6 +71,36 @@ body {
     100% { transform: rotate(360deg); }
 }
 
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,0.8);
+    z-index: 9999;
+}
+
+.dark .loading-container {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.loading-icon {
+    color: #4a90e2;
+    font-size: 48px;
+    margin-top: 20px;
+    animation: jump 0.8s ease-in-out infinite;
+}
+
+@keyframes jump {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
 .header {
     display: flex;
     align-items: center;
@@ -137,7 +167,8 @@ main {
 }
 
 .about-project,
-.about-author {
+.about-author,
+.credits {
     max-width: 600px;
     margin: 2rem auto;
     background: var(--bg-body);
@@ -148,20 +179,21 @@ main {
 
 @media (max-width: 600px) {
     .about-project,
-    .about-author {
+    .about-author,
+    .credits {
         padding: 1.5rem;
         margin: 1rem;
         font-size: 0.9rem;
     }
 }
 
-.about-author a {
+.about a {
     color: var(--accent);
     text-decoration: none;
     font-weight: 600;
 }
 
-.about-author a:hover {
+.about a:hover {
     color: var(--accent-hover);
 }
 

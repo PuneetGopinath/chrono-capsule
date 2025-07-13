@@ -6,7 +6,7 @@
 
 export default function About() {
     return (
-        <main>
+        <main className="about">
             <section className="about-project">
                 <h1>🪐 About Chrono Capsule</h1>
                 <p>
@@ -18,6 +18,14 @@ export default function About() {
                 <h1>👨‍💻 About the Author</h1>
                 <p>
                     Hi, I’m <strong>Puneet Gopinath</strong> — a developer, designer, and digital timekeeper. I created Chrono Capsule to explore the intersection of emotion and technology — and to build something that feels personal, purposeful, and a little poetic.<br /><br />When I’m not coding, I’m probably sketching ideas, chasing clean UI, or thinking about how software can feel more human.<br /><br />You can find more of my work on <a href="https://github.com/PuneetGopinath" target="_blank" rel="noopener noreferrer">GitHub</a> or reach out if you want to collaborate, chat, or send a message to the future.
+                </p>
+            </section>
+            <hr />
+            <section className="credits">
+                <h2>📋 Credits</h2>
+                <p>
+                We used hourglass-half icon from <a href="https://fontawesome.com/icons/hourglass-half?style=solid" target="_blank" rel="noopener noreferrer">Fonticons, Inc.</a>
+                , licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.
                 </p>
             </section>
         </main>
