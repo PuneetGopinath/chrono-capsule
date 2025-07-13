@@ -11,6 +11,6 @@ const { create, view } = require("../controllers/capsuleC");
 const asyncHandler = require("../utils/asyncHandler");
 
 router.post("/create", asyncHandler(create));
-router.post("/view", asyncHandler(view));
+router.get("/view", asyncHandler(view));
 
 module.exports = router;
