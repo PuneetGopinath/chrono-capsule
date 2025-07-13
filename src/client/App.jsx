@@ -10,7 +10,7 @@ import Home from "./components/Home";
 import About from "./components/About";
 import Register from "./components/Register";
 import Login from "./components/Login";
-import CapsuleForm from "./components/CapsuleForm";
+import CapsuleForm from "./components/dashboard/CapsuleForm";
 import Terms from "./components/Terms";
 import Privacy from "./components/Privacy";
 import Verify from "./components/Verify";
@@ -36,7 +36,7 @@ export default function App() {
                     <Route path="/about" element={<About />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/create" element={<CapsuleForm />} />
+                    <Route path="/dashboard/create" element={<CapsuleForm />} />
                     <Route path="/terms" element={<Terms />} />
                     <Route path="/privacy" element={<Privacy />} />
                     <Route path="/verify/:token" element={<Verify />} />

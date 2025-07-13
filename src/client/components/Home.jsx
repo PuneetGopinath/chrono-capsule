@@ -30,7 +30,7 @@ export default function Home() {
                     className="main-button"
                     onClick={() => {
                         if (loggedin)
-                            navigate("/create");
+                            navigate("/dashboard/create");
                         else
                             navigate("/register");
                     }}

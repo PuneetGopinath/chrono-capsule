@@ -22,7 +22,7 @@ export default function Header() {
             </div>
             <nav className="nav-links">
                 <Link to="/about">About</Link>
-                    {loggedIn ? <><Link to="/create">Create Capsule</Link><button onClick={() => {
+                    {loggedIn ? <><Link to="/dashboard/create">Create Capsule</Link><button onClick={() => {
                         localStorage.removeItem("token");
                         window.location.href = "/login";
                     }}>Logout</button></> : <><Link to="/login">Login</Link><Link to="/register">Register</Link></>}
