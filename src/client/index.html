@@ -12,26 +12,26 @@
         <meta name="theme-color" content="#4a90e2" />
         <meta name="description" content="Chrono Capsule - Time-locked messages, delivered from the future." />
 
+        <script>
+            // Load theme from localStorage to avoid flash of unstyled content
+            try {
+                const theme = localStorage.getItem("theme");
+                if (theme === "dark") {
+                    document.documentElement.classList.add("dark");
+                } else {
+                    document.documentElement.classList.add("light");
+                }
+            } catch (e) {
+                document.documentElement.classList.add("dark"); // Default to dark theme
+            }
+        </script>
+
         <title>Chrono Capsule</title>
         <!--link rel="icon" href="/favicon.ico"-->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="./index.css">
-
-        <script>
-            // Load theme from localStorage to avoid flash of unstyled content
-            try {
-                const theme = localStorage.getItem("theme");
-                if (theme === "dark") {
-                    document.body.classList.add("dark");
-                } else {
-                    document.body.classList.add("light");
-                }
-            } catch (e) {
-                document.body.classList.add("dark"); // Default to dark theme
-            }
-        </script>
     </head>
     <body>
         <div id="root"></div>

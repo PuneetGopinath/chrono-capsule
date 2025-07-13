@@ -26,9 +26,9 @@ export default function App() {
         savedTheme = localStorage.getItem("theme");
 
         if (savedTheme === "light") {
-            document.body.classList.remove("dark");
+            document.documentElement.classList.remove("dark");
         } else {
-            document.body.classList.add("dark");
+            document.documentElement.classList.add("dark");
         }
     }, []);
 

@@ -12,7 +12,7 @@ export default function Header({ savedTheme }) {
     const [ isDark, setIsDark ] = useState(savedTheme === "dark");
 
     const toggleTheme = () => {
-        const is_dark = document.body.classList.toggle("dark");
+        const is_dark = document.html.classList.toggle("dark");
         setIsDark(is_dark);
         localStorage.setItem("theme", is_dark ? "dark" : "light");
     };

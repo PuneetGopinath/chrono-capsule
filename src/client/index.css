@@ -15,6 +15,7 @@
     --bg-body: #ffffff;
     --bg-footer: #f1f3f6;
     --bg-darker: #bcbcbc;
+    --bg-loading: rgba(255, 255, 255, 0.8);
     --header-border: #ddd;
     --light-text: #444;
     --darker-text: #333;
@@ -27,13 +28,14 @@
     --chip-text: #333;
 }
 
-body.dark {
+html.dark {
     /* Colors for dark theme */
     --bg: #121212;
     --bg-header: #1e1e1e;
     --bg-body: #1a1a1a;
     --bg-footer: #181818;
     --bg-darker: #434343;
+    --bg-loading: rgba(0, 0, 0, 0.8);
     --header-border: #333;
     --light-text: #b0b0b0;
     --darker-text: #e0e0e0;
@@ -81,12 +83,8 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255,255,255,0.8);
+    background-color: var(--bg-loading);
     z-index: 9999;
-}
-
-.dark .loading-container {
-    background-color: rgba(0, 0, 0, 0.8);
 }
 
 .loading-icon {
@@ -195,6 +193,21 @@ main {
 
 .about a:hover {
     color: var(--accent-hover);
+}
+
+.capsule-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.capsule {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    max-width: 15rem;
 }
 
 .auth-button {
