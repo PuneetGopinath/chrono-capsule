@@ -19,13 +19,18 @@ Note that the displayed date is in the format `dd-mm-yyyy`
 
 - Configure express to trust specific proxy headers from process.env.TRUSTED_PROXIES [#14]
 
+### Refactorations
+
+- Upgrade EJS templates for emails that are sent and modify text in email confirmation template [#16]
+
+
 ## [v1.0.1]
 
 > **Released:** `06-07-2025`
 
 ### Bugs fixed
-- Introduced new environment variable SMTP_SENDER to define the visible `from` address in an email
-- SMTP Sender mismatch: Resolved email delivery failure due to a different SMTP Sender rather than the SMTP User
+- Introduced new environment variable SMTP_SENDER to define the visible `from` address in an email [#9]
+    - SMTP Sender mismatch: Resolved email delivery failure due to a different SMTP Sender rather than the SMTP User
 
 ## [v1.0.0]
 
@@ -76,7 +81,9 @@ No changes to code were made after the beta release — this version simply mark
 ### Chores
 - Bump nodemailer from 7.0.3 to 7.0.4 [#6](https://github.com/PuneetGopinath/chrono-capsule/pull/6)
 
+[#16]: https://github.com/PuneetGopinath/chrono-capsule/pull/16
 [#14]: https://github.com/PuneetGopinath/chrono-capsule/pull/14
+[#9]: https://github.com/PuneetGopinath/chrono-capsule/pull/9
 [#7]: https://github.com/PuneetGopinath/chrono-capsule/pull/7
 
 [v1.0.0]: https://github.com/PuneetGopinath/chrono-capsule/releases/tag/v1.0.0
