@@ -19,6 +19,7 @@ import Privacy from "./components/Privacy";
 import Verify from "./components/Verify";
 
 import CapsuleForm from "./components/dashboard/CapsuleForm";
+import CapsuleView from "./components/dashboard/CapsuleView";
 
 export default function App() {
     let savedTheme = localStorage.getItem("theme");
@@ -42,6 +43,7 @@ export default function App() {
                     <Route path="/register" element={<Register />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/dashboard/create" element={<CapsuleForm />} />
+                    <Route path="/dashboard/view" element={<CapsuleView />} />
                     <Route path="/terms" element={<Terms />} />
                     <Route path="/privacy" element={<Privacy />} />
                     <Route path="/verify/:token" element={<Verify />} />

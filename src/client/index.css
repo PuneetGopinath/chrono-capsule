@@ -16,9 +16,13 @@
     --bg-footer: #f1f3f6;
     --bg-darker: #bcbcbc;
     --bg-loading: rgba(255, 255, 255, 0.8);
+    --bg-pending: #fce4ec;
+    --bg-unlocked: #e6f4ea;
     --header-border: #ddd;
     --light-text: #444;
     --darker-text: #333;
+    --pending: #d81b60;
+    --unlocked: #2e7d32;
     --nav-links-hover: #0077ff;
     --text: #1a1a1a;
     --border: #ccc;
@@ -36,9 +40,13 @@ html.dark {
     --bg-footer: #181818;
     --bg-darker: #434343;
     --bg-loading: rgba(0, 0, 0, 0.8);
+    --bg-pending: #4b1c2a;
+    --bg-unlocked: #1c3b29;
     --header-border: #333;
     --light-text: #b0b0b0;
     --darker-text: #e0e0e0;
+    --pending: #ff8bb0;
+    --unlocked: #a1f3be;
     --text: #f5f5f5;
     --border: #444;
     --chip-bg: #2a2a2a;
@@ -203,11 +211,54 @@ main {
     gap: 1.5rem;
 }
 
-.capsule {
+.capsule-card {
+    background-color: var(--bg-header);
     border: 1px solid var(--border);
     border-radius: 8px;
-    padding: 1rem;
-    max-width: 15rem;
+    padding: 1rem 1.3rem;
+    margin: 12px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.capsule-card:hover {
+    background-color: var(--bg-body);
+    border-color: var(--accent);
+}
+
+.capsule-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.capsule-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--accent);
+}
+
+.capsule-status {
+    font-size: 0.9rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.capsule-status.pending {
+    background-color: var(--bg-pending);
+    color: var(--pending);
+}
+
+.capsule-status.unlocked {
+    background-color: var(--bg-unlocked);
+    color: var(--unlocked);
+}
+
+.capsule-details p {
+    margin: 6px 0;
+    font-size: 0.95rem;
 }
 
 .auth-button {
