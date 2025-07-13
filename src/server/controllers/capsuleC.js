@@ -99,11 +99,16 @@ exports.create = async (req, res) => {
     return res.status(201).json(saved);
 };
 
-exports.unlock = async (req, res) => {
+exports.view = async (req, res) => {
     const capsules = await Capsule.find({ 
-        userId: req.user.id, 
-        unlockDate: { $lte: new Date() }
+        userId: req.user.id,
     }).sort({ unlockDate: -1}); // Sort by unlock date, most recent first
 
-    return res.status(200).json(capsules);
+    return res.status(200).json(capsules.map(c => ({
+        _id: c._id.toHexString(),
+        recipient: c.recipient,
+        unlockDate: c.unlockDate.toISOString(),
+        createdAt: c.createdAt.toISOString(),
+        opened: c.opened,
+    })));
 };
