@@ -1,6 +1,8 @@
-// © 2025 Puneet Gopinath. All rights reserved.
-// Filename: src/client/components/Verify.jsx
-// License: MIT (see LICENSE)
+/**
+ * © 2025 Puneet Gopinath. All rights reserved.
+ * Filename: src/client/components/Verify.jsx
+ * License: MIT (see LICENSE)
+*/
 
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";

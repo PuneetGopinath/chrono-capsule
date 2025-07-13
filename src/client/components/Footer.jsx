@@ -1,6 +1,8 @@
-// © 2025 Puneet Gopinath. All rights reserved.
-// Filename: src/client/components/Footer.jsx
-// License: MIT (see LICENSE)
+/**
+ * © 2025 Puneet Gopinath. All rights reserved.
+ * Filename: src/client/components/Footer.jsx
+ * License: MIT (see LICENSE)
+*/
 
 import { Link } from "react-router-dom";
 

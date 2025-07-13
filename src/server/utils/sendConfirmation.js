@@ -1,6 +1,8 @@
-// © 2025 Puneet Gopinath. All rights reserved.
-// Filename: src/server/utils/sendConfirmation.js
-// License: MIT (see LICENSE)
+/**
+ * © 2025 Puneet Gopinath. All rights reserved.
+ * Filename: src/server/utils/sendConfirmation.js
+ * License: MIT (see LICENSE)
+*/
 
 const nodemailer = require("nodemailer");
 const ejs = require("ejs");

@@ -1,6 +1,8 @@
-// © 2025 Puneet Gopinath. All rights reserved.
-// Filename: src/client/components/LoggedIn.jsx
-// License: MIT (see LICENSE)
+/**
+ * © 2025 Puneet Gopinath. All rights reserved.
+ * Filename: src/client/components/LoggedIn.jsx
+ * License: MIT (see LICENSE)
+*/
 
 export default function LoggedIn({ text }) {
     return (
