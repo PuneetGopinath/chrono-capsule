@@ -86,7 +86,7 @@ export default function CapsuleView() {
                 : (
                     <div className="capsule-container">
                         {capsules.length > 0 ? capsules.map((c, i) => (
-                            <Capsule key={c._id} id={i + 1} capsule={{ ...c, unlockDate: new Date().toISOString() }} />
+                            <Capsule key={c._id} id={i + 1} capsule={{ ...c }} />
                         )) : <h1>You have created no capsules so far.</h1>}
                     </div>
                 )
