@@ -1,11 +1,11 @@
 // © 2025 Puneet Gopinath. All rights reserved.
-// Filename: src/client/components/CapsuleForm.jsx
+// Filename: src/client/components/dashboard/CapsuleForm.jsx
 // License: MIT (see LICENSE)
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import NotLoggedIn from "./NotLoggedIn";
+import NotLoggedIn from "../NotLoggedIn";
 
 const suggestions = [
     { text: "1 Hour", days: 0, hours: 1 },
