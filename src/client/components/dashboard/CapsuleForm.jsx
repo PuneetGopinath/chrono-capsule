@@ -100,7 +100,7 @@ export default function CapsuleForm() {
                 setMessage("");
                 setDate(valD);
                 setSelectedLabel(null);
-                navigate("/");
+                navigate("/dashboard/view");
             } else {
                 setError("Unable to create capsule: " + data.message || "An unknown error occurred.");
                 window.scrollTo(0, 0);
