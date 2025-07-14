@@ -1,6 +1,6 @@
 /**
  * © 2025 Puneet Gopinath. All rights reserved.
- * Filename: /server/utils/decrypt.js
+ * Filename: src/server/utils/decrypt.js
  * License: MIT (see LICENSE)
 */
 
