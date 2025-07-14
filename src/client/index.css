@@ -216,16 +216,19 @@ main {
     text-align: center;
 }
 
+.create-button {
+    background-color: var(--accent);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
 .create-button.empty {
     display: block;
     margin: 2rem auto;
     padding: 1rem 2rem;
     font-size: 1.2rem;
-    background-color: var(--accent);
-    color: #fff;
-    border: none;
     border-radius: 8px;
-    cursor: pointer;
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
@@ -237,11 +240,7 @@ main {
 .create-button.top {
     padding: 0.5rem 1rem;
     font-size: 0.95rem;
-    background-color: var(--accent);
-    color: #fff;
-    border: none;
     border-radius: 6px;
-    cursor: pointer;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
