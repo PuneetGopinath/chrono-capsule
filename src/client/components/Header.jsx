@@ -9,7 +9,7 @@ import { useState } from "react";
 
 export default function Header({ savedTheme }) {
     const loggedIn = !!localStorage.getItem("token");
-    const [ isDark, setIsDark ] = useState(savedTheme === "dark");
+    const [ isDark, setIsDark ] = useState(savedTheme() === "dark");
 
     const toggleTheme = () => {
         const is_dark = document.documentElement.classList.toggle("dark");

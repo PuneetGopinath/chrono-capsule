@@ -22,11 +22,9 @@ import CapsuleForm from "./components/dashboard/CapsuleForm";
 import CapsuleView from "./components/dashboard/CapsuleView";
 
 export default function App() {
-    let savedTheme = localStorage.getItem("theme");
+    const savedTheme = () => localStorage.getItem("theme");
     useEffect(() => {
-        savedTheme = localStorage.getItem("theme");
-
-        if (savedTheme === "light") {
+        if (savedTheme() === "light") {
             document.documentElement.classList.remove("dark");
         } else {
             document.documentElement.classList.add("dark");
