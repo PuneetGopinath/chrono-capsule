@@ -203,6 +203,54 @@ main {
     color: var(--accent-hover);
 }
 
+.capsule-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+}
+
+.capsule-header.empty {
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.create-button.empty {
+    display: block;
+    margin: 2rem auto;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    background-color: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.create-button.empty:hover {
+    transform: scale(1.05);
+    background-color: var(--accent-hover);
+}
+
+.create-button.top {
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    background-color: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.create-button.top:hover {
+    transform: scale(1.05);
+    background-color: var(--accent-hover);
+}
+
 .capsule-container {
     display: flex;
     flex-direction: row;
@@ -226,14 +274,14 @@ main {
     border-color: var(--accent);
 }
 
-.capsule-header {
+.capsule-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 12px;
 }
 
-.capsule-header h2 {
+.capsule-top h2 {
     margin: 0;
     font-size: 1.25rem;
     color: var(--accent);

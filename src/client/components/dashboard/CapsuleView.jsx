@@ -5,13 +5,15 @@
 */
 
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Loading from "../Loading.jsx";
 
 const Capsule = ({ capsule, id }) => {
     const d = new Date(capsule.unlockDate);
     return (
         <div className="capsule-card">
-            <div className="capsule-header">
+            <div className="capsule-top">
                 <h2>📦 Capsule #{id}</h2>
                 <span className={`capsule-status ${capsule.opened ? "unlocked" : "pending"}`}>
                     {capsule.opened ? "Unlocked" : "Pending"}
@@ -27,6 +29,8 @@ const Capsule = ({ capsule, id }) => {
 };
 
 export default function CapsuleView() {
+    const navigate = useNavigate();
+
     const [ loading, setLoading ] = useState(true);
     const [ capsules, setCapsules ] = useState([]);
 
@@ -84,11 +88,30 @@ export default function CapsuleView() {
                     </>
                 )
                 : (
-                    <div className="capsule-container">
-                        {capsules.length > 0 ? capsules.map((c, i) => (
-                            <Capsule key={c._id} id={i + 1} capsule={{ ...c }} />
-                        )) : <h1>You have created no capsules so far.</h1>}
-                    </div>
+                    <>
+                        <div className={`capsule-header${capsules.length > 0 ? "" : " empty"}`}>
+                            {
+                                capsules.length > 0
+                                    ? <>
+                                        <h1>Your Capsules</h1>
+                                        <button className="create-button top" onClick={() => navigate("/dashboard/create")}>Create a Capsule</button>
+                                    </>
+                                    : <>
+                                        <h2>You have created no capsules so far.</h2>
+                                        <button className="create-button empty" onClick={() => navigate("/dashboard/create")}>Create a Capsule</button>
+                                    </>
+                            }
+                        </div>
+                        <div className="capsule-container">
+                            {capsules.length > 0
+                                && (
+                                    capsules.map((c, i) => (
+                                        <Capsule key={c._id} id={i + 1} capsule={{ ...c }} />
+                                    ))
+                                )
+                            }
+                        </div>
+                    </>
                 )
             }
         </main>
