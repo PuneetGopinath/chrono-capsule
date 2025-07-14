@@ -14,12 +14,13 @@ Note that the displayed date is in the format `dd-mm-yyyy`
     - User can resend verification if link expires (expires in 1 day)
     - Added rate limit to 5 users per IP for the resend confirmation route
     - Validate that the user is verified before allowing capsule creation. [#14]
+- User can view created capsules in dashboard [#18]
 
 ### Bugs Fixed
 
 - Configure express to trust specific proxy headers from process.env.TRUSTED_PROXIES [#14]
 
-### Refactorations
+### Refactorings
 
 - Upgrade EJS templates for emails that are sent and modify text in email confirmation template [#16]
 
@@ -91,6 +92,7 @@ No changes to code were made after the beta release — this version simply mark
 - Bump nodemailer from 7.0.3 to 7.0.4 [#6](https://github.com/PuneetGopinath/chrono-capsule/pull/6)
 
 
+[#18]: https://github.com/PuneetGopinath/chrono-capsule/pull/18
 [#16]: https://github.com/PuneetGopinath/chrono-capsule/pull/16
 [#14]: https://github.com/PuneetGopinath/chrono-capsule/pull/14
 [#9]: https://github.com/PuneetGopinath/chrono-capsule/pull/9
