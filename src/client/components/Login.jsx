@@ -13,7 +13,7 @@ export default function Login({ data }) {
     const navigate = useNavigate();
     const { loggedIn, setLoggedIn } = data;
     if (loggedIn) {
-        return <LoggedIn text="To login into another account, you have to logout" />;
+        return <LoggedIn text="To login into another account, you have to logout" setLoggedIn={setLoggedIn} />;
     }
 
     const [ error, setError ] = useState(null);
