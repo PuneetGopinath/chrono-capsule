@@ -9,7 +9,6 @@ const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const cron = require("node-cron");
-//const path = require("path");
 
 const capsule = require("./routes/capsuleR");
 const auth = require("./routes/authR");
