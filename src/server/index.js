@@ -1,13 +1,14 @@
-// © 2025 Puneet Gopinath. All rights reserved.
-// Filename: src/server/index.js
-// License: MIT (see LICENSE)
+/**
+ * © 2025 Puneet Gopinath. All rights reserved.
+ * Filename: src/server/index.js
+ * License: MIT (see LICENSE)
+*/
 
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const cron = require("node-cron");
-//const path = require("path");
 
 const capsule = require("./routes/capsuleR");
 const auth = require("./routes/authR");
@@ -73,7 +74,6 @@ app.use((err, req, res, next) => {
 (async () => {
     await Database.connect();
     if (!Database.connected) {
-        console.error("[❌ Error] Failed to connect to the database. Exiting...");
         process.exit(1);
     }
     

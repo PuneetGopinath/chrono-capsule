@@ -1,6 +1,8 @@
-// © 2025 Puneet Gopinath. All rights reserved.
-// Filename: src/client/components/Verify.jsx
-// License: MIT (see LICENSE)
+/**
+ * © 2025 Puneet Gopinath. All rights reserved.
+ * Filename: src/client/components/Verify.jsx
+ * License: MIT (see LICENSE)
+*/
 
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -10,7 +12,9 @@ const isValidUUID = (token) => {
     return uuidValidate(token) && uuidVersion(token) === 4;
 };
 
-export default function Verify() {
+export default function Verify({ data }) {
+    const { loggedIn } = data;
+
     const navigate = useNavigate();
     const { token } = useParams();
 
@@ -20,8 +24,6 @@ export default function Verify() {
     const [ error, setError ] = useState(null);
     const [ notice, setNotice ] = useState(null);
     const [ cooldown, setCooldown ] = useState(0);
-
-    const loggedin = !!localStorage.getItem("token");
 
     const verify = async (token, signal) => {
         if (!isValidUUID(token)) {
@@ -61,22 +63,22 @@ export default function Verify() {
         const formData = new FormData(form);
         const email = formData.get("email").trim().toLowerCase();
 
-        if (!email && !loggedin)
+        if (!email && !loggedIn)
             return setError("Email is required to resend verification.");
         
-        if (!loggedin && !(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(email)) {
+        if (!loggedIn && !(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(email)) {
             return setError("Invalid email format.");
         }
 
         try {
             const headers = {
                 "Content-Type": "application/json",
-                ...(loggedin && { "Authorization": `Bearer ${localStorage.getItem("token")}` })
+                ...(loggedIn && { "Authorization": `Bearer ${localStorage.getItem("token")}` })
             };
             const res = await fetch("/api/auth/resend", {
                 method: "POST",
                 headers,
-                body: loggedin ? null : JSON.stringify({ email }),
+                body: loggedIn ? null : JSON.stringify({ email }),
             });
             const data = await res.json();
             if (res.ok) {
@@ -138,10 +140,14 @@ export default function Verify() {
                         <h1>Verification Failed</h1>
                         <p aria-live="polite">Error: {error?.message ?? error}</p>
                         <form onSubmit={handleResend} hidden={error?.verified ? true : false}>
-                            <label htmlFor="email" className={loggedin ? "hide" : ""}>Enter your email to resend verification:</label>
-                            <input type="email" id="email" name="email" placeholder="xyz@example.com" hidden={loggedin ? true : false} />
+                            {!loggedIn &&
+                                <>
+                                    <label htmlFor="email">Enter your email to resend verification:</label>
+                                    <input type="email" id="email" name="email" placeholder="xyz@example.com" />
+                                </>
+                            }
                             <button type="submit" disabled={cooldown > 0} className="auth-button">Resend Verification</button>
-                            <p className={`cooldown${cooldown > 0 ? "" : " hide"}`}>Try again in {cooldown} seconds.</p>
+                            {cooldown > 0 && <p className="cooldown">Try again in {cooldown} seconds.</p>}
                         </form>
                     </>
                 )

@@ -1,18 +1,24 @@
-// © 2025 Puneet Gopinath. All rights reserved.
-// Filename: src/client/components/Register.jsx
-// License: MIT (see LICENSE)
+/**
+ * © 2025 Puneet Gopinath. All rights reserved.
+ * Filename: src/client/components/Register.jsx
+ * License: MIT (see LICENSE)
+*/
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import LoggedIn from "./LoggedIn"
+import LoggedIn from "./LoggedIn";
 
-export default function Register() {
-    if (localStorage.getItem("token")) {
-        return <LoggedIn text="To register a new account, you have to logout" />;
+export default function Register({ data }) {
+    const { loggedIn, setLoggedIn } = data;
+    if (loggedIn) {
+        return <LoggedIn text="To register a new account, you have to logout" setLoggedIn={setLoggedIn} />;
     }
 
     const navigate = useNavigate();
+
+    const [ submitting, setSubmitting ] = useState(false);
+
     const [ error, setError ] = useState(null);
 
     const [ showPwd, setShowPwd ] = useState(false);
@@ -36,6 +42,7 @@ export default function Register() {
             const data = await res.json();
             if (res.ok) {
                 localStorage.setItem("token", data.token);
+                setLoggedIn(true);
                 console.log("[✅ Success] Logged in successfully!");
             } else {
                 console.log("[❌ Error] Login failed:", data.message);
@@ -48,6 +55,7 @@ export default function Register() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setSubmitting(true);
 
         const form = event.target;
         const formData = new FormData(form);
@@ -68,6 +76,7 @@ export default function Register() {
             });
             const data = await res.json();
 
+            setSubmitting(false);
             if (res.ok) {
                 alert("Registered successfully!");
                 console.log("[✅ Success] Registered successfully!");
@@ -79,6 +88,7 @@ export default function Register() {
                 window.scrollTo(0, 0);
             }
         } catch (err) {
+            setSubmitting(false);
             console.log("[❌ Error] Failed to register", err);
             setError("An error occured while trying to register. Please try again later.");
             window.scrollTo(0, 0);
@@ -135,7 +145,7 @@ export default function Register() {
                         <span className="view-button" id="confirmPassword" title="Show/Hide Confirm Password" onClick={toggleVisibility}>👁</span>
                     </div>
 
-                    <button type="submit">Register</button>
+                    <button type="submit" disabled={submitting}>Register</button>
                 </form>
             </div>
         </main>

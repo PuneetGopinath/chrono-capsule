@@ -1,6 +1,8 @@
-// © 2025 Puneet Gopinath. All rights reserved.
-// Filename: src/client/components/Privacy.jsx
-// License: MIT (see LICENSE)
+/**
+ * © 2025 Puneet Gopinath. All rights reserved.
+ * Filename: src/client/components/Privacy.jsx
+ * License: MIT (see LICENSE)
+*/
 
 export default function Privacy() {
     return (

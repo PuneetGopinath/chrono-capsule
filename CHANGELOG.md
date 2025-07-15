@@ -14,37 +14,53 @@ Note that the displayed date is in the format `dd-mm-yyyy`
     - User can resend verification if link expires (expires in 1 day)
     - Added rate limit to 5 users per IP for the resend confirmation route
     - Validate that the user is verified before allowing capsule creation. [#14]
+- User can view created capsules in dashboard [#18]
+    - Introduced `GET /api/capsules/view` - returns capsules created by the currently logged in user.
+    - Added Loading component that renders when the page loads.
 
 ### Bugs Fixed
 
 - Configure express to trust specific proxy headers from process.env.TRUSTED_PROXIES [#14]
+- UX enhancement: Disable submit buttons during form submission [#18]
+
+### Refactorings
+
+- Upgrade EJS templates for emails that are sent and modify text in email confirmation template [#16]
+- Update theme handling to set dark class to html tag instead of body & more... [#18]
+
 
 ## [v1.0.1]
 
 > **Released:** `06-07-2025`
 
 ### Bugs fixed
-- Introduced new environment variable SMTP_SENDER to define the visible `from` address in an email
-- SMTP Sender mismatch: Resolved email delivery failure due to a different SMTP Sender rather than the SMTP User
+
+- Introduced new environment variable SMTP_SENDER to define the visible `from` address in an email [#9]
+    - SMTP Sender mismatch: Resolved email delivery failure due to a different SMTP Sender rather than the SMTP User
+
 
 ## [v1.0.0]
 
 > **Released:** `05-07-2025`
 
 ### What’s Included
+
 All enhancements and fixes from the beta release:
 - Capsule unlock scheduler runs every 10 minutes for improved responsiveness
 - Production build bugs patched, including CSS import, route matching, and login redirect
 - Minor bug fixes
 
 ### 📦 Notes
+
 No changes to code were made after the beta release — this version simply marks the shift from "pre-release" to "stable". Ready for public use!
+
 
 ## [v1.0.0-beta]
 
 > **Released:** `04-07-2025`
 
 ### Bugs fixed
+
 - Import home.css in Home react component, otherwise it doesn't show up in production build
 - Fix bug in RegExp of route handling for production built files
 - Added a missing `await` keyword before ejs.renderFile to return string instead of a Promise
@@ -59,6 +75,7 @@ No changes to code were made after the beta release — this version simply mark
 > **Released:** `02-07-2025`
 
 ### Added features
+
 - Login & Register pages
 - Home & About pages
 - Also created placeholder for Privacy Policy, Terms & Conditions
@@ -71,12 +88,18 @@ No changes to code were made after the beta release — this version simply mark
 - Validate if unlock date is at least an hour later (frontend), 50 mins later (backend)
 
 ### Bugs fixed
+
 - If request body is empty, return status 400 in response
 
 ### Chores
+
 - Bump nodemailer from 7.0.3 to 7.0.4 [#6](https://github.com/PuneetGopinath/chrono-capsule/pull/6)
 
+
+[#18]: https://github.com/PuneetGopinath/chrono-capsule/pull/18
+[#16]: https://github.com/PuneetGopinath/chrono-capsule/pull/16
 [#14]: https://github.com/PuneetGopinath/chrono-capsule/pull/14
+[#9]: https://github.com/PuneetGopinath/chrono-capsule/pull/9
 [#7]: https://github.com/PuneetGopinath/chrono-capsule/pull/7
 
 [v1.0.0]: https://github.com/PuneetGopinath/chrono-capsule/releases/tag/v1.0.0

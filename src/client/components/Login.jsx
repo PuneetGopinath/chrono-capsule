@@ -1,14 +1,22 @@
-// © 2025 Puneet Gopinath. All rights reserved.
-// Filename: src/client/components/Login.jsx
-// License: MIT (see LICENSE)
+/**
+ * © 2025 Puneet Gopinath. All rights reserved.
+ * Filename: src/client/components/Login.jsx
+ * License: MIT (see LICENSE)
+*/
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import LoggedIn from "./LoggedIn";
 
-export default function Login() {
-    if (localStorage.getItem("token")) {
-        return <LoggedIn text="To login into another account, you have to logout" />;
+export default function Login({ data }) {
+    const navigate = useNavigate();
+
+    const [ submitting, setSubmitting ] = useState(false);
+    const { loggedIn, setLoggedIn } = data;
+
+    if (loggedIn) {
+        return <LoggedIn text="To login into another account, you have to logout" setLoggedIn={setLoggedIn} />;
     }
 
     const [ error, setError ] = useState(null);
@@ -24,6 +32,7 @@ export default function Login() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setSubmitting(true);
 
         const form = event.target;
         const formData = new FormData(form);
@@ -40,17 +49,20 @@ export default function Login() {
             });
             const data = await res.json();
 
+            setSubmitting(false);
             if (res.ok) {
                 alert("Logged in successfully!");
                 console.log("[✅ Success] Logged in successfully!");
                 localStorage.setItem("token", data.token);
-                window.location.href = "/"; // Redirect to home page
+                setLoggedIn(true);
+                navigate("/"); // Redirect to home page
             } else {
                 console.log("[❌ Error] Login failed:", data.message);
                 setError(data.message || "Login failed. Please check your credentials.");
                 window.scrollTo(0, 0);
             }
         } catch (err) {
+            setSubmitting(false);
             console.log("[❌ Error] Failed to login", err);
             setError("An error occured while trying to log in. Please try again later.");
             window.scrollTo(0, 0);
@@ -85,7 +97,7 @@ export default function Login() {
                         <span className="view-button" title="Show/Hide Password" onClick={toggleVisibility}>👁</span>
                     </div>
 
-                    <button type="submit">Login</button>
+                    <button type="submit" disabled={submitting}>Login</button>
                 </form>
             </div>
         </main>

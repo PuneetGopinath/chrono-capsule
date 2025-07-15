@@ -1,11 +1,13 @@
-// © 2025 Puneet Gopinath. All rights reserved.
-// Filename: src/client/components/CapsuleForm.jsx
-// License: MIT (see LICENSE)
+/**
+ * © 2025 Puneet Gopinath. All rights reserved.
+ * Filename: src/client/components/dashboard/CapsuleForm.jsx
+ * License: MIT (see LICENSE)
+*/
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import NotLoggedIn from "./NotLoggedIn";
+import NotLoggedIn from "../NotLoggedIn";
 
 const suggestions = [
     { text: "1 Hour", days: 0, hours: 1 },
@@ -35,8 +37,9 @@ export default function CapsuleForm() {
 
     const navigate = useNavigate();
 
+    const [ submitting, setSubmitting ] = useState(false);
     const [ error, setError ] = useState(null);
-    const [ error2, setError2 ] = useState(null);
+    const [ mediaError, setMediaError ] = useState(null);
 
     const [message, setMessage] = useState("");
     const maxChars = 5000;
@@ -71,6 +74,9 @@ export default function CapsuleForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault(); // Prevent refreshing the page
+        setSubmitting(true);
+        setError(null);
+        setMediaError(null);
 
         const form = event.target;
         const formData = new FormData(form);
@@ -92,19 +98,21 @@ export default function CapsuleForm() {
             });
             const data = await res.json();
 
+            setSubmitting(false);
             if (res.ok) {
                 alert("Capsule created successfully!");
                 form.reset(); // Reset the form
                 setMessage("");
                 setDate(valD);
                 setSelectedLabel(null);
-                navigate("/");
+                navigate("/dashboard/view");
             } else {
                 setError("Unable to create capsule: " + data.message || "An unknown error occurred.");
                 window.scrollTo(0, 0);
                 console.log("[❌ Error] details:", data);
             }
         } catch (err) {
+            setSubmitting(false);
             console.log("[❌ Error] Failed to create capsule:", err);
             setError("An error occurred while trying to create the capsule. Please try again later.");
             window.scrollTo(0, 0);
@@ -169,7 +177,7 @@ export default function CapsuleForm() {
                     <div>{message.length}/{maxChars} characters</div>
 
                     <label>Media Links (max 10):</label>
-                    {error2 && <div className="error-msg">{error2}</div>}
+                    {mediaError && <div className="error-msg">{mediaError}</div>}
                     {mediaLinks.map((obj, index) => {
                         return (<input
                             key={index}
@@ -190,11 +198,11 @@ export default function CapsuleForm() {
                         onClick={() => {
                             const count = mediaLinks.length;
                             if (count >= 10) {
-                                return setError2("You can only add up to 10 media links.");
+                                return setMediaError("You can only add up to 10 media links.");
                             }
                             const previousPath = mediaLinks[count - 1].path;
                             if (previousPath === "") {
-                                return setError2("Please fill the previous media link before adding a new one.");
+                                return setMediaError("Please fill the previous media link before adding a new one.");
                             }
                             setMediaLinks([...mediaLinks, { path: "" }]);
                         }}
@@ -243,7 +251,7 @@ export default function CapsuleForm() {
 
                     <input type="hidden" name="timezoneOffset" value={new Date().getTimezoneOffset()} />
 
-                    <button type="submit">Lock It In A Capsule</button>
+                    <button type="submit" disabled={submitting}>Lock It In A Capsule</button>
                 </form>
             </div>
         </main>

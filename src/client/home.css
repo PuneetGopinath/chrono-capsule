@@ -1,7 +1,7 @@
-/*
-    © 2025 Puneet Gopinath. All rights reserved.
-    Filename: src/client/home.css
-    License: MIT (see LICENSE)
+/**
+ * © 2025 Puneet Gopinath. All rights reserved.
+ * Filename: src/client/home.css
+ * License: MIT (see LICENSE)
 */
 
 * {
@@ -15,7 +15,7 @@
     --bg-btn-hover: #125ea0;
 }
 
-body.dark {
+html.dark {
     --color-1: #131c31;
     --color-2: #1e2c4a;
     --bg-btn: #6c63ff;
