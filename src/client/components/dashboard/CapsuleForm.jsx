@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import NotLoggedIn from "../NotLoggedIn";
+import { set } from "mongoose";
 
 const suggestions = [
     { text: "1 Hour", days: 0, hours: 1 },
@@ -37,6 +38,7 @@ export default function CapsuleForm() {
 
     const navigate = useNavigate();
 
+    const [ submitting, setSubmitting ] = useState(false);
     const [ error, setError ] = useState(null);
     const [ error2, setError2 ] = useState(null);
 
@@ -73,6 +75,9 @@ export default function CapsuleForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault(); // Prevent refreshing the page
+        setSubmitting(true);
+        setError(null);
+        setError2(null);
 
         const form = event.target;
         const formData = new FormData(form);
@@ -94,6 +99,7 @@ export default function CapsuleForm() {
             });
             const data = await res.json();
 
+            setSubmitting(false);
             if (res.ok) {
                 alert("Capsule created successfully!");
                 form.reset(); // Reset the form
@@ -107,6 +113,7 @@ export default function CapsuleForm() {
                 console.log("[❌ Error] details:", data);
             }
         } catch (err) {
+            setSubmitting(false);
             console.log("[❌ Error] Failed to create capsule:", err);
             setError("An error occurred while trying to create the capsule. Please try again later.");
             window.scrollTo(0, 0);
@@ -245,7 +252,7 @@ export default function CapsuleForm() {
 
                     <input type="hidden" name="timezoneOffset" value={new Date().getTimezoneOffset()} />
 
-                    <button type="submit">Lock It In A Capsule</button>
+                    <button type="submit" disabled={submitting}>Lock It In A Capsule</button>
                 </form>
             </div>
         </main>

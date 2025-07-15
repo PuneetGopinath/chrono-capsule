@@ -7,8 +7,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import LoggedIn from "./LoggedIn"
-import { set } from "mongoose";
+import LoggedIn from "./LoggedIn";
 
 export default function Register({ data }) {
     const { loggedIn, setLoggedIn } = data;
@@ -17,6 +16,9 @@ export default function Register({ data }) {
     }
 
     const navigate = useNavigate();
+
+    const [ submitting, setSubmitting ] = useState(false);
+
     const [ error, setError ] = useState(null);
 
     const [ showPwd, setShowPwd ] = useState(false);
@@ -53,6 +55,7 @@ export default function Register({ data }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setSubmitting(true);
 
         const form = event.target;
         const formData = new FormData(form);
@@ -73,6 +76,7 @@ export default function Register({ data }) {
             });
             const data = await res.json();
 
+            setSubmitting(false);
             if (res.ok) {
                 alert("Registered successfully!");
                 console.log("[✅ Success] Registered successfully!");
@@ -84,6 +88,7 @@ export default function Register({ data }) {
                 window.scrollTo(0, 0);
             }
         } catch (err) {
+            setSubmitting(false);
             console.log("[❌ Error] Failed to register", err);
             setError("An error occured while trying to register. Please try again later.");
             window.scrollTo(0, 0);
@@ -140,7 +145,7 @@ export default function Register({ data }) {
                         <span className="view-button" id="confirmPassword" title="Show/Hide Confirm Password" onClick={toggleVisibility}>👁</span>
                     </div>
 
-                    <button type="submit">Register</button>
+                    <button type="submit" disabled={submitting}>Register</button>
                 </form>
             </div>
         </main>

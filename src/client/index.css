@@ -628,13 +628,15 @@ input[type="datetime-local"] {
     }
 }
 
-button:disabled {
+button:disabled,
+button[type="submit"]:disabled {
     background-color: #ccc;
     color: #666;
     cursor: not-allowed;
 }
 
-button:disabled:hover {
+button:disabled:hover,
+button[type="submit"]:disabled:hover {
     transform: none;
     box-shadow: none;
     background-color: #ccc;

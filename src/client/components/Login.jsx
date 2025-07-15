@@ -8,10 +8,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import LoggedIn from "./LoggedIn";
+import { set } from "mongoose";
 
 export default function Login({ data }) {
     const navigate = useNavigate();
+
+    const [ submitting, setSubmitting ] = useState(false);
     const { loggedIn, setLoggedIn } = data;
+
     if (loggedIn) {
         return <LoggedIn text="To login into another account, you have to logout" setLoggedIn={setLoggedIn} />;
     }
@@ -29,6 +33,7 @@ export default function Login({ data }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setSubmitting(true);
 
         const form = event.target;
         const formData = new FormData(form);
@@ -45,6 +50,7 @@ export default function Login({ data }) {
             });
             const data = await res.json();
 
+            setSubmitting(false);
             if (res.ok) {
                 alert("Logged in successfully!");
                 console.log("[✅ Success] Logged in successfully!");
@@ -57,6 +63,7 @@ export default function Login({ data }) {
                 window.scrollTo(0, 0);
             }
         } catch (err) {
+            setSubmitting(false);
             console.log("[❌ Error] Failed to login", err);
             setError("An error occured while trying to log in. Please try again later.");
             window.scrollTo(0, 0);
@@ -91,7 +98,7 @@ export default function Login({ data }) {
                         <span className="view-button" title="Show/Hide Password" onClick={toggleVisibility}>👁</span>
                     </div>
 
-                    <button type="submit">Login</button>
+                    <button type="submit" disabled={submitting}>Login</button>
                 </form>
             </div>
         </main>
