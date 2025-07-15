@@ -95,6 +95,25 @@ body {
     z-index: 9999;
 }
 
+.loading-text {
+    display: block;
+    margin-top: 1rem;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--darker-text);
+    text-align: center;
+    animation: fadePulse 1.2s ease-in-out infinite;
+}
+
+@keyframes fadePulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.4;
+    }
+}
+
 .loading-icon {
     color: #4a90e2;
     font-size: 48px;
