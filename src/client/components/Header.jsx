@@ -8,6 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export default function Header({ savedTheme, data }) {
+    const { loggedIn, setLoggedIn } = data;
+    
     const navigate = useNavigate();
     
     const [ isDark, setIsDark ] = useState(savedTheme() === "dark");
@@ -27,6 +29,7 @@ export default function Header({ savedTheme, data }) {
                 <Link to="/about">About</Link>
                     {data.loggedIn ? <><Link to="/dashboard/create">Create Capsule</Link><button onClick={() => {
                         localStorage.removeItem("token");
+                        setLoggedIn(false);
                         navigate("/login");
                     }}>Logout</button></> : <><Link to="/login">Login</Link><Link to="/register">Register</Link></>}
             </nav>

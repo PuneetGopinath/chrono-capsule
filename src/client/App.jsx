@@ -36,7 +36,7 @@ export default function App() {
     return (
         <>
             <BrowserRouter>
-                <Header savedTheme={savedTheme} data={{ loggedIn }} />
+                <Header savedTheme={savedTheme} data={{ loggedIn, setLoggedIn }} />
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
