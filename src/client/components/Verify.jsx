@@ -140,7 +140,7 @@ export default function Verify({ data }) {
                         <h1>Verification Failed</h1>
                         <p aria-live="polite">Error: {error?.message ?? error}</p>
                         <form onSubmit={handleResend} hidden={error?.verified ? true : false}>
-                            {loggedIn &&
+                            {!loggedIn &&
                                 <>
                                     <label htmlFor="email">Enter your email to resend verification:</label>
                                     <input type="email" id="email" name="email" placeholder="xyz@example.com" />
