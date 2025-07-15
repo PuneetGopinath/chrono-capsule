@@ -5,10 +5,12 @@
 */
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import LoggedIn from "./LoggedIn";
 
 export default function Login({ data }) {
+    const navigate = useNavigate();
     const { loggedIn, setLoggedIn } = data;
     if (loggedIn) {
         return <LoggedIn text="To login into another account, you have to logout" />;
@@ -48,7 +50,7 @@ export default function Login({ data }) {
                 console.log("[✅ Success] Logged in successfully!");
                 localStorage.setItem("token", data.token);
                 setLoggedIn(true);
-                window.location.href = "/"; // Redirect to home page
+                navigate("/"); // Redirect to home page
             } else {
                 console.log("[❌ Error] Login failed:", data.message);
                 setError(data.message || "Login failed. Please check your credentials.");

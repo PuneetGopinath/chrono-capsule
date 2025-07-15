@@ -4,10 +4,12 @@
  * License: MIT (see LICENSE)
 */
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export default function Header({ savedTheme, data }) {
+    const navigate = useNavigate();
+    
     const [ isDark, setIsDark ] = useState(savedTheme() === "dark");
 
     const toggleTheme = () => {
@@ -25,7 +27,7 @@ export default function Header({ savedTheme, data }) {
                 <Link to="/about">About</Link>
                     {data.loggedIn ? <><Link to="/dashboard/create">Create Capsule</Link><button onClick={() => {
                         localStorage.removeItem("token");
-                        window.location.href = "/login";
+                        navigate("/login");
                     }}>Logout</button></> : <><Link to="/login">Login</Link><Link to="/register">Register</Link></>}
             </nav>
             <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle dark mode">
