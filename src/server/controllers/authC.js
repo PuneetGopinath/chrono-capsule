@@ -1,6 +1,8 @@
-// © 2025 Puneet Gopinath. All rights reserved.
-// Filename: src/server/controllers/authC.js
-// License: MIT (see LICENSE)
+/**
+ * © 2025 Puneet Gopinath. All rights reserved.
+ * Filename: src/server/controllers/authC.js
+ * License: MIT (see LICENSE)
+*/
 
 const { v4, validate: uuidValidate } = require("uuid");
 const bcrypt = require("bcryptjs");

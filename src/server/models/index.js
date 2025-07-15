@@ -1,6 +1,8 @@
-// © 2025 Puneet Gopinath. All rights reserved.
-// Filename: src/server/models/index.js
-// License: MIT (see LICENSE)
+/**
+ * © 2025 Puneet Gopinath. All rights reserved.
+ * Filename: src/server/models/index.js
+ * License: MIT (see LICENSE)
+*/
 
 const m = require("fs")
     .readdirSync(__dirname)

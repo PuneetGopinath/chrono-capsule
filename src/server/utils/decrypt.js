@@ -1,6 +1,8 @@
-// © 2025 Puneet Gopinath. All rights reserved.
-// Filename: src/server/utils/decrypt.js
-// License: MIT (see LICENSE)
+/**
+ * © 2025 Puneet Gopinath. All rights reserved.
+ * Filename: src/server/utils/decrypt.js
+ * License: MIT (see LICENSE)
+*/
 
 const crypto = require("crypto");
 

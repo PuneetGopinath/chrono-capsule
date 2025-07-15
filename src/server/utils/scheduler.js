@@ -1,6 +1,8 @@
-// © 2025 Puneet Gopinath. All rights reserved.
-// Filename: src/server/utils/scheduler.js
-// License: MIT (see LICENSE)
+/**
+ * © 2025 Puneet Gopinath. All rights reserved.
+ * Filename: src/server/utils/scheduler.js
+ * License: MIT (see LICENSE)
+*/
 
 const { Capsule } = require("../models");
 const mailer = require("./mailer");

@@ -1,6 +1,8 @@
-// © 2025 Puneet Gopinath. All rights reserved.
-// Filename: src/client/components/Home.jsx
-// License: MIT (see LICENSE)
+/**
+ * © 2025 Puneet Gopinath. All rights reserved.
+ * Filename: src/client/components/Home.jsx
+ * License: MIT (see LICENSE)
+*/
 
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -30,12 +32,12 @@ export default function Home() {
                     className="main-button"
                     onClick={() => {
                         if (loggedin)
-                            navigate("/create");
+                            navigate("/dashboard/view");
                         else
                             navigate("/register");
                     }}
                 >
-                    {loggedin ? "Create a Capsule" : "Get Started"}
+                    {loggedin ? "Go to Dashboard" : "Get Started"}
                 </button>
             </div>
             <strong>How it works?</strong>

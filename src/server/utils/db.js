@@ -1,6 +1,8 @@
-// © 2025 Puneet Gopinath. All rights reserved.
-// Filename: src/server/utils/db.js
-// License: MIT (see LICENSE)
+/**
+ * © 2025 Puneet Gopinath. All rights reserved.
+ * Filename: src/server/utils/db.js
+ * License: MIT (see LICENSE)
+*/
 
 module.exports = class Database {
     constructor() {
@@ -12,11 +14,11 @@ module.exports = class Database {
         await require("mongoose")
             .connect(process.env.MONGO_URI)
             .then(() => {
-                console.log("Database connected successfully");
+                console.log("[✅ Info] Database connected successfully.");
                 this.connected = true;
             })
             .catch((err) => {
-                console.log("Database connection error:", err.message);
+                console.log("[❌ Error] Failed to connect to the database:", err.message);
             });
         return this.connected;
     }

@@ -1,16 +1,21 @@
-// © 2025 Puneet Gopinath. All rights reserved.
-// Filename: src/client/Header.jsx
-// License: MIT (see LICENSE)
+/**
+ * © 2025 Puneet Gopinath. All rights reserved.
+ * Filename: src/client/Header.jsx
+ * License: MIT (see LICENSE)
+*/
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-export default function Header() {
-    const loggedIn = !!localStorage.getItem("token");
-    const [ isDark, setIsDark ] = useState(true);
+export default function Header({ savedTheme, data }) {
+    const { loggedIn, setLoggedIn } = data;
+    
+    const navigate = useNavigate();
+    
+    const [ isDark, setIsDark ] = useState(savedTheme() === "dark");
 
     const toggleTheme = () => {
-        const is_dark = document.body.classList.toggle("dark");
+        const is_dark = document.documentElement.classList.toggle("dark");
         setIsDark(is_dark);
         localStorage.setItem("theme", is_dark ? "dark" : "light");
     };
@@ -22,9 +27,10 @@ export default function Header() {
             </div>
             <nav className="nav-links">
                 <Link to="/about">About</Link>
-                    {loggedIn ? <><Link to="/create">Create Capsule</Link><button onClick={() => {
+                    {data.loggedIn ? <><Link to="/dashboard/create">Create Capsule</Link><button onClick={() => {
                         localStorage.removeItem("token");
-                        window.location.href = "/login";
+                        setLoggedIn(false);
+                        navigate("/login");
                     }}>Logout</button></> : <><Link to="/login">Login</Link><Link to="/register">Register</Link></>}
             </nav>
             <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle dark mode">

@@ -1,6 +1,8 @@
-// © 2025 Puneet Gopinath. All rights reserved.
-// Filename: src/server/controllers/capsuleC.js
-// License: MIT (see LICENSE)
+/**
+ * © 2025 Puneet Gopinath. All rights reserved.
+ * Filename: src/server/controllers/capsuleC.js
+ * License: MIT (see LICENSE)
+*/
 
 const crypto = require("crypto");
 
@@ -101,11 +103,20 @@ exports.create = async (req, res) => {
     return res.status(201).json(saved);
 };
 
-exports.unlock = async (req, res) => {
-    const capsules = await Capsule.find({ 
-        userId: req.user.id, 
-        unlockDate: { $lte: new Date() }
-    }).sort({ unlockDate: -1}); // Sort by unlock date, most recent first
+exports.view = async (req, res) => {
+    if (!req.user) return res.status(401).json({ message: "Unauthorized" });
+    const capsules = await Capsule
+        .find({ 
+            userId: req.user.id,
+        })
+        .sort({ unlockDate: -1}) // Sort by unlock date, most recent first
+        .lean(); // Returns plain object, improves performance
 
-    return res.status(200).json(capsules);
+    return res.status(200).json(capsules.map(c => ({
+        _id: c._id.toHexString(),
+        recipient: c.recipient,
+        unlockDate: c.unlockDate.toISOString(),
+        createdAt: c.createdAt.toISOString(),
+        opened: c.opened,
+    })));
 };

@@ -1,7 +1,7 @@
-/*
-    © 2025 Puneet Gopinath. All rights reserved.
-    Filename: src/client/index.css
-    License: MIT (see LICENSE)
+/**
+ * © 2025 Puneet Gopinath. All rights reserved.
+ * Filename: src/client/index.css
+ * License: MIT (see LICENSE)
 */
 
 * {
@@ -15,9 +15,14 @@
     --bg-body: #ffffff;
     --bg-footer: #f1f3f6;
     --bg-darker: #bcbcbc;
+    --bg-loading: rgba(255, 255, 255, 0.8);
+    --bg-pending: #fce4ec;
+    --bg-unlocked: #e6f4ea;
     --header-border: #ddd;
     --light-text: #444;
     --darker-text: #333;
+    --pending: #d81b60;
+    --unlocked: #2e7d32;
     --nav-links-hover: #0077ff;
     --text: #1a1a1a;
     --border: #ccc;
@@ -27,16 +32,21 @@
     --chip-text: #333;
 }
 
-body.dark {
+html.dark {
     /* Colors for dark theme */
     --bg: #121212;
     --bg-header: #1e1e1e;
     --bg-body: #1a1a1a;
     --bg-footer: #181818;
     --bg-darker: #434343;
+    --bg-loading: rgba(0, 0, 0, 0.8);
+    --bg-pending: #4b1c2a;
+    --bg-unlocked: #1c3b29;
     --header-border: #333;
     --light-text: #b0b0b0;
     --darker-text: #e0e0e0;
+    --pending: #ff8bb0;
+    --unlocked: #a1f3be;
     --text: #f5f5f5;
     --border: #444;
     --chip-bg: #2a2a2a;
@@ -69,6 +79,51 @@ body {
 @keyframes spin {
     0%   { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-loading);
+    z-index: 9999;
+}
+
+.loading-text {
+    display: block;
+    margin-top: 1rem;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--darker-text);
+    text-align: center;
+    animation: fadePulse 1.2s ease-in-out infinite;
+}
+
+@keyframes fadePulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.4;
+    }
+}
+
+.loading-icon {
+    color: #4a90e2;
+    font-size: 48px;
+    margin-top: 20px;
+    animation: jump 0.8s ease-in-out infinite;
+}
+
+@keyframes jump {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
 }
 
 .header {
@@ -137,7 +192,8 @@ main {
 }
 
 .about-project,
-.about-author {
+.about-author,
+.credits {
     max-width: 600px;
     margin: 2rem auto;
     background: var(--bg-body);
@@ -148,26 +204,133 @@ main {
 
 @media (max-width: 600px) {
     .about-project,
-    .about-author {
+    .about-author,
+    .credits {
         padding: 1.5rem;
         margin: 1rem;
         font-size: 0.9rem;
     }
 }
 
-.about-author a {
+.about a {
     color: var(--accent);
     text-decoration: none;
     font-weight: 600;
 }
 
-.about-author a:hover {
+.about a:hover {
     color: var(--accent-hover);
+}
+
+.capsule-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+}
+
+.capsule-header.empty {
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.create-button {
+    background-color: var(--accent);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.create-button.empty {
+    display: block;
+    margin: 2rem auto;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.create-button.empty:hover {
+    transform: scale(1.05);
+    background-color: var(--accent-hover);
+}
+
+.create-button.top {
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.create-button.top:hover {
+    transform: scale(1.05);
+    background-color: var(--accent-hover);
+}
+
+.capsule-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.capsule-card {
+    background-color: var(--bg-header);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.3rem;
+    margin: 12px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.capsule-card:hover {
+    background-color: var(--bg-body);
+    border-color: var(--accent);
+}
+
+.capsule-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.capsule-top h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--accent);
+}
+
+.capsule-status {
+    font-size: 0.9rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.capsule-status.pending {
+    background-color: var(--bg-pending);
+    color: var(--pending);
+}
+
+.capsule-status.unlocked {
+    background-color: var(--bg-unlocked);
+    color: var(--unlocked);
+}
+
+.capsule-details p {
+    margin: 6px 0;
+    font-size: 0.95rem;
 }
 
 .auth-button {
     border: none;
     padding: 0.75rem 1.5rem;
+    margin: 1rem auto;
     border-radius: 8px;
     background-color: var(--accent);
     text-decoration: none;
@@ -200,6 +363,19 @@ main {
 .form-container h2 {
     margin-bottom: 1.5rem;
     color: var(--darker-text);
+}
+
+.error-container {
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin: 2rem auto;
+}
+
+.error-container div,
+.error-container p,
+.error-container small {
+    margin: 0.5rem 0 2rem;
 }
 
 .error-msg {
@@ -471,13 +647,15 @@ input[type="datetime-local"] {
     }
 }
 
-button:disabled {
+button:disabled,
+button[type="submit"]:disabled {
     background-color: #ccc;
     color: #666;
     cursor: not-allowed;
 }
 
-button:disabled:hover {
+button:disabled:hover,
+button[type="submit"]:disabled:hover {
     transform: none;
     box-shadow: none;
     background-color: #ccc;

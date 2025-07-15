@@ -12,6 +12,20 @@
         <meta name="theme-color" content="#4a90e2" />
         <meta name="description" content="Chrono Capsule - Time-locked messages, delivered from the future." />
 
+        <script>
+            // Load theme from localStorage to avoid flash of unstyled content
+            try {
+                const theme = localStorage.getItem("theme");
+                if (theme === "dark") {
+                    document.documentElement.classList.add("dark");
+                } else {
+                    document.documentElement.classList.add("light");
+                }
+            } catch (e) {
+                document.documentElement.classList.add("dark"); // Default to dark theme
+            }
+        </script>
+
         <title>Chrono Capsule</title>
         <!--link rel="icon" href="/favicon.ico"-->
         <link rel="preconnect" href="https://fonts.googleapis.com">
