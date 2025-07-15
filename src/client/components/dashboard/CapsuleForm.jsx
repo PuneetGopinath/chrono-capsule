@@ -8,7 +8,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import NotLoggedIn from "../NotLoggedIn";
-import { set } from "mongoose";
 
 const suggestions = [
     { text: "1 Hour", days: 0, hours: 1 },

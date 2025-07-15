@@ -8,7 +8,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import LoggedIn from "./LoggedIn";
-import { set } from "mongoose";
 
 export default function Login({ data }) {
     const navigate = useNavigate();
