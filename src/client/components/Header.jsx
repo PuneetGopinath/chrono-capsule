@@ -7,8 +7,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-export default function Header({ savedTheme }) {
-    const loggedIn = !!localStorage.getItem("token");
+export default function Header({ savedTheme, data }) {
     const [ isDark, setIsDark ] = useState(savedTheme() === "dark");
 
     const toggleTheme = () => {
@@ -24,7 +23,7 @@ export default function Header({ savedTheme }) {
             </div>
             <nav className="nav-links">
                 <Link to="/about">About</Link>
-                    {loggedIn ? <><Link to="/dashboard/create">Create Capsule</Link><button onClick={() => {
+                    {data.loggedIn ? <><Link to="/dashboard/create">Create Capsule</Link><button onClick={() => {
                         localStorage.removeItem("token");
                         window.location.href = "/login";
                     }}>Logout</button></> : <><Link to="/login">Login</Link><Link to="/register">Register</Link></>}

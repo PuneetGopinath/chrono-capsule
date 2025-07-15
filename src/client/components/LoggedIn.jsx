@@ -4,13 +4,14 @@
  * License: MIT (see LICENSE)
 */
 
-export default function LoggedIn({ text }) {
+export default function LoggedIn({ text, setLoggedIn }) {
     return (
         <main>
             <h1>You're already logged in</h1>
             <p>{text}</p>
             <button className="auth-button" onClick={() => {
                 localStorage.removeItem("token");
+                setLoggedIn(false);
                 window.location.href = "/login"; // Redirect to login page
                 // Since we are modifying localStorage, we have to reload the page to reflect the changes
             }}>Logout</button>

@@ -5,7 +5,7 @@
 */
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -22,6 +22,8 @@ import CapsuleForm from "./components/dashboard/CapsuleForm";
 import CapsuleView from "./components/dashboard/CapsuleView";
 
 export default function App() {
+    const [ loggedIn, setLoggedIn ] = useState(!!localStorage.getItem("token"));
+
     const savedTheme = () => localStorage.getItem("theme");
     useEffect(() => {
         if (savedTheme() === "light") {
@@ -34,17 +36,17 @@ export default function App() {
     return (
         <>
             <BrowserRouter>
-                <Header savedTheme={savedTheme}/>
+                <Header savedTheme={savedTheme} data={{ loggedIn }} />
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/dashboard/create" element={<CapsuleForm />} />
-                    <Route path="/dashboard/view" element={<CapsuleView />} />
+                    <Route path="/register" element={<Register data={{ loggedIn, setLoggedIn }} />} />
+                    <Route path="/login" element={<Login data={{ loggedIn, setLoggedIn }} />} />
+                    <Route path="/dashboard/create" element={<CapsuleForm data={{ loggedIn }} />} />
+                    <Route path="/dashboard/view" element={<CapsuleView data={{ loggedIn }} />} />
                     <Route path="/terms" element={<Terms />} />
                     <Route path="/privacy" element={<Privacy />} />
-                    <Route path="/verify/:token" element={<Verify />} />
+                    <Route path="/verify/:token" element={<Verify data={{ loggedIn }} />} />
                     <Route path="*" element={<h1>404 Not Found</h1>} />
                 </Routes>
                 <Footer />

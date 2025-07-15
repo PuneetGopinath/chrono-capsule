@@ -8,8 +8,9 @@ import { useState } from "react";
 
 import LoggedIn from "./LoggedIn";
 
-export default function Login() {
-    if (localStorage.getItem("token")) {
+export default function Login({ data }) {
+    const { loggedIn, setLoggedIn } = data;
+    if (loggedIn) {
         return <LoggedIn text="To login into another account, you have to logout" />;
     }
 
@@ -46,6 +47,7 @@ export default function Login() {
                 alert("Logged in successfully!");
                 console.log("[✅ Success] Logged in successfully!");
                 localStorage.setItem("token", data.token);
+                setLoggedIn(true);
                 window.location.href = "/"; // Redirect to home page
             } else {
                 console.log("[❌ Error] Login failed:", data.message);

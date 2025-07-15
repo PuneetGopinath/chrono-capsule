@@ -12,7 +12,9 @@ const isValidUUID = (token) => {
     return uuidValidate(token) && uuidVersion(token) === 4;
 };
 
-export default function Verify() {
+export default function Verify({ data }) {
+    const { loggedin } = data;
+    
     const navigate = useNavigate();
     const { token } = useParams();
 
@@ -22,8 +24,6 @@ export default function Verify() {
     const [ error, setError ] = useState(null);
     const [ notice, setNotice ] = useState(null);
     const [ cooldown, setCooldown ] = useState(0);
-
-    const loggedin = !!localStorage.getItem("token");
 
     const verify = async (token, signal) => {
         if (!isValidUUID(token)) {

@@ -8,10 +8,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import LoggedIn from "./LoggedIn"
+import { set } from "mongoose";
 
-export default function Register() {
-    if (localStorage.getItem("token")) {
-        return <LoggedIn text="To register a new account, you have to logout" />;
+export default function Register({ data }) {
+    const { loggedIn, setLoggedIn } = data;
+    if (loggedIn) {
+        return <LoggedIn text="To register a new account, you have to logout" setLoggedIn={setLoggedIn} />;
     }
 
     const navigate = useNavigate();
@@ -38,6 +40,7 @@ export default function Register() {
             const data = await res.json();
             if (res.ok) {
                 localStorage.setItem("token", data.token);
+                setLoggedIn(true);
                 console.log("[✅ Success] Logged in successfully!");
             } else {
                 console.log("[❌ Error] Login failed:", data.message);
