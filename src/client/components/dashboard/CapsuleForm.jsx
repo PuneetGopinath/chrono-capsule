@@ -39,7 +39,7 @@ export default function CapsuleForm() {
 
     const [ submitting, setSubmitting ] = useState(false);
     const [ error, setError ] = useState(null);
-    const [ error2, setError2 ] = useState(null);
+    const [ mediaError, setMediaError ] = useState(null);
 
     const [message, setMessage] = useState("");
     const maxChars = 5000;
@@ -76,7 +76,7 @@ export default function CapsuleForm() {
         event.preventDefault(); // Prevent refreshing the page
         setSubmitting(true);
         setError(null);
-        setError2(null);
+        setMediaError(null);
 
         const form = event.target;
         const formData = new FormData(form);
@@ -177,7 +177,7 @@ export default function CapsuleForm() {
                     <div>{message.length}/{maxChars} characters</div>
 
                     <label>Media Links (max 10):</label>
-                    {error2 && <div className="error-msg">{error2}</div>}
+                    {mediaError && <div className="error-msg">{mediaError}</div>}
                     {mediaLinks.map((obj, index) => {
                         return (<input
                             key={index}
@@ -198,11 +198,11 @@ export default function CapsuleForm() {
                         onClick={() => {
                             const count = mediaLinks.length;
                             if (count >= 10) {
-                                return setError2("You can only add up to 10 media links.");
+                                return setMediaError("You can only add up to 10 media links.");
                             }
                             const previousPath = mediaLinks[count - 1].path;
                             if (previousPath === "") {
-                                return setError2("Please fill the previous media link before adding a new one.");
+                                return setMediaError("Please fill the previous media link before adding a new one.");
                             }
                             setMediaLinks([...mediaLinks, { path: "" }]);
                         }}
