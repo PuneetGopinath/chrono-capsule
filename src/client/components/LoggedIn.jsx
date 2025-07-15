@@ -4,7 +4,10 @@
  * License: MIT (see LICENSE)
 */
 
+import { useNavigate } from "react-router-dom";
+
 export default function LoggedIn({ text, setLoggedIn }) {
+    const navigate = useNavigate();
     
     return (
         <main>
@@ -13,7 +16,7 @@ export default function LoggedIn({ text, setLoggedIn }) {
             <button className="auth-button" onClick={() => {
                 localStorage.removeItem("token");
                 setLoggedIn(false);
-                window.location.href = "/login"; // Redirect to login page
+                navigate("/login"); // Redirect to login page
                 // Since we are modifying localStorage, we have to reload the page to reflect the changes
             }}>Logout</button>
         </main>
