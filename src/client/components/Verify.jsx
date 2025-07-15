@@ -14,7 +14,7 @@ const isValidUUID = (token) => {
 
 export default function Verify({ data }) {
     const { loggedin } = data;
-    
+
     const navigate = useNavigate();
     const { token } = useParams();
 
@@ -140,10 +140,14 @@ export default function Verify({ data }) {
                         <h1>Verification Failed</h1>
                         <p aria-live="polite">Error: {error?.message ?? error}</p>
                         <form onSubmit={handleResend} hidden={error?.verified ? true : false}>
-                            <label htmlFor="email" className={loggedin ? "hide" : ""}>Enter your email to resend verification:</label>
-                            <input type="email" id="email" name="email" placeholder="xyz@example.com" hidden={loggedin ? true : false} />
+                            {loggedin &&
+                                <>
+                                    <label htmlFor="email">Enter your email to resend verification:</label>
+                                    <input type="email" id="email" name="email" placeholder="xyz@example.com" />
+                                </>
+                            }
                             <button type="submit" disabled={cooldown > 0} className="auth-button">Resend Verification</button>
-                            <p className={`cooldown${cooldown > 0 ? "" : " hide"}`}>Try again in {cooldown} seconds.</p>
+                            {cooldown > 0 && <p className="cooldown">Try again in {cooldown} seconds.</p>}
                         </form>
                     </>
                 )
