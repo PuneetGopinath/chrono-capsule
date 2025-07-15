@@ -16,6 +16,7 @@ Note that the displayed date is in the format `dd-mm-yyyy`
     - Validate that the user is verified before allowing capsule creation. [#14]
 - User can view created capsules in dashboard [#18]
     - Introduced `GET /api/capsules/view` - returns capsules created by the currently logged in user.
+    - Added Loading component that renders when the page loads.
 
 ### Bugs Fixed
 
