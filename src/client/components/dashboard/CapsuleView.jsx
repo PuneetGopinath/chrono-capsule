@@ -32,6 +32,7 @@ export default function CapsuleView() {
     const navigate = useNavigate();
 
     const [ loading, setLoading ] = useState(true);
+    const [ error, setError ] = useState(null);
     const [ capsules, setCapsules ] = useState([]);
 
     const sampleData = [
@@ -44,7 +45,7 @@ export default function CapsuleView() {
             opened: false
         }
     ];
-    sampleData.push({ ...sampleData[0], _id: "2" });
+    sampleData.push({ ...sampleData[0], _id: "2", opened: true });
     sampleData.push({ ...sampleData[0], _id: "3" });
 
     const fetchC = async () => {
@@ -60,9 +61,11 @@ export default function CapsuleView() {
                 setCapsules(data);
             } else {
                 console.log("Error fetching capsules [BACKEND]:", data.message);
+                setError("Failed to fetch capsules." + (data?.message ? ` Error: ${data.message}` : " Please try again later."));
             }
         } catch (err) {
             console.log("Error fetching capsules [FRONTEND]:", err);
+            setError("An unknown error occurred while fetching capsules. Please try again later.");
         } finally {
             setLoading(false);
         }
@@ -88,7 +91,14 @@ export default function CapsuleView() {
                     </>
                 )
                 : (
-                    <>
+                    error
+                        ? (
+                            <div className="error-msg">
+                                <h2>An Error Occurred!</h2>
+                                <p>{error}</p>
+                            </div>
+                        )
+                        : <>
                         <div className={`capsule-header${capsules.length > 0 ? "" : " empty"}`}>
                             {
                                 capsules.length > 0
