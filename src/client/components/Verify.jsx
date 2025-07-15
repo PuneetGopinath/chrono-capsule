@@ -13,7 +13,7 @@ const isValidUUID = (token) => {
 };
 
 export default function Verify({ data }) {
-    const { loggedin } = data;
+    const { loggedIn } = data;
 
     const navigate = useNavigate();
     const { token } = useParams();
@@ -63,22 +63,22 @@ export default function Verify({ data }) {
         const formData = new FormData(form);
         const email = formData.get("email").trim().toLowerCase();
 
-        if (!email && !loggedin)
+        if (!email && !loggedIn)
             return setError("Email is required to resend verification.");
         
-        if (!loggedin && !(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(email)) {
+        if (!loggedIn && !(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(email)) {
             return setError("Invalid email format.");
         }
 
         try {
             const headers = {
                 "Content-Type": "application/json",
-                ...(loggedin && { "Authorization": `Bearer ${localStorage.getItem("token")}` })
+                ...(loggedIn && { "Authorization": `Bearer ${localStorage.getItem("token")}` })
             };
             const res = await fetch("/api/auth/resend", {
                 method: "POST",
                 headers,
-                body: loggedin ? null : JSON.stringify({ email }),
+                body: loggedIn ? null : JSON.stringify({ email }),
             });
             const data = await res.json();
             if (res.ok) {
@@ -140,7 +140,7 @@ export default function Verify({ data }) {
                         <h1>Verification Failed</h1>
                         <p aria-live="polite">Error: {error?.message ?? error}</p>
                         <form onSubmit={handleResend} hidden={error?.verified ? true : false}>
-                            {loggedin &&
+                            {loggedIn &&
                                 <>
                                     <label htmlFor="email">Enter your email to resend verification:</label>
                                     <input type="email" id="email" name="email" placeholder="xyz@example.com" />
