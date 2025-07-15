@@ -15,14 +15,17 @@ Note that the displayed date is in the format `dd-mm-yyyy`
     - Added rate limit to 5 users per IP for the resend confirmation route
     - Validate that the user is verified before allowing capsule creation. [#14]
 - User can view created capsules in dashboard [#18]
+    - Introduced `GET /api/capsules/view` - returns capsules created by the currently logged in user.
 
 ### Bugs Fixed
 
 - Configure express to trust specific proxy headers from process.env.TRUSTED_PROXIES [#14]
+- UX enhancement: Disable submit buttons during form submission [#18]
 
 ### Refactorings
 
 - Upgrade EJS templates for emails that are sent and modify text in email confirmation template [#16]
+- Update theme handling to set dark class to html tag instead of body & more... [#18]
 
 
 ## [v1.0.1]
