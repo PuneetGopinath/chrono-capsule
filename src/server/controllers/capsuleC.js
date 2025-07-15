@@ -103,9 +103,12 @@ exports.create = async (req, res) => {
 
 exports.view = async (req, res) => {
     if (!req.user) return res.status(401).json({ message: "Unauthorized" });
-    const capsules = await Capsule.find({ 
-        userId: req.user.id,
-    }).sort({ unlockDate: -1}); // Sort by unlock date, most recent first
+    const capsules = await Capsule
+        .find({ 
+            userId: req.user.id,
+        })
+        .sort({ unlockDate: -1}) // Sort by unlock date, most recent first
+        .lean(); // Returns plain object, improves performance
 
     return res.status(200).json(capsules.map(c => ({
         _id: c._id.toHexString(),
