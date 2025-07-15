@@ -75,7 +75,6 @@ app.use((err, req, res, next) => {
 (async () => {
     await Database.connect();
     if (!Database.connected) {
-        console.error("[❌ Error] Failed to connect to the database. Exiting...");
         process.exit(1);
     }
     
