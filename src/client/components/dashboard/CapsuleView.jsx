@@ -9,6 +9,19 @@ import { useNavigate } from "react-router-dom";
 
 import Loading from "../Loading.jsx";
 
+const sampleData = [
+    {
+        _id: "1",
+        recipient: {
+            name: "XXX",
+            email: "XXX@XXX.com"
+        },
+        opened: false
+    }
+];
+sampleData.push({ ...sampleData[0], _id: "2", opened: true });
+sampleData.push({ ...sampleData[0], _id: "3" });
+
 const Capsule = ({ capsule, id }) => {
     const d = new Date(capsule.unlockDate);
     return (
@@ -34,19 +47,6 @@ export default function CapsuleView() {
     const [ loading, setLoading ] = useState(true);
     const [ error, setError ] = useState(null);
     const [ capsules, setCapsules ] = useState([]);
-
-    const sampleData = [
-        {
-            _id: "1",
-            recipient: {
-                name: "XXX",
-                email: "XXX@XXX.com"
-            },
-            opened: false
-        }
-    ];
-    sampleData.push({ ...sampleData[0], _id: "2", opened: true });
-    sampleData.push({ ...sampleData[0], _id: "3" });
 
     const fetchC = async () => {
         try {
