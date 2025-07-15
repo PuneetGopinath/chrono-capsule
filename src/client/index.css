@@ -311,6 +311,7 @@ main {
 .auth-button {
     border: none;
     padding: 0.75rem 1.5rem;
+    margin: 1rem auto;
     border-radius: 8px;
     background-color: var(--accent);
     text-decoration: none;
@@ -343,6 +344,19 @@ main {
 .form-container h2 {
     margin-bottom: 1.5rem;
     color: var(--darker-text);
+}
+
+.error-container {
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin: 2rem auto;
+}
+
+.error-container div,
+.error-container p,
+.error-container small {
+    margin: 0.5rem 0 2rem;
 }
 
 .error-msg {

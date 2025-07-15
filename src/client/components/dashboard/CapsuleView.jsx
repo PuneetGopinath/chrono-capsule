@@ -93,9 +93,11 @@ export default function CapsuleView() {
                 : (
                     error
                         ? (
-                            <div className="error-msg">
-                                <h2>An Error Occurred!</h2>
-                                <p>{error}</p>
+                            <div className="error-container">
+                                <h2>Error occurred!</h2>
+                                <small>If the error persists after retrying few times, please logout and login again.</small>
+                                <div className="error-msg">{error}</div>
+                                <a className="auth-button" href="/dashboard/view">Retry</a>
                             </div>
                         )
                         : <>
