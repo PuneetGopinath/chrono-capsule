@@ -83,7 +83,7 @@ export default function CapsuleView() {
                 ? (
                     <>
                         <Loading text="Fetching Capsules..." />
-                        <div className="capsule-container">
+                        <div role="status" aria-live="polite" className="capsule-container">
                             {sampleData.map(c => (
                                 <Capsule key={c._id} id={c._id} capsule={{ ...c, unlockDate: new Date().toISOString() }} />
                             ))}
@@ -104,11 +104,11 @@ export default function CapsuleView() {
                                 capsules.length > 0
                                     ? <>
                                         <h1>Your Capsules</h1>
-                                        <button className="create-button top" onClick={() => navigate("/dashboard/create")}>Create a Capsule</button>
+                                        <button aria-label="create-capsule" className="create-button top" onClick={() => navigate("/dashboard/create")}>Create a Capsule</button>
                                     </>
                                     : <>
                                         <h2>You have created no capsules so far.</h2>
-                                        <button className="create-button empty" onClick={() => navigate("/dashboard/create")}>Create a Capsule</button>
+                                        <button aria-label="create-capsule" className="create-button empty" onClick={() => navigate("/dashboard/create")}>Create a Capsule</button>
                                     </>
                             }
                         </div>
