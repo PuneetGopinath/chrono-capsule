@@ -9,9 +9,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const { User } = require("../models");
-const sendConfirmation = require("../utils/sendConfirmation");
 
-const trimEmail = email => email.trim().toLowerCase();
+const sendConfirmation = require("../utils/sendConfirmation");
+const sanitize = require("../utils/sanitize");
 
 exports.register = async (req, res) => {
     if (!req.body) {
@@ -23,26 +23,30 @@ exports.register = async (req, res) => {
         return res.status(400).json({ message: "Username, email, and password are required." });
     }
 
-    let exists = await User.findOne({ username });
+    const sanitized = {
+        username: sanitize(username, "username"),
+        email: sanitize(email, "email"),
+        password: sanitize(password, "password")
+    };
+
+    let exists = await User.findOne({ username: sanitized.username });
     if (exists) return res.status(400).json({ message: "Username already exists" });
 
-    exists = await User.findOne({ email });
+    exists = await User.findOne({ email: sanitized.email });
     if (exists) return res.status(400).json({ message: "Email already exists" });
 
-    if (username.length < 3 || username.length > 30) {
+    if (sanitized.username.length < 3 || sanitized.username.length > 30) {
         return res.status(400).json({ message: "Username must be between 3 and 30 characters" });
     }
 
-    if (password.length < 8 || password.length > 128) {
+    if (sanitized.password.length < 8 || sanitized.password.length > 128) {
         return res.status(400).json({ message: "Password must be between 8 and 128 characters" });
     }
 
-    const cleanEmail = trimEmail(email); // Most email providers are case-insensitive
-
-    if (!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(cleanEmail)) {
+    if (!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(sanitized.email)) {
         return res.status(400).json({ message: "Invalid email format" });
     }
-    if (cleanEmail.length > 254) {
+    if (sanitized.email.length > 254) {
         return res.status(400).json({ message: "Email is too long" });
     }
 
@@ -50,9 +54,7 @@ exports.register = async (req, res) => {
     const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours from now
 
     const user = await User.create({
-        username,
-        email: cleanEmail,
-        password,
+        ...sanitized,
         verification: {
             token,
             expiresAt
