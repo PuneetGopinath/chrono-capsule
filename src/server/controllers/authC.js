@@ -76,10 +76,16 @@ exports.login = async (req, res) => {
         return res.status(400).json({ message: "Request body is required" });
     }
     const { username = null, password = null } = req.body;
-    const user = await User.findOne({ username });
-    let isMatch;
+
+    const sanitized = {
+        username: sanitize(username, "username"),
+        password: sanitize(password, "password")
+    };
+
+    const user = await User.findOne({ username: sanitized.username });
+    let isMatch = false;
     if (user) {
-        isMatch = await bcrypt.compare(password, user.password);
+        isMatch = await bcrypt.compare(sanitized.password, user.password);
     }
     if (!user || !isMatch) return res.status(401).json({ message: "Invalid credentials"});
 
@@ -129,8 +135,10 @@ exports.resendVerification = async (req, res) => {
     }
 
     const { email = null } = req.body;
+    let sanitizedEmail;
+    if (email) sanitizedEmail = sanitize(email, "email")
 
-    const user = await User.findOne(req.user?.id ? { _id: req.user.id } : { email: trimEmail(email) });
+    const user = await User.findOne(req.user?.id ? { _id: req.user.id } : { email: sanitizedEmail });
 
     if (!user) {
         return res.status(200).json({ message: "If the user exists, a verification link will be sent." });
