@@ -29,7 +29,7 @@ exports.create = async (req, res) => {
         return res.status(400).json({ message: "Media must be an array" });
 
     const sanitized = {
-        recipient: sanitize(recipient, "username"),
+        recipient: sanitize(recipient, "name"),
         recipientEmail: sanitize(recipientEmail, "email")
     };
 

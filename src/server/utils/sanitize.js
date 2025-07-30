@@ -1,9 +1,9 @@
-const nameRegex = /[^A-Za-z0-9 ]/g;
+const nameRegex = /[^\p{L}\p{N} .'-]/gu;
 const usernameRegex = /[^A-Za-z0-9\._\-@]/g;
 
 export default function sanitize(input, type) {
     switch (type) {
-        case "username":
+        case "name":
             return input.replaceAll(nameRegex, "").trim();
 
         case "username":
