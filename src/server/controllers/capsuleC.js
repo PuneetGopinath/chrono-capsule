@@ -7,6 +7,7 @@
 const crypto = require("crypto");
 
 const { User, Capsule } = require("../models");
+const sanitize = require("../utils/sanitize");
 
 exports.create = async (req, res) => {
     if (!req.user) return res.status(401).json({ message: "Unauthorized"});
@@ -27,18 +28,21 @@ exports.create = async (req, res) => {
     if (req.body.media !== undefined && !Array.isArray(media))
         return res.status(400).json({ message: "Media must be an array" });
 
-    if (recipient.length > 64)
+    const sanitized = {
+        recipient: sanitize(recipient, "username"),
+        recipientEmail: sanitize(recipientEmail, "email")
+    };
+
+    if (sanitized.recipient.length > 64)
         return res.status(400).json({ message: "Recipient name exceeds maximum length of 64 characters" });
     
     const d = new Date(unlockDate);
     if (isNaN(d.getTime()) || d.getTime() < (Date.now() + 50 * 60 * 1000)) // Give them grace time, instead of 1 hour, a 50 min check at backend is good to go, UX is our priority
         return res.status(400).json({ message: "Unlock date must be at least 50 minutes in the future at the time of submission."})
 
-    const cleanEmail = recipientEmail.trim().toLowerCase(); // Most email providers are case-insensitive
-
-    if (!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(cleanEmail))
+    if (!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(sanitized.recipientEmail))
         return res.status(400).json({ message: "Invalid email format" });
-    if (recipientEmail.length > 254)
+    if (sanitized.recipientEmail.length > 254)
         return res.status(400).json({ message: "Recipient email exceeds maximum length of 254 characters" });
 
     if (message.length > 5000)
@@ -82,8 +86,8 @@ exports.create = async (req, res) => {
     const newCapsule = new Capsule({
         userId: req.user.id,
         recipient: {
-            name: recipient,
-            email: cleanEmail
+            name: sanitized.recipient,
+            email: sanitized.recipientEmail
         },
         message: encMsg ?? message,
         media: encMedia.length ? encMedia : media,
