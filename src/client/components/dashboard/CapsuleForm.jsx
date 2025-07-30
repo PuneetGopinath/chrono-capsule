@@ -124,7 +124,6 @@ export default function CapsuleForm() {
 
     const handleDateChange = (e) => {
         const d = new Date(e.target.value);
-        d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
         setDate(d);
         setSelectedLabel(null);
     };
