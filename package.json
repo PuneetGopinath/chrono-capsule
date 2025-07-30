@@ -25,10 +25,10 @@
     "express-validator": "^7.2.1",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.16.1",
+    "mongoose": "^8.16.5",
     "morgan": "^1.10.0",
     "node-cron": "^4.1.1",
-    "nodemailer": "^7.0.4",
+    "nodemailer": "^7.0.5",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "uuid": "^11.1.0"
@@ -41,6 +41,6 @@
     "prettier": "^3.6.2",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.6.3",
-    "vite": "^7.0.2"
+    "vite": "^7.0.5"
   }
 }

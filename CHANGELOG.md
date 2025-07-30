@@ -22,6 +22,7 @@ Note that the displayed date is in the format `dd-mm-yyyy`
 
 - Configure express to trust specific proxy headers from process.env.TRUSTED_PROXIES [#14]
 - UX enhancement: Disable submit buttons during form submission [#18]
+- Fix a timezone offset issue on setting unlock date [#32]
 
 ### Refactorings
 
@@ -105,6 +106,7 @@ No changes to code were made after the beta release — this version simply mark
 - Bump nodemailer from 7.0.3 to 7.0.4 [#6](https://github.com/PuneetGopinath/chrono-capsule/pull/6)
 
 
+[#32]: https://github.com/PuneetGopinath/chrono-capsule/pull/32
 [#31]: https://github.com/PuneetGopinath/chrono-capsule/pull/31
 [#27]: https://github.com/PuneetGopinath/chrono-capsule/pull/27
 [#26]: https://github.com/PuneetGopinath/chrono-capsule/pull/26
