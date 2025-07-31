@@ -30,7 +30,8 @@ exports.create = async (req, res) => {
 
     const sanitized = {
         recipient: sanitize(recipient, "name"),
-        recipientEmail: sanitize(recipientEmail, "email")
+        recipientEmail: sanitize(recipientEmail, "email"),
+        message: sanitize(message, "message"),
     };
 
     if (sanitized.recipient.length > 64)
@@ -45,7 +46,7 @@ exports.create = async (req, res) => {
     if (sanitized.recipientEmail.length > 254)
         return res.status(400).json({ message: "Recipient email exceeds maximum length of 254 characters" });
 
-    if (message.length > 5000)
+    if (sanitized.message.length > 5000)
         return res.status(400).json({ message: "Message limit exceeded. Maximum 5000 characters allowed."})
 
     if (media.length > 10)
@@ -59,7 +60,7 @@ exports.create = async (req, res) => {
     if (isEncrypted && process.env.ENCRYPTION_KEY.length === 32) {
         iv = crypto.randomBytes(16);
         const cipher = crypto.createCipheriv(alg, process.env.ENCRYPTION_KEY, iv);
-        encMsg = cipher.update(message, "utf8", "hex");
+        encMsg = cipher.update(sanitized.message, "utf8", "hex");
         encMsg += cipher.final("hex");
         if (media) {
             ivMedia = crypto.randomBytes(16);
