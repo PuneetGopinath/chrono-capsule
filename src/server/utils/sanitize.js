@@ -23,6 +23,5 @@ export default function sanitize(input, type) {
         
         default:
             throw new Error(`sanitize: unknown type "${type}"`);
-            return input;
     }
 };
