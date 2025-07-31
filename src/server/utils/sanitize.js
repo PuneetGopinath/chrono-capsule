@@ -7,7 +7,7 @@ export default function sanitize(input, type) {
         input = input.normalize("NFKC");
     switch (type) {
         case "name":
-            return input.replace(nameRegex, "").trim();
+            return input.replace(nameRegex, "").replace(/\s+/g, " ").trim();
 
         case "username":
             return input.replace(usernameRegex, "").trim();
