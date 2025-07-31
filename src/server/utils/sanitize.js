@@ -22,7 +22,7 @@ export default function sanitize(input, type) {
             return input.replace(msgRegex, "");
         
         default:
-            console.log(`Unknown sanitize type: ${type}`);
+            throw new Error(`sanitize: unknown type "${type}"`);
             return input;
     }
 };
