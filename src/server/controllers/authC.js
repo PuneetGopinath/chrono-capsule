@@ -12,6 +12,7 @@ const { User } = require("../models");
 
 const sendConfirmation = require("../utils/sendConfirmation");
 const sanitize = require("../utils/sanitize");
+const { usernameRegex } = require("../utils/sanitize");
 
 exports.register = async (req, res) => {
     if (!req.body) {
@@ -21,6 +22,10 @@ exports.register = async (req, res) => {
 
     if (!username || !email || !password) {
         return res.status(400).json({ message: "Username, email, and password are required." });
+    }
+
+    if (username.test(usernameRegex)) {
+        return res.status(400).json({ message: "Username cannot contain spaces or any special characters other than . _ - @"})
     }
 
     const sanitized = {

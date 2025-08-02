@@ -8,6 +8,7 @@ const crypto = require("crypto");
 
 const { User, Capsule } = require("../models");
 const sanitize = require("../utils/sanitize");
+const { nameRegex, msgRegex } = require("../utils/sanitize");
 
 exports.create = async (req, res) => {
     if (!req.user) return res.status(401).json({ message: "Unauthorized"});
@@ -27,6 +28,14 @@ exports.create = async (req, res) => {
 
     if (req.body.media !== undefined && !Array.isArray(media))
         return res.status(400).json({ message: "Media must be an array" });
+
+    if (recipient.test(nameRegex)) {
+        return res.status(400).json({ message: "Recipient name cannot contain any special characters other than . ' -" });
+    }
+
+    if (message.test(msgRegex)) {
+        return res.status(400).json({ message: "Message cannot contain non-printable characters except newline, tab and carriage return." });
+    }
 
     const sanitized = {
         recipient: sanitize(recipient, "name"),

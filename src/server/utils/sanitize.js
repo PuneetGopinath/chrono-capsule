@@ -31,3 +31,5 @@ export default function sanitize(input, type) {
             throw new Error(`sanitize: unknown type "${type}"`);
     }
 };
+
+export { nameRegex, usernameRegex, msgRegex };
