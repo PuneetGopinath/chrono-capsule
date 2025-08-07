@@ -9,6 +9,9 @@ import { useNavigate } from "react-router-dom";
 
 import LoggedIn from "./LoggedIn";
 
+// Redundant regexes copied from sanitize.js
+const usernameRegex = /[^A-Za-z0-9\._\-@]/g;
+
 export default function Register({ data }) {
     const { loggedIn, setLoggedIn } = data;
     if (loggedIn) {
@@ -60,6 +63,11 @@ export default function Register({ data }) {
         const form = event.target;
         const formData = new FormData(form);
         const obj = Object.fromEntries(formData.entries());
+
+        if (usernameRegex.test(obj.username.normalize("NFKC"))) {
+            window.scrollTo(0, 0);
+            setError("Username contains invalid characters. Only alphabets, numbers, dots, underscores, hyphens, and @ are allowed.");
+        }
 
         if (obj.password !== obj.confirmPassword) {
             setError("Passwords do not match. Please try again.");
