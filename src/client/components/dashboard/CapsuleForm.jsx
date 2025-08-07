@@ -17,6 +17,17 @@ const suggestions = [
     { text: "1 Year", days: 365 }
 ];
 
+const toLocalISOString = (date) => {
+    const pad = (num) => num.toString().padStart(2, "0");
+
+    const year = date.getFullYear();
+    const month = pad(date.getMonth() + 1); // Since months are 0 indexed
+    const day = pad(date.getDate());
+    const hours = pad(date.getHours());
+    const minutes = pad(date.getMinutes());
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+}
+
 function SuggestDate({ text, days, hours, setDate, isActive, setSelectedLabel }) {
     return <span className={`suggest-date${ isActive ? " active" : ""}`} title={`Unlocks in ${text.toLowerCase()} from today`} onClick={() => {
                 const d = new Date(); // Already in local time
@@ -124,17 +135,6 @@ export default function CapsuleForm() {
         setDate(d);
         setSelectedLabel(null);
     };
-
-    const toLocalISOString = (date) => {
-        const pad = (num) => num.toString().padStart(2, "0");
-
-        const year = date.getFullYear();
-        const month = pad(date.getMonth() + 1); // Since months are 0 indexed
-        const day = pad(date.getDate());
-        const hours = pad(date.getHours());
-        const minutes = pad(date.getMinutes());
-        return `${year}-${month}-${day}T${hours}:${minutes}`;
-    }
 
     return (
         <main>
