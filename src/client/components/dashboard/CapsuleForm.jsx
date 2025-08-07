@@ -185,9 +185,11 @@ export default function CapsuleForm() {
                             placeholder={`Media Link ${index + 1}`}
                             value={obj.path}
                             onChange={(e) => {
-                                const updatedLinks = [...mediaLinks];
-                                updatedLinks[index].path = e.target.value;
-                                setMediaLinks(updatedLinks);
+                                setMediaLinks(prevLinks => {
+                                    const newLinks = [...prevLinks];
+                                    newLinks[index].path = e.target.value;
+                                    return newLinks;
+                                });
                             }}
                         />);
                     })}
