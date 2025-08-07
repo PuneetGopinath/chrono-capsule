@@ -90,7 +90,7 @@ export default function Register({ data }) {
         } catch (err) {
             setSubmitting(false);
             console.log("[❌ Error] Failed to register", err);
-            setError("An error occured while trying to register. Please try again later.");
+            setError("An error occurred while trying to register. Please try again later.");
             window.scrollTo(0, 0);
         }
     };
