@@ -17,6 +17,9 @@ const suggestions = [
     { text: "1 Year", days: 365 }
 ];
 
+// Redundant regexes copied from sanitize.js
+const nameRegex = /[^\p{L}\p{N} .'-]/gu;
+
 const toLocalISOString = (date) => {
     const pad = (num) => num.toString().padStart(2, "0");
 
@@ -92,6 +95,12 @@ export default function CapsuleForm() {
         const form = event.target;
         const formData = new FormData(form);
         const obj = Object.fromEntries(formData.entries());
+
+        if (nameRegex.test(obj.recipient.normalize("NFKC"))) {
+            window.scrollTo(0, 0); // Scroll to top if error
+            return setError("Recipient name contains invalid characters. Only letters, numbers, spaces, dots, hyphens and apostrophes are allowed.");
+        }
+
         console.log("Minimum:", min, "\nUnlock Date Submitted:", new Date(formData.get("unlockDate")));
         if (new Date(formData.get("unlockDate")) < min) {
             window.scrollTo(0, 0); // Scroll to top if error
