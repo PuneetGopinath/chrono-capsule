@@ -25,7 +25,11 @@ export default function sanitize(input, type) {
             return input;
         
         case "message":
-            return input.replace(msgRegex, "");
+            return input
+                .replace(msgRegex, "")
+                .replace(/\r\n/g, "\n") // Normalize line endings
+                .replace(/\r/g, "\n") // Replace remaining \r with \n
+                .trim();
         
         default:
             throw new Error(`sanitize: unknown type "${type}"`);
