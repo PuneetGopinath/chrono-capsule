@@ -17,6 +17,8 @@ Note that the displayed date is in the format `dd-mm-yyyy`
 - User can view created capsules in dashboard [#18]
     - Introduced `GET /api/capsules/view` - returns capsules created by the currently logged in user.
     - Added Loading component that renders when the page loads.
+- User input data is sanitized using server-side validation and escaping to prevent XSS attacks before being stored in the database across.
+    - Also added small validation checks in the frontend
 
 ### Bugs Fixed
 
