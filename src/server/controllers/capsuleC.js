@@ -7,8 +7,7 @@
 const crypto = require("crypto");
 
 const { User, Capsule } = require("../models");
-const sanitize = require("../utils/sanitize");
-const { nameRegex, msgRegex } = require("../utils/sanitize");
+const { sanitize, nameRegex, msgRegex } = require("../utils/sanitize");
 
 exports.create = async (req, res) => {
     if (!req.user) return res.status(401).json({ message: "Unauthorized"});

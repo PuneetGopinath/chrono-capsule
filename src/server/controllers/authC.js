@@ -11,8 +11,7 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../models");
 
 const sendConfirmation = require("../utils/sendConfirmation");
-const sanitize = require("../utils/sanitize");
-const { usernameRegex } = require("../utils/sanitize");
+const { sanitize, usernameRegex } = require("../utils/sanitize");
 
 exports.register = async (req, res) => {
     if (!req.body) {
