@@ -9,7 +9,7 @@ const usernameRegex = /[^A-Za-z0-9\._\-@]/g;
 const msgRegex = /[\x00-\x08\x0B\x0C\x0E-\x1F\x7F-\x9F]/g; // Remove non printable characters except newline, tab and carriage return
 
 function sanitize(input, type) {
-    if (type !== "email" && type !== "password")
+    if (!["email", "password"].includes(type))
         input = input.normalize("NFKC");
     switch (type) {
         case "name":
