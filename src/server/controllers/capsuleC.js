@@ -28,11 +28,11 @@ exports.create = async (req, res) => {
     if (req.body.media !== undefined && !Array.isArray(media))
         return res.status(400).json({ message: "Media must be an array" });
 
-    if (recipient.test(nameRegex)) {
+    if (nameRegex.test(recipient)) {
         return res.status(400).json({ message: "Recipient name cannot contain any special characters other than . ' -" });
     }
 
-    if (message.test(msgRegex)) {
+    if (msgRegex.test(message)) {
         return res.status(400).json({ message: "Message cannot contain non-printable characters except newline, tab and carriage return." });
     }
 
@@ -98,7 +98,7 @@ exports.create = async (req, res) => {
             name: sanitized.recipient,
             email: sanitized.recipientEmail
         },
-        message: encMsg ?? message,
+        message: encMsg ?? sanitized.message,
         media: encMedia.length ? encMedia : media,
         unlockDate: unlockObj,
         isEncrypted,

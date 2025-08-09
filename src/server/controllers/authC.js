@@ -23,7 +23,7 @@ exports.register = async (req, res) => {
         return res.status(400).json({ message: "Username, email, and password are required." });
     }
 
-    if (username.test(usernameRegex)) {
+    if (usernameRegex.test(username)) {
         return res.status(400).json({ message: "Username cannot contain spaces or any special characters other than . _ - @"})
     }
 
