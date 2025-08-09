@@ -140,7 +140,7 @@ exports.resendVerification = async (req, res) => {
 
     const { email = null } = req.body;
     let sanitizedEmail;
-    if (email) sanitizedEmail = sanitize(email, "email")
+    if (email) sanitizedEmail = sanitize(email, "email");
 
     const user = await User.findOne(req.user?.id ? { _id: req.user.id } : { email: sanitizedEmail });
 
