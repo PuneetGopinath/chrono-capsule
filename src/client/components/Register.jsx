@@ -67,6 +67,7 @@ export default function Register({ data }) {
         if (usernameRegex.test(obj.username.normalize("NFKC"))) {
             window.scrollTo(0, 0);
             setError("Username contains invalid characters. Only alphabets, numbers, dots, underscores, hyphens, and @ are allowed.");
+            return;
         }
 
         if (obj.password !== obj.confirmPassword) {
