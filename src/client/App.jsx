@@ -31,6 +31,23 @@ export default function App() {
         } else {
             document.documentElement.classList.add("dark");
         }
+        
+        if (loggedIn) {
+            fetch("/api/auth/status", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ token: localStorage.getItem("token") })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data?.expired !== false) {
+                        localStorage.removeItem("token");
+                        window.location.reload();
+                    }
+                })
+        }
     }, []);
 
     return (
