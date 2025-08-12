@@ -98,12 +98,14 @@ export default function CapsuleForm() {
 
         if (nameRegex.test(obj.recipient.normalize("NFKC"))) {
             window.scrollTo(0, 0); // Scroll to top if error
+            setSubmitting(false);
             return setError("Recipient name contains invalid characters. Only letters, numbers, spaces, dots, hyphens and apostrophes are allowed.");
         }
 
         console.log("Minimum:", min, "\nUnlock Date Submitted:", new Date(formData.get("unlockDate")));
         if (new Date(formData.get("unlockDate")) < min) {
             window.scrollTo(0, 0); // Scroll to top if error
+            setSubmitting(false);
             return setError("Unlock Date must be at least 1 hour from now.");
         }
 
@@ -118,7 +120,6 @@ export default function CapsuleForm() {
             });
             const data = await res.json();
 
-            setSubmitting(false);
             if (res.ok) {
                 alert("Capsule created successfully!");
                 form.reset(); // Reset the form
@@ -132,10 +133,11 @@ export default function CapsuleForm() {
                 console.log("[❌ Error] details:", data);
             }
         } catch (err) {
-            setSubmitting(false);
             console.log("[❌ Error] Failed to create capsule:", err);
             setError("An error occurred while trying to create the capsule. Please try again later.");
             window.scrollTo(0, 0);
+        } finally {
+            setSubmitting(false);
         }
     }
 
