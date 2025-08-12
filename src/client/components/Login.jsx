@@ -49,7 +49,6 @@ export default function Login({ data }) {
             });
             const data = await res.json();
 
-            setSubmitting(false);
             if (res.ok) {
                 alert("Logged in successfully!");
                 console.log("[✅ Success] Logged in successfully!");
@@ -62,10 +61,11 @@ export default function Login({ data }) {
                 window.scrollTo(0, 0);
             }
         } catch (err) {
-            setSubmitting(false);
             console.log("[❌ Error] Failed to login", err);
             setError("An error occured while trying to log in. Please try again later.");
             window.scrollTo(0, 0);
+        } finally {
+            setSubmitting(false);
         }
     };
 

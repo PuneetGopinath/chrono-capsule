@@ -17,6 +17,20 @@ const suggestions = [
     { text: "1 Year", days: 365 }
 ];
 
+// Redundant regexes copied from sanitize.js
+const nameRegex = /[^\p{L}\p{N} .'-]/gu;
+
+const toLocalISOString = (date) => {
+    const pad = (num) => num.toString().padStart(2, "0");
+
+    const year = date.getFullYear();
+    const month = pad(date.getMonth() + 1); // Since months are 0 indexed
+    const day = pad(date.getDate());
+    const hours = pad(date.getHours());
+    const minutes = pad(date.getMinutes());
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+}
+
 function SuggestDate({ text, days, hours, setDate, isActive, setSelectedLabel }) {
     return <span className={`suggest-date${ isActive ? " active" : ""}`} title={`Unlocks in ${text.toLowerCase()} from today`} onClick={() => {
                 const d = new Date(); // Already in local time
@@ -81,9 +95,17 @@ export default function CapsuleForm() {
         const form = event.target;
         const formData = new FormData(form);
         const obj = Object.fromEntries(formData.entries());
+
+        if (nameRegex.test(obj.recipient.normalize("NFKC"))) {
+            window.scrollTo(0, 0); // Scroll to top if error
+            setSubmitting(false);
+            return setError("Recipient name contains invalid characters. Only letters, numbers, spaces, dots, hyphens and apostrophes are allowed.");
+        }
+
         console.log("Minimum:", min, "\nUnlock Date Submitted:", new Date(formData.get("unlockDate")));
         if (new Date(formData.get("unlockDate")) < min) {
             window.scrollTo(0, 0); // Scroll to top if error
+            setSubmitting(false);
             return setError("Unlock Date must be at least 1 hour from now.");
         }
 
@@ -98,7 +120,6 @@ export default function CapsuleForm() {
             });
             const data = await res.json();
 
-            setSubmitting(false);
             if (res.ok) {
                 alert("Capsule created successfully!");
                 form.reset(); // Reset the form
@@ -112,10 +133,11 @@ export default function CapsuleForm() {
                 console.log("[❌ Error] details:", data);
             }
         } catch (err) {
-            setSubmitting(false);
             console.log("[❌ Error] Failed to create capsule:", err);
             setError("An error occurred while trying to create the capsule. Please try again later.");
             window.scrollTo(0, 0);
+        } finally {
+            setSubmitting(false);
         }
     }
 
@@ -124,17 +146,6 @@ export default function CapsuleForm() {
         setDate(d);
         setSelectedLabel(null);
     };
-
-    const toLocalISOString = (date) => {
-        const pad = (num) => num.toString().padStart(2, "0");
-
-        const year = date.getFullYear();
-        const month = pad(date.getMonth() + 1); // Since months are 0 indexed
-        const day = pad(date.getDate());
-        const hours = pad(date.getHours());
-        const minutes = pad(date.getMinutes());
-        return `${year}-${month}-${day}T${hours}:${minutes}`;
-    }
 
     return (
         <main>
@@ -185,9 +196,11 @@ export default function CapsuleForm() {
                             placeholder={`Media Link ${index + 1}`}
                             value={obj.path}
                             onChange={(e) => {
-                                const updatedLinks = [...mediaLinks];
-                                updatedLinks[index].path = e.target.value;
-                                setMediaLinks(updatedLinks);
+                                setMediaLinks(prevLinks => {
+                                    const newLinks = [...prevLinks];
+                                    newLinks[index].path = e.target.value;
+                                    return newLinks;
+                                });
                             }}
                         />);
                     })}

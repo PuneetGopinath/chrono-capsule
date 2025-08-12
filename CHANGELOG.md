@@ -17,6 +17,8 @@ Note that the displayed date is in the format `dd-mm-yyyy`
 - User can view created capsules in dashboard [#18]
     - Introduced `GET /api/capsules/view` - returns capsules created by the currently logged in user.
     - Added Loading component that renders when the page loads.
+- User input data is sanitized using server-side validation and escaping to prevent XSS attacks before being stored in the database across.
+    - Also added small validation checks in the frontend
 
 ### Bugs Fixed
 
@@ -28,6 +30,16 @@ Note that the displayed date is in the format `dd-mm-yyyy`
 
 - Upgrade EJS templates for emails that are sent and modify text in email confirmation template [#16]
 - Update theme handling to set dark class to html tag instead of body & more... [#18]
+
+### Chores
+
+- bump mongoose from 8.16.1 to 8.16.5 [#31]
+- bump form-data from 4.0.3 to 4.0.4 [#27]
+- bump vite from 7.0.0 to 7.0.2 [#12], 7.0.2 to 7.0.5 [#26]
+- bump on-headers from 1.0.2 to 1.1.0 & morgan from 1.10.0 to 1.10.1 [#24]
+- bump nodemailer from 7.0.4 to 7.0.5 [#23]
+- bump dotenv from 17.0.0 to 17.0.1 [#13]
+- bump eslint from 9.30.0 to 9.30.1 [#10]
 
 
 ## [v1.0.1]
@@ -98,9 +110,17 @@ No changes to code were made after the beta release — this version simply mark
 
 
 [#32]: https://github.com/PuneetGopinath/chrono-capsule/pull/32
+[#31]: https://github.com/PuneetGopinath/chrono-capsule/pull/31
+[#27]: https://github.com/PuneetGopinath/chrono-capsule/pull/27
+[#26]: https://github.com/PuneetGopinath/chrono-capsule/pull/26
+[#24]: https://github.com/PuneetGopinath/chrono-capsule/pull/24
+[#23]: https://github.com/PuneetGopinath/chrono-capsule/pull/23
 [#18]: https://github.com/PuneetGopinath/chrono-capsule/pull/18
 [#16]: https://github.com/PuneetGopinath/chrono-capsule/pull/16
 [#14]: https://github.com/PuneetGopinath/chrono-capsule/pull/14
+[#13]: https://github.com/PuneetGopinath/chrono-capsule/pull/13
+[#12]: https://github.com/PuneetGopinath/chrono-capsule/pull/12
+[#10]: https://github.com/PuneetGopinath/chrono-capsule/pull/10
 [#9]: https://github.com/PuneetGopinath/chrono-capsule/pull/9
 [#7]: https://github.com/PuneetGopinath/chrono-capsule/pull/7
 
