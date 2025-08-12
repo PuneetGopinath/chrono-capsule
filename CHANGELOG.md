@@ -33,6 +33,7 @@ Note that the displayed date is in the format `dd-mm-yyyy`
 
 ### Chores
 
+- bump react from 19.1.0 to 19.1.1 [#34]
 - bump mongoose from 8.16.1 to 8.16.5 [#31]
 - bump form-data from 4.0.3 to 4.0.4 [#27]
 - bump vite from 7.0.0 to 7.0.2 [#12], 7.0.2 to 7.0.5 [#26]
@@ -109,6 +110,7 @@ No changes to code were made after the beta release — this version simply mark
 - Bump nodemailer from 7.0.3 to 7.0.4 [#6](https://github.com/PuneetGopinath/chrono-capsule/pull/6)
 
 
+[#34]: https://github.com/PuneetGopinath/chrono-capsule/pull/34
 [#32]: https://github.com/PuneetGopinath/chrono-capsule/pull/32
 [#31]: https://github.com/PuneetGopinath/chrono-capsule/pull/31
 [#27]: https://github.com/PuneetGopinath/chrono-capsule/pull/27
