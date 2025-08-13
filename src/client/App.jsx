@@ -31,8 +31,10 @@ export default function App() {
         } else {
             document.documentElement.classList.add("dark");
         }
-        
-        if (loggedIn) {
+
+        const lastCheck = localStorage.getItem("LastCheck");
+
+        if (loggedIn && lastCheck < Date.now() - 5 * 60 * 60 * 1000) { // Last check should be more than 5 hours ago
             fetch("/api/auth/status", {
                 method: "GET",
                 headers: {
@@ -46,6 +48,7 @@ export default function App() {
                         localStorage.removeItem("token");
                         window.location.reload();
                     }
+                    localStorage.setItem("LastCheck", Date.now());
                 })
         }
     }, []);
