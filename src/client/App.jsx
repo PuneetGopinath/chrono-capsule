@@ -31,6 +31,33 @@ export default function App() {
         } else {
             document.documentElement.classList.add("dark");
         }
+
+        if (!localStorage.getItem("LastCheck")) {
+            localStorage.setItem("LastCheck", Date.now());
+        }
+
+        const lastCheck = localStorage.getItem("LastCheck");
+
+        if (loggedIn && lastCheck < Date.now() - 5 * 60 * 60 * 1000) { // Last check should be more than 5 hours ago
+            fetch(`/api/auth/status?token=${encodeURIComponent(localStorage.getItem("token"))}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data?.expired !== false) {
+                        localStorage.removeItem("token");
+                        window.location.reload();
+                        console.log("Token has expired, user logged out.");
+                    }
+                    localStorage.setItem("LastCheck", Date.now());
+                })
+                .catch(err => {
+                    console.log("Error fetching auth status:", err);
+                });
+        }
     }, []);
 
     return (

@@ -9,9 +9,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const { User } = require("../models");
-const sendConfirmation = require("../utils/sendConfirmation");
 
-const trimEmail = email => email.trim().toLowerCase();
+const sendConfirmation = require("../utils/sendConfirmation");
+const { sanitize, usernameRegex } = require("../utils/sanitize");
 
 exports.register = async (req, res) => {
     if (!req.body) {
@@ -23,26 +23,34 @@ exports.register = async (req, res) => {
         return res.status(400).json({ message: "Username, email, and password are required." });
     }
 
-    let exists = await User.findOne({ username });
+    if (usernameRegex.test(username)) {
+        return res.status(400).json({ message: "Username cannot contain spaces or any special characters other than . _ - @"})
+    }
+
+    const sanitized = {
+        username: sanitize(username, "username"),
+        email: sanitize(email, "email"),
+        password: sanitize(password, "password")
+    };
+
+    let exists = await User.findOne({ username: sanitized.username });
     if (exists) return res.status(400).json({ message: "Username already exists" });
 
-    exists = await User.findOne({ email });
+    exists = await User.findOne({ email: sanitized.email });
     if (exists) return res.status(400).json({ message: "Email already exists" });
 
-    if (username.length < 3 || username.length > 30) {
+    if (sanitized.username.length < 3 || sanitized.username.length > 30) {
         return res.status(400).json({ message: "Username must be between 3 and 30 characters" });
     }
 
-    if (password.length < 8 || password.length > 128) {
+    if (sanitized.password.length < 8 || sanitized.password.length > 128) {
         return res.status(400).json({ message: "Password must be between 8 and 128 characters" });
     }
 
-    const cleanEmail = trimEmail(email); // Most email providers are case-insensitive
-
-    if (!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(cleanEmail)) {
+    if (!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(sanitized.email)) {
         return res.status(400).json({ message: "Invalid email format" });
     }
-    if (cleanEmail.length > 254) {
+    if (sanitized.email.length > 254) {
         return res.status(400).json({ message: "Email is too long" });
     }
 
@@ -50,9 +58,7 @@ exports.register = async (req, res) => {
     const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours from now
 
     const user = await User.create({
-        username,
-        email: cleanEmail,
-        password,
+        ...sanitized,
         verification: {
             token,
             expiresAt
@@ -74,10 +80,16 @@ exports.login = async (req, res) => {
         return res.status(400).json({ message: "Request body is required" });
     }
     const { username = null, password = null } = req.body;
-    const user = await User.findOne({ username });
-    let isMatch;
+
+    const sanitized = {
+        username: sanitize(username, "username"),
+        password: sanitize(password, "password")
+    };
+
+    const user = await User.findOne({ username: sanitized.username });
+    let isMatch = false;
     if (user) {
-        isMatch = await bcrypt.compare(password, user.password);
+        isMatch = await bcrypt.compare(sanitized.password, user.password);
     }
     if (!user || !isMatch) return res.status(401).json({ message: "Invalid credentials"});
 
@@ -127,8 +139,10 @@ exports.resendVerification = async (req, res) => {
     }
 
     const { email = null } = req.body;
+    let sanitizedEmail;
+    if (email) sanitizedEmail = sanitize(email, "email");
 
-    const user = await User.findOne(req.user?.id ? { _id: req.user.id } : { email: trimEmail(email) });
+    const user = await User.findOne(req.user?.id ? { _id: req.user.id } : { email: sanitizedEmail });
 
     if (!user) {
         return res.status(200).json({ message: "If the user exists, a verification link will be sent." });
@@ -147,4 +161,22 @@ exports.resendVerification = async (req, res) => {
 
     await sendConfirmation(user.username, user.email, token);
     return res.status(200).json({ message: "If the user exists, a verification link will be sent." });
+};
+
+exports.status = async (req, res) => {
+    if (!req.query?.token) {
+        return res.status(400).json({ message: "Token is required" });
+    }
+
+    const { token } = req.query;
+
+    try {
+        const data = jwt.verify(token, process.env.JWT_SECRET, { algorithms: ["HS256"] });
+        if (data?.id)
+            return res.status(200).json({ message: "Token hasn't expired yet, go ahead and create capsules!", expired: false });
+    } catch (err) {
+        return res.status(401).json({ message: "Token has EXPIRED, please login again!!", expired: true });
+    }
+
+    return res.status(400).json({ message: "Token doesn't contain any id field", expired: true });
 };
