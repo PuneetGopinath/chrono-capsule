@@ -19,7 +19,7 @@ Note that the displayed date is in the format `dd-mm-yyyy`
     - Added Loading component that renders when the page loads.
 - User input data is sanitized using server-side validation and escaping to prevent XSS attacks before being stored in the database across.
     - Also added small validation checks in the frontend
-- Automatic logout after 7 days (already set up in backend, but added to frontend)
+- Automatic logout after 7 days (already set up in backend, but added to frontend) [#38]
 
 ### Bugs Fixed
 
@@ -111,6 +111,7 @@ No changes to code were made after the beta release — this version simply mark
 - Bump nodemailer from 7.0.3 to 7.0.4 [#6](https://github.com/PuneetGopinath/chrono-capsule/pull/6)
 
 
+[#38]: https://github.com/PuneetGopinath/chrono-capsule/pull/38
 [#34]: https://github.com/PuneetGopinath/chrono-capsule/pull/34
 [#32]: https://github.com/PuneetGopinath/chrono-capsule/pull/32
 [#31]: https://github.com/PuneetGopinath/chrono-capsule/pull/31
