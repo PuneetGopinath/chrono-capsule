@@ -164,11 +164,11 @@ exports.resendVerification = async (req, res) => {
 };
 
 exports.status = async (req, res) => {
-    if (!req.body?.token) {
+    if (!req.query?.token) {
         return res.status(400).json({ message: "Token is required" });
     }
 
-    const { token } = req.body;
+    const { token } = req.query;
 
     try {
         const data = jwt.verify(token, process.env.JWT_SECRET, { algorithms: ["HS256"] });

@@ -35,12 +35,11 @@ export default function App() {
         const lastCheck = localStorage.getItem("LastCheck");
 
         if (loggedIn && lastCheck < Date.now() - 5 * 60 * 60 * 1000) { // Last check should be more than 5 hours ago
-            fetch("/api/auth/status", {
+            fetch(`/api/auth/status?token=${encodeURIComponent(localStorage.getItem("token"))}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ token: localStorage.getItem("token") })
+                }
             })
                 .then(res => res.json())
                 .then(data => {
