@@ -9,7 +9,7 @@ const router = express.Router();
 
 const rateLimit = require("express-rate-limit");
 
-const { register, login, verify, resendVerification } = require("../controllers/authC");
+const { status, register, login, verify, resendVerification } = require("../controllers/authC");
 const asyncHandler = require("../utils/asyncHandler");
 
 const resendLimiter = rateLimit({
@@ -18,6 +18,7 @@ const resendLimiter = rateLimit({
     message: "Too many resend attempts, please try again later.",
 });
 
+router.get("/status", asyncHandler(status));
 router.post("/register", asyncHandler(register));
 router.post("/login", asyncHandler(login));
 router.get("/verify/:token", asyncHandler(verify));

@@ -162,3 +162,21 @@ exports.resendVerification = async (req, res) => {
     await sendConfirmation(user.username, user.email, token);
     return res.status(200).json({ message: "If the user exists, a verification link will be sent." });
 };
+
+exports.status = async (req, res) => {
+    if (!req.query?.token) {
+        return res.status(400).json({ message: "Token is required" });
+    }
+
+    const { token } = req.query;
+
+    try {
+        const data = jwt.verify(token, process.env.JWT_SECRET, { algorithms: ["HS256"] });
+        if (data?.id)
+            return res.status(200).json({ message: "Token hasn't expired yet, go ahead and create capsules!", expired: false });
+    } catch (err) {
+        return res.status(401).json({ message: "Token has EXPIRED, please login again!!", expired: true });
+    }
+
+    return res.status(400).json({ message: "Token doesn't contain any id field", expired: true });
+};
