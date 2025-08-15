@@ -50,6 +50,7 @@ export default function App() {
                     if (data?.expired !== false) {
                         localStorage.removeItem("token");
                         window.location.reload();
+                        console.log("Token has expired, user logged out.");
                     }
                     localStorage.setItem("LastCheck", Date.now());
                 })
