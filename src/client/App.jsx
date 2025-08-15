@@ -53,6 +53,9 @@ export default function App() {
                     }
                     localStorage.setItem("LastCheck", Date.now());
                 })
+                .catch(err => {
+                    console.log("Error fetching auth status:", err);
+                });
         }
     }, []);
 
