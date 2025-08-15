@@ -32,6 +32,10 @@ export default function App() {
             document.documentElement.classList.add("dark");
         }
 
+        if (!localStorage.getItem("LastCheck")) {
+            localStorage.setItem("LastCheck", Date.now());
+        }
+
         const lastCheck = localStorage.getItem("LastCheck");
 
         if (loggedIn && lastCheck < Date.now() - 5 * 60 * 60 * 1000) { // Last check should be more than 5 hours ago
