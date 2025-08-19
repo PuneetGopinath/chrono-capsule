@@ -4,7 +4,7 @@ Note that the displayed date is in the format `dd-mm-yyyy`
 
 ## [v1.1.0]
 
-> **Released:** `soon`
+> **Released:** `19-08-2025`
 
 ### New Features
 
@@ -35,6 +35,8 @@ Note that the displayed date is in the format `dd-mm-yyyy`
 ### Chores
 
 - bump react-dom from 19.1.0 to 19.1.1 [#39]
+- bump eslint from 9.30.1 to 9.33.0 [#37]
+- bump vite from 7.0.5 to 7.1.1 [#36]
 - bump react from 19.1.0 to 19.1.1 [#34]
 - bump mongoose from 8.16.1 to 8.16.5 [#31]
 - bump form-data from 4.0.3 to 4.0.4 [#27]
@@ -114,6 +116,8 @@ No changes to code were made after the beta release — this version simply mark
 
 [#39]: https://github.com/PuneetGopinath/chrono-capsule/pull/39
 [#38]: https://github.com/PuneetGopinath/chrono-capsule/pull/38
+[#37]: https://github.com/PuneetGopinath/chrono-capsule/pull/37
+[#36]: https://github.com/PuneetGopinath/chrono-capsule/pull/36
 [#34]: https://github.com/PuneetGopinath/chrono-capsule/pull/34
 [#32]: https://github.com/PuneetGopinath/chrono-capsule/pull/32
 [#31]: https://github.com/PuneetGopinath/chrono-capsule/pull/31
