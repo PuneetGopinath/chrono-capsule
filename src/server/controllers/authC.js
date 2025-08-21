@@ -8,10 +8,27 @@ const { v4, validate: uuidValidate } = require("uuid");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+const { OAuth2Client } = require("google-auth-library");
+
 const { User } = require("../models");
 
 const sendConfirmation = require("../utils/sendConfirmation");
 const { sanitize, usernameRegex } = require("../utils/sanitize");
+
+const client = new OAuth2Client();
+
+const verify = async (id_token) => {
+    const ticket = await client.verifyIdToken({
+        idToken: id_token,
+        audience: process.env.GOOGLE_CLIENT_ID
+    });
+
+    const payload = ticket.getPayload();
+
+    const userid = payload["sub"];
+    console.log(userid);
+    return userid;
+};
 
 exports.register = async (req, res) => {
     if (!req.body) {
