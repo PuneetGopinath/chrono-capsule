@@ -157,6 +157,7 @@ export default function Register({ data }) {
                 <h2>Register</h2>
                 {error && <div className="error-msg">{error}</div>}
                 <div className="g-signin2 google-signin" data-onsuccess={googleSignUp}></div>
+                <hr />
                 <form onSubmit={handleSubmit}>
                     <label>Username:</label>
                     <input
