@@ -7,6 +7,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const helmet = require("helmet");
 const jwt = require("jsonwebtoken");
 const cron = require("node-cron");
 
@@ -29,6 +30,7 @@ if (process.env.TRUSTED_PROXIES && process.env.TRUSTED_PROXIES.length > 0) {
 }
 
 app.use(cors());
+app.use(helmet());
 app.use(express.json());
 app.use((req, res, next) => {
     try {
