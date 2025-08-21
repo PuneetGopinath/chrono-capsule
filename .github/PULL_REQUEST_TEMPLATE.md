@@ -1,6 +1,6 @@
 <!--
     Thank you for creating this Pull Request!
-    Please make sure you read the intructions below and
+    Please make sure you read the instructions below and
     provide all necessary information.
 
     Not following the template may result in your PR
