@@ -55,6 +55,48 @@ export default function Register({ data }) {
         }
     };
 
+    const googleSignUp = async (user) => {
+        const id_token = user.getAuthResponse().id_token;
+        const profile = user.getBasicProfile();
+        const name = profile.getName();
+        const email = profile.getEmail();
+
+        const username = name.replace(/ /g, "");
+
+        const info = {
+            id_token,
+            username,
+            email,
+            signIn: "google"
+        };
+
+        try {
+            const res = await fetch("/api/auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(info)
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                alert("Loggedin through google successfully!");
+                console.log("[✅ Success] Registration through google successfully!");
+                await login(obj.username, obj.password);
+                navigate("/"); // Redirect to home page
+            } else {
+                console.log("[❌ Error] Registration failed through google:", data.message);
+                setError(data.message || "Registration failed through google. Please try later.");
+                window.scrollTo(0, 0);
+            }
+        } catch(err) {
+            console.log("[❌ Error] Failed to register (through google)", err);
+            setError("Unable to login through google. Please try again later.");
+            window.scrollTo(0, 0);
+        }
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -93,7 +135,7 @@ export default function Register({ data }) {
                 navigate("/"); // Redirect to home page
             } else {
                 console.log("[❌ Error] Register failed:", data.message);
-                setError(data.message || "Registration failed. Please check your credentials.");
+                setError(data.message || "Registration failed. Please try again later.");
                 window.scrollTo(0, 0);
             }
         } catch (err) {
@@ -107,9 +149,14 @@ export default function Register({ data }) {
 
     return (
         <main>
-            <div className="form-container login">
+            <Helmet>
+                <script src="https://apis.google.com/js/platform.js" async defer></script>
+                <meta name="google-signin-client_id" content="453634898397-g4e2laccsk4lt5kv2p5urnrqvr4c3dr8.apps.googleusercontent.com" />
+            </Helmet>
+            <div className="form-container">
                 <h2>Register</h2>
                 {error && <div className="error-msg">{error}</div>}
+                <div className="g-signin2 google-signin" data-onsuccess={googleSignUp}></div>
                 <form onSubmit={handleSubmit}>
                     <label>Username:</label>
                     <input

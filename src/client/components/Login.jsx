@@ -35,7 +35,6 @@ export default function Login({ data }) {
         const id_token = user.getAuthResponse().id_token;
         const profile = user.getBasicProfile();
         const name = profile.getName();
-        const email = profile.getEmail();
 
         const username = name.replace(/ /g, "");
 
@@ -119,7 +118,7 @@ export default function Login({ data }) {
                 <script src="https://apis.google.com/js/platform.js" async defer></script>
                 <meta name="google-signin-client_id" content="453634898397-g4e2laccsk4lt5kv2p5urnrqvr4c3dr8.apps.googleusercontent.com" />
             </Helmet>
-            <div className="form-container login">
+            <div className="form-container">
                 <h2>Login</h2>
                 {error && <div className="error-msg">{error}</div>}
                 <div className="g-signin2 google-signin" data-onsuccess={googleSignIn}></div>
