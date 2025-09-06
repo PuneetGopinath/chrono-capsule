@@ -128,8 +128,8 @@ exports.login = async (req, res) => {
         }
         // If user doesn't exist, register them
         if (!user) {
-            // No need to sanitize username and email as they are coming from Google
-            user = await reg(payload.name.replace(/ /g, ""), payload.email, payload.sub, "google", payload.email_verified); // For now, password is set to the unique id of a google account
+            const username = sanitize(payload.name.replace(/ /g, ""), "username");
+            user = await reg(username, payload.email, payload.sub, "google", payload.email_verified); // For now, password is set to the unique id of a google account
         }
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { algorithm: "HS256", expiresIn: "7d" });
         if (process.env.DEBUG) console.log("User logged in through google:", user.username);
