@@ -4,7 +4,7 @@
  * License: MIT (see LICENSE)
 */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Helmet } from "react-helmet";
@@ -31,26 +31,38 @@ export default function Login({ data }) {
         }
     };
 
-    const googleSignIn = async (user) => {
-        const id_token = user.getAuthResponse().id_token;
-        const profile = user.getBasicProfile();
-        const name = profile.getName();
+    useEffect(() => {
+        const event = window.addEventListener("load", () => {
+            google.accounts.id.initialize({
+                client_id: "453634898397-g4e2laccsk4lt5kv2p5urnrqvr4c3dr8.apps.googleusercontent.com",
+                callback: googleSignIn
+            });
+            const container = document.querySelector(".google_signin");
+            google.accounts.id.renderButton(
+                container,
+                { theme: "outline", size: "large", width: container.offsetWidth }
+            );
+            console.log("[ℹ️ Info] Google Sign-In button rendered");
+            console.log(container.offsetWidth);
+            google.accounts.id.prompt(); // One Tap dialog
+        });
+        return () => window.removeEventListener("load", event);
+    }, []);
 
-        const username = name.replace(/ /g, "");
-
-        const info = {
-            id_token,
-            username,
-            signIn: "google"
-        };
+    const googleSignIn = async (res) => {
+        const credential = res.credential;
 
         try {
             const res = await fetch("/api/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
+                    // "Referrer-Policy": "no-referrer-when-downgrade" ONLY IF LOCALHOST
                 },
-                body: JSON.stringify(info)
+                body: JSON.stringify({
+                    credential,
+                    signIn: "google"
+                })
             });
 
             const data = await res.json();
@@ -115,13 +127,14 @@ export default function Login({ data }) {
     return (
         <main>
             <Helmet>
-                <script src="https://apis.google.com/js/platform.js" async defer></script>
-                <meta name="google-signin-client_id" content="453634898397-g4e2laccsk4lt5kv2p5urnrqvr4c3dr8.apps.googleusercontent.com" />
+                <script src="https://accounts.google.com/gsi/client" async></script>
             </Helmet>
             <div className="form-container">
                 <h2>Login</h2>
                 {error && <div className="error-msg">{error}</div>}
-                <div className="g-signin2 google-signin" data-onsuccess={googleSignIn}></div>
+
+                <div className="google_signin"></div>
+                
                 <hr />
                 <form onSubmit={handleSubmit}>
                     <label>Username:</label>

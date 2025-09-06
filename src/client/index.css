@@ -397,6 +397,12 @@ main {
     font-size: 0.95rem;
 }
 
+.google_signin {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
 input,
 textarea {
     background-color: var(--bg);
