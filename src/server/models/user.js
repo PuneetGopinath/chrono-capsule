@@ -40,9 +40,9 @@ const userSchema = new mongoose.Schema({
         }
     },
     method: {
-        type: Array,
+        type: String,
         enum: ["local", "google"],
-        default: ["local"]
+        default: "local"
     }
 });
 
