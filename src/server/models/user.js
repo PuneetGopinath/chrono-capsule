@@ -39,6 +39,11 @@ const userSchema = new mongoose.Schema({
             type: Date
         }
     },
+    method: {
+        type: Array,
+        enum: ["local", "google"],
+        default: ["local"]
+    }
 });
 
 userSchema.pre("save", async function(next) {
