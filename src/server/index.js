@@ -30,7 +30,16 @@ if (process.env.TRUSTED_PROXIES && process.env.TRUSTED_PROXIES.length > 0) {
 }
 
 app.use(cors());
-app.use(helmet());
+app.use(helmet({
+    contentSecurityPolicy:{
+        directives: {
+            ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+            "script-src": ["'self'", "https://accounts.google.com", "https://apis.google.com"],
+            "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+            "font-src": ["'self'", "https://fonts.gstatic.com"],
+        }
+    }
+}));
 app.use(express.json());
 app.use((req, res, next) => {
     try {
