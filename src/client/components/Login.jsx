@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 import LoggedIn from "./LoggedIn";
+import { text } from "express";
 
 export default function Login({ data }) {
     const navigate = useNavigate();
@@ -40,9 +41,9 @@ export default function Login({ data }) {
             const container = document.querySelector(".google_signin");
             google.accounts.id.renderButton(
                 container,
-                { theme: "outline", size: "large", width: container.offsetWidth }
+                { theme: "outline", size: "large", width: container.offsetWidth, text: "signin_with" }
             );
-            console.log("[ℹ️ Info] Google Sign-In button rendered");
+            console.log("[Info] Google Sign-In button rendered");
             console.log(container.offsetWidth);
             google.accounts.id.prompt(); // One Tap dialog
         });
@@ -68,8 +69,8 @@ export default function Login({ data }) {
             const data = await res.json();
 
             if (res.ok) {
-                alert("Logged in successfully!");
-                console.log("[✅ Success] Logged in successfully!");
+                alert("Logged in through Google successfully!");
+                console.log("[✅ Success] Logged in through Google successfully!");
                 localStorage.setItem("token", data.token);
                 setLoggedIn(true);
                 navigate("/"); // Redirect to home page

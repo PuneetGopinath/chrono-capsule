@@ -397,7 +397,8 @@ main {
     font-size: 0.95rem;
 }
 
-.google_signin {
+.google_signin,
+.google_signup {
     display: flex;
     justify-content: center;
     width: 100%;

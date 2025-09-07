@@ -4,10 +4,11 @@
  * License: MIT (see LICENSE)
 */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import LoggedIn from "./LoggedIn";
+import { text } from "express";
 
 // Redundant regexes copied from sanitize.js
 const usernameRegex = /[^A-Za-z0-9\._\-@]/g;
@@ -33,6 +34,24 @@ export default function Register({ data }) {
             setShowConfirmPwd(!showConfirmPwd);
     };
 
+    useEffect(() => {
+        const event = window.addEventListener("load", () => {
+            google.accounts.id.initialize({
+                client_id: "453634898397-g4e2laccsk4lt5kv2p5urnrqvr4c3dr8.apps.googleusercontent.com",
+                callback: googleSignUp
+            });
+            const container = document.querySelector(".google_signup");
+            google.accounts.id.renderButton(
+                container,
+                { theme: "outline", size: "large", width: container.offsetWidth, text: "signup_with" }
+            );
+            console.log("[Info] Google Sign-Up button rendered");
+            console.log(container.offsetWidth);
+            google.accounts.id.prompt(); // One Tap dialog
+        });
+        return () => window.removeEventListener("load", event);
+    }, []);
+
     const login = async (username, password) => {
         try {
             const res = await fetch("/api/auth/login", {
@@ -56,33 +75,25 @@ export default function Register({ data }) {
     };
 
     const googleSignUp = async (user) => {
-        const id_token = user.getAuthResponse().id_token;
-        const profile = user.getBasicProfile();
-        const name = profile.getName();
-        const email = profile.getEmail();
-
-        const username = name.replace(/ /g, "");
-
-        const info = {
-            id_token,
-            username,
-            email,
-            signIn: "google"
-        };
+        const credential = res.credential;
 
         try {
-            const res = await fetch("/api/auth/register", {
+            const res = await fetch("/api/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
+                    // "Referrer-Policy": "no-referrer-when-downgrade" ONLY IF LOCALHOST
                 },
-                body: JSON.stringify(info)
+                body: JSON.stringify({
+                    credential,
+                    signIn: "google"
+                })
             });
 
             const data = await res.json();
 
             if (res.ok) {
-                alert("Loggedin through google successfully!");
+                alert("Registered through google successfully!");
                 console.log("[✅ Success] Registration through google successfully!");
                 await login(obj.username, obj.password);
                 navigate("/"); // Redirect to home page
@@ -150,8 +161,7 @@ export default function Register({ data }) {
     return (
         <main>
             <Helmet>
-                <script src="https://apis.google.com/js/platform.js" async defer></script>
-                <meta name="google-signin-client_id" content="453634898397-g4e2laccsk4lt5kv2p5urnrqvr4c3dr8.apps.googleusercontent.com" />
+                <script src="https://accounts.google.com/gsi/client" async></script>
             </Helmet>
             <div className="form-container">
                 <h2>Register</h2>
