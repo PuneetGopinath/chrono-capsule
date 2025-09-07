@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 import LoggedIn from "./LoggedIn";
-import { text } from "express";
 
 export default function Login({ data }) {
     const navigate = useNavigate();

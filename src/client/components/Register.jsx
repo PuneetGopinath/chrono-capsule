@@ -7,8 +7,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { Helmet } from "react-helmet";
+
 import LoggedIn from "./LoggedIn";
-import { text } from "express";
 
 // Redundant regexes copied from sanitize.js
 const usernameRegex = /[^A-Za-z0-9\._\-@]/g;
@@ -166,7 +167,7 @@ export default function Register({ data }) {
             <div className="form-container">
                 <h2>Register</h2>
                 {error && <div className="error-msg">{error}</div>}
-                <div className="g-signin2 google-signin" data-onsuccess={googleSignUp}></div>
+                <div className="google_signup"></div>
                 <hr />
                 <form onSubmit={handleSubmit}>
                     <label>Username:</label>
