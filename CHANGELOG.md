@@ -2,6 +2,17 @@
 
 Note that the displayed date is in the format `dd-mm-yyyy`
 
+## [v1.1.1]
+
+> **Released:** `not yet`
+
+### Chores
+
+- create PULL_REQUEST_TEMPLATE.md to follow a template for each PR [#41]
+- bump vite from 7.1.1 to 7.1.12 [#61]
+- bump postcss from 8.5.6 to 8.5.15 [#66]
+- update dependencies as per latest react documentation [#71]
+
 ## [v1.1.0]
 
 > **Released:** `19-08-2025`
@@ -114,6 +125,10 @@ No changes to code were made after the beta release — this version simply mark
 - Bump nodemailer from 7.0.3 to 7.0.4 [#6](https://github.com/PuneetGopinath/chrono-capsule/pull/6)
 
 
+[#71]: https://github.com/PuneetGopinath/chrono-capsule/pull/71
+[#66]: https://github.com/PuneetGopinath/chrono-capsule/pull/66
+[#61]: https://github.com/PuneetGopinath/chrono-capsule/pull/61
+[#41]: https://github.com/PuneetGopinath/chrono-capsule/pull/41
 [#39]: https://github.com/PuneetGopinath/chrono-capsule/pull/39
 [#38]: https://github.com/PuneetGopinath/chrono-capsule/pull/38
 [#37]: https://github.com/PuneetGopinath/chrono-capsule/pull/37
