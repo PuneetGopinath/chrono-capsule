@@ -149,6 +149,8 @@ No changes to code were made after the beta release — this version simply mark
 [#9]: https://github.com/PuneetGopinath/chrono-capsule/pull/9
 [#7]: https://github.com/PuneetGopinath/chrono-capsule/pull/7
 
+[v1.1.0]: https://github.com/PuneetGopinath/chrono-capsule/releases/tag/v1.1.0
+[v1.0.1]: https://github.com/PuneetGopinath/chrono-capsule/releases/tag/v1.0.1
 [v1.0.0]: https://github.com/PuneetGopinath/chrono-capsule/releases/tag/v1.0.0
 [v1.0.0-beta]: https://github.com/PuneetGopinath/chrono-capsule/releases/tag/v1.0.0-beta
 [v1.0.0-alpha]: https://github.com/PuneetGopinath/chrono-capsule/releases/tag/v1.0.0-alpha
