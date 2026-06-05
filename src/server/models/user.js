@@ -24,7 +24,8 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        default: ""
     },
     verified: {
         type: Boolean,
@@ -39,6 +40,12 @@ const userSchema = new mongoose.Schema({
             type: Date
         }
     },
+    googleId: {
+        type: String,
+        unique: true,
+        sparse: true,
+        index: true
+    }
 });
 
 userSchema.pre("save", async function(next) {
