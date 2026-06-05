@@ -32,23 +32,28 @@ export default function Login({ data }) {
     }
 
     useEffect(() => {
-        loadGoogleScript().then(() => {
-            const container = document.querySelector(".google_signin");
-            if (!container || !window.google) return;
+        loadGoogleScript()
+            .then(() => {
+                const container = document.querySelector(".google_signin");
+                if (!container || !window.google) return;
 
-            google.accounts.id.initialize({
-                client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
-                callback: googleSignIn
+                google.accounts.id.initialize({
+                    client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+                    callback: googleSignIn
+                });
+
+                google.accounts.id.renderButton(
+                    container,
+                    { theme: "outline", size: "large", width: container.offsetWidth, text: "signin_with" }
+                );
+
+                console.log("[Info] Google Sign-In button rendered");
+                google.accounts.id.prompt(); // One Tap dialog
+            })
+            .catch((err) => {
+                console.error("[ERROR] Failed to load GIS script:", err);
+                setError("If google sign in is required, please try again later.");
             });
-
-            google.accounts.id.renderButton(
-                container,
-                { theme: "outline", size: "large", width: container.offsetWidth, text: "signin_with" }
-            );
-
-            console.log("[Info] Google Sign-In button rendered");
-            google.accounts.id.prompt(); // One Tap dialog
-        });
     }, []);
 
     const googleSignIn = async (user) => {

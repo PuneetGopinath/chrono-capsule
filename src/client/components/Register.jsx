@@ -36,23 +36,28 @@ export default function Register({ data }) {
     };
 
     useEffect(() => {
-        loadGoogleScript().then(() => {
-            const container = document.querySelector(".google_signup");
-            if (!container || !window.google) return;
+        loadGoogleScript()
+            .then(() => {
+                const container = document.querySelector(".google_signup");
+                if (!container || !window.google) return;
 
-            google.accounts.id.initialize({
-                client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
-                callback: googleSignUp
+                google.accounts.id.initialize({
+                    client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+                    callback: googleSignUp
+                });
+
+                google.accounts.id.renderButton(
+                    container,
+                    { theme: "outline", size: "large", width: container.offsetWidth, text: "signup_with" }
+                );
+
+                console.log("[Info] Google Sign-Up button rendered");
+                google.accounts.id.prompt(); // One Tap dialog
+            })
+            .catch((err) => {
+                console.error("[ERROR] Failed to load GIS script:", err);
+                setError("If google sign up is required, please try again later.");
             });
-
-            google.accounts.id.renderButton(
-                container,
-                { theme: "outline", size: "large", width: container.offsetWidth, text: "signup_with" }
-            );
-
-            console.log("[Info] Google Sign-Up button rendered");
-            google.accounts.id.prompt(); // One Tap dialog
-        });
     }, []);
 
     const login = async (username, password) => {
