@@ -4,7 +4,7 @@ Note that the displayed date is in the format `dd-mm-yyyy`
 
 ## [v1.1.1]
 
-> **Released:** `not yet`
+> **Released:** `unreleased`
 
 ### Chores
 
