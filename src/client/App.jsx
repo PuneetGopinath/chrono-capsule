@@ -4,7 +4,7 @@
  * License: MIT (see LICENSE)
 */
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router";
 import { useState, useEffect } from "react";
 
 import Header from "./components/Header";
