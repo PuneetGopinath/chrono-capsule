@@ -7,8 +7,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
-import { Helmet } from "react-helmet";
-
 import LoggedIn from "./LoggedIn";
 
 import loadGoogleScript from "../utils/loadGoogleScript";
@@ -130,9 +128,6 @@ export default function Login({ data }) {
 
     return (
         <main>
-            <Helmet>
-                <script src="https://accounts.google.com/gsi/client" async></script>
-            </Helmet>
             <div className="form-container">
                 <h2>Login</h2>
                 {error && <div className="error-msg">{error}</div>}
