@@ -5,7 +5,7 @@
 */
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 import NotLoggedIn from "../NotLoggedIn";
 

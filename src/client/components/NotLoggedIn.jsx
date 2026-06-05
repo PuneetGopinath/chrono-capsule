@@ -4,7 +4,7 @@
  * License: MIT (see LICENSE)
 */
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 export default function NotLoggedIn({ text }) {
     const navigate = useNavigate();

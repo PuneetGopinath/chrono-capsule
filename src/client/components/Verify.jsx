@@ -5,7 +5,7 @@
 */
 
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import { validate as uuidValidate, version as uuidVersion } from "uuid";
 
 const isValidUUID = (token) => {
