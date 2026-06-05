@@ -34,7 +34,7 @@ export default function Login({ data }) {
     useEffect(() => {
         const event = window.addEventListener("load", () => {
             google.accounts.id.initialize({
-                client_id: "453634898397-g4e2laccsk4lt5kv2p5urnrqvr4c3dr8.apps.googleusercontent.com",
+                client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
                 callback: googleSignIn
             });
             const container = document.querySelector(".google_signin");
