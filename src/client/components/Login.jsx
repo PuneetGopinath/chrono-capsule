@@ -17,10 +17,6 @@ export default function Login({ data }) {
     const [ submitting, setSubmitting ] = useState(false);
     const { loggedIn, setLoggedIn } = data;
 
-    if (loggedIn) {
-        return <LoggedIn text="To login into another account, you have to logout" setLoggedIn={setLoggedIn} />;
-    }
-
     const [ error, setError ] = useState(null);
 
     const [ showPwd, setShowPwd ] = useState(false);
@@ -30,6 +26,10 @@ export default function Login({ data }) {
             document.querySelector(".view-button").type = "text";
         }
     };
+
+    if (loggedIn) {
+        return <LoggedIn text="To login into another account, you have to logout" setLoggedIn={setLoggedIn} />;
+    }
 
     useEffect(() => {
         const event = window.addEventListener("load", () => {
