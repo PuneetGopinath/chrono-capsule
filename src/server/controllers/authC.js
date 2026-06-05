@@ -20,7 +20,7 @@ const client = new OAuth2Client();
 const verify = async (credential) => {
     const ticket = await client.verifyIdToken({
         idToken: credential,
-        audience: process.env.GOOGLE_CLIENT_ID
+        audience: process.env.VITE_GOOGLE_CLIENT_ID
     });
 
     const payload = ticket.getPayload();
