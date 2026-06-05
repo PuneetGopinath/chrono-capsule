@@ -31,10 +31,11 @@ if (process.env.TRUSTED_PROXIES && process.env.TRUSTED_PROXIES.length > 0) {
 
 app.use(cors());
 app.use(helmet({
-    contentSecurityPolicy:{
+    contentSecurityPolicy: {
         directives: {
             ...helmet.contentSecurityPolicy.getDefaultDirectives(),
             "script-src": ["'self'", "https://accounts.google.com", "https://apis.google.com"],
+            "frame-src": ["'self'", "https://accounts.google.com"],
             "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
             "font-src": ["'self'", "https://fonts.gstatic.com"],
         }
