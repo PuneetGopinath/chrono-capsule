@@ -16,9 +16,6 @@ const usernameRegex = /[^A-Za-z0-9\._\-@]/g;
 
 export default function Register({ data }) {
     const { loggedIn, setLoggedIn } = data;
-    if (loggedIn) {
-        return <LoggedIn text="To register a new account, you have to logout" setLoggedIn={setLoggedIn} />;
-    }
 
     const navigate = useNavigate();
 
@@ -59,6 +56,10 @@ export default function Register({ data }) {
                 setError("If google sign up is required, please try again later.");
             });
     }, []);
+    
+    if (loggedIn) {
+        return <LoggedIn text="To register a new account, you have to logout" setLoggedIn={setLoggedIn} />;
+    }
 
     const login = async (username, password) => {
         try {

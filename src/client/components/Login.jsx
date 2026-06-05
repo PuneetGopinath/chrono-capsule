@@ -27,10 +27,6 @@ export default function Login({ data }) {
         }
     };
 
-    if (loggedIn) {
-        return <LoggedIn text="To login into another account, you have to logout" setLoggedIn={setLoggedIn} />;
-    }
-
     useEffect(() => {
         loadGoogleScript()
             .then(() => {
@@ -55,6 +51,10 @@ export default function Login({ data }) {
                 setError("If google sign in is required, please try again later.");
             });
     }, []);
+
+    if (loggedIn) {
+        return <LoggedIn text="To login into another account, you have to logout" setLoggedIn={setLoggedIn} />;
+    }
 
     const googleSignIn = async (user) => {
         const credential = user.credential;
