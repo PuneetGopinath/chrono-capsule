@@ -29,23 +29,24 @@ const verify = async (credential) => {
     return payload ?? null;
 };
 
-const reg = async (username, email, password, signIn = "local", verified = false) => {
+const reg = async (username, email, password, method = "local", verified = false) => {
     let token = null, expiresAt = null;
     if (!verified) {
         token = v4();
         expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours from now
     }
 
+    const pwd = method === "local" ? { password } : { googleId: password };
+
     const user = await User.create({
         username,
         email,
-        password: password,
+        ...pwd,
         verified,
         verification: {
             token,
             expiresAt
         },
-        method: signIn
     }); // Password will be hashed automatically by the pre-save hook
 
     if (token) {
