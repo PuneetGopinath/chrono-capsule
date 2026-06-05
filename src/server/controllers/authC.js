@@ -18,15 +18,17 @@ const { sanitize, usernameRegex } = require("../utils/sanitize");
 const client = new OAuth2Client();
 
 const verify = async (credential) => {
-    const ticket = await client.verifyIdToken({
-        idToken: credential,
-        audience: process.env.VITE_GOOGLE_CLIENT_ID
-    });
+    try {
+        const ticket = await client.verifyIdToken({
+            idToken: credential,
+            audience: process.env.VITE_GOOGLE_CLIENT_ID
+        });
 
-    const payload = ticket.getPayload();
-
-    console.log(payload);
-    return payload ?? null;
+        return ticket.getPayload() ?? null;
+    } catch (err) {
+        if (process.env.DEBUG) console.log("[AUTH] Google token verification failed:", err.message);
+        return null;
+    }
 };
 
 const reg = async (username, email, password, method = "local", verified = false) => {
