@@ -48,7 +48,9 @@ const reg = async (username, email, password, signIn = "local", verified = false
         method: signIn
     }); // Password will be hashed automatically by the pre-save hook
 
-    await sendConfirmation(user.username, user.email, token);
+    if (token) {
+        await sendConfirmation(user.username, user.email, token);
+    }
 
     return user;
 };
