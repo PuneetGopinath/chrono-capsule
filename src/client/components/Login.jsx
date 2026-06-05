@@ -32,21 +32,22 @@ export default function Login({ data }) {
     }
 
     useEffect(() => {
-        const event = window.addEventListener("load", () => {
-            google.accounts.id.initialize({
-                client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
-                callback: googleSignIn
-            });
-            const container = document.querySelector(".google_signin");
-            google.accounts.id.renderButton(
-                container,
-                { theme: "outline", size: "large", width: container.offsetWidth, text: "signin_with" }
-            );
-            console.log("[Info] Google Sign-In button rendered");
-            console.log(container.offsetWidth);
-            google.accounts.id.prompt(); // One Tap dialog
+        const container = document.querySelector(".google_signin");
+        if (!container || !window.google) return;
+
+        google.accounts.id.initialize({
+            client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+            callback: googleSignIn
         });
-        return () => window.removeEventListener("load", event);
+
+        google.accounts.id.renderButton(
+            container,
+            { theme: "outline", size: "large", width: container.offsetWidth, text: "signin_with" }
+        );
+
+        console.log("[Info] Google Sign-In button rendered");
+        console.log(container.offsetWidth);
+        google.accounts.id.prompt(); // One Tap dialog
     }, []);
 
     const googleSignIn = async (user) => {
