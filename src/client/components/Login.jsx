@@ -34,7 +34,7 @@ export default function Login({ data }) {
     }
 
     useEffect(() => {
-        loadGoogleScript.then(() => {
+        loadGoogleScript().then(() => {
             const container = document.querySelector(".google_signin");
             if (!container || !window.google) return;
 

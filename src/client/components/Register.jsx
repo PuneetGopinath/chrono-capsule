@@ -38,7 +38,7 @@ export default function Register({ data }) {
     };
 
     useEffect(() => {
-        loadGoogleScript.then(() => {
+        loadGoogleScript().then(() => {
             const container = document.querySelector(".google_signup");
             if (!container || !window.google) return;
 
@@ -51,7 +51,7 @@ export default function Register({ data }) {
                 container,
                 { theme: "outline", size: "large", width: container.offsetWidth, text: "signup_with" }
             );
-            
+
             console.log("[Info] Google Sign-Up button rendered");
             google.accounts.id.prompt(); // One Tap dialog
         });
