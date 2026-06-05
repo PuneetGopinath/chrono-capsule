@@ -11,6 +11,8 @@ import { Helmet } from "react-helmet";
 
 import LoggedIn from "./LoggedIn";
 
+import loadGoogleScript from "../utils/loadGoogleScript";
+
 // Redundant regexes copied from sanitize.js
 const usernameRegex = /[^A-Za-z0-9\._\-@]/g;
 
@@ -36,20 +38,23 @@ export default function Register({ data }) {
     };
 
     useEffect(() => {
-        const event = window.addEventListener("load", () => {
+        loadGoogleScript.then(() => {
+            const container = document.querySelector(".google_signup");
+            if (!container || !window.google) return;
+
             google.accounts.id.initialize({
                 client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
                 callback: googleSignUp
             });
-            const container = document.querySelector(".google_signup");
+
             google.accounts.id.renderButton(
                 container,
                 { theme: "outline", size: "large", width: container.offsetWidth, text: "signup_with" }
             );
+            
             console.log("[Info] Google Sign-Up button rendered");
             google.accounts.id.prompt(); // One Tap dialog
         });
-        return () => window.removeEventListener("load", event);
     }, []);
 
     const login = async (username, password) => {
