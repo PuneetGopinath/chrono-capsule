@@ -49,8 +49,8 @@ export default function Login({ data }) {
         return () => window.removeEventListener("load", event);
     }, []);
 
-    const googleSignIn = async (res) => {
-        const credential = res.credential;
+    const googleSignIn = async (user) => {
+        const credential = user.credential;
 
         try {
             const res = await fetch("/api/auth/login", {

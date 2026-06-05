@@ -119,9 +119,9 @@ exports.login = async (req, res) => {
             return res.status(401).json({ message: "Invalid Google credential" });
         }
         let user = await User.findOne({ email: payload.email });
-        if (!user) {
+        if (!user)
             user = await User.findOne({ googleId: payload.sub });
-        }
+        
         if (user && !user.googleId) {
             user.googleId = payload.sub;
             await user.save();

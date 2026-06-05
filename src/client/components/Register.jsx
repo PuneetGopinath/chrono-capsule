@@ -47,7 +47,6 @@ export default function Register({ data }) {
                 { theme: "outline", size: "large", width: container.offsetWidth, text: "signup_with" }
             );
             console.log("[Info] Google Sign-Up button rendered");
-            console.log(container.offsetWidth);
             google.accounts.id.prompt(); // One Tap dialog
         });
         return () => window.removeEventListener("load", event);
@@ -76,7 +75,7 @@ export default function Register({ data }) {
     };
 
     const googleSignUp = async (user) => {
-        const credential = res.credential;
+        const credential = user.credential;
 
         try {
             const res = await fetch("/api/auth/login", {
@@ -96,7 +95,8 @@ export default function Register({ data }) {
             if (res.ok) {
                 alert("Registered through google successfully!");
                 console.log("[✅ Success] Registration through google successfully!");
-                await login(obj.username, obj.password);
+                localStorage.setItem("token", data.token);
+                setLoggedIn(true);
                 navigate("/"); // Redirect to home page
             } else {
                 console.log("[❌ Error] Registration failed through google:", data.message);
