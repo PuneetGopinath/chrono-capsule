@@ -4,20 +4,18 @@
  * License: MIT (see LICENSE)
 */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
 import LoggedIn from "./LoggedIn";
+
+import loadGoogleScript from "../utils/loadGoogleScript";
 
 export default function Login({ data }) {
     const navigate = useNavigate();
 
     const [ submitting, setSubmitting ] = useState(false);
     const { loggedIn, setLoggedIn } = data;
-
-    if (loggedIn) {
-        return <LoggedIn text="To login into another account, you have to logout" setLoggedIn={setLoggedIn} />;
-    }
 
     const [ error, setError ] = useState(null);
 
@@ -29,6 +27,70 @@ export default function Login({ data }) {
         }
     };
 
+    useEffect(() => {
+        loadGoogleScript()
+            .then(() => {
+                const container = document.querySelector(".google_signin");
+                if (!container || !window.google) return;
+
+                google.accounts.id.initialize({
+                    client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+                    callback: googleSignIn
+                });
+
+                google.accounts.id.renderButton(
+                    container,
+                    { theme: "outline", size: "large", width: container.offsetWidth, text: "signin_with" }
+                );
+
+                console.log("[Info] Google Sign-In button rendered");
+                google.accounts.id.prompt(); // One Tap dialog
+            })
+            .catch((err) => {
+                console.error("[ERROR] Failed to load GIS script:", err);
+                setError("If google sign in is required, please try again later.");
+            });
+    }, []);
+
+    if (loggedIn) {
+        return <LoggedIn text="To login into another account, you have to logout" setLoggedIn={setLoggedIn} />;
+    }
+
+    const googleSignIn = async (user) => {
+        const credential = user.credential;
+
+        try {
+            const res = await fetch("/api/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                    // "Referrer-Policy": "no-referrer-when-downgrade" ONLY IF LOCALHOST
+                },
+                body: JSON.stringify({
+                    credential,
+                    signIn: "google"
+                })
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                alert("Logged in through Google successfully!");
+                console.log("[✅ Success] Logged in through Google successfully!");
+                localStorage.setItem("token", data.token);
+                setLoggedIn(true);
+                navigate("/"); // Redirect to home page
+            } else {
+                console.log("[❌ Error] Login failed through google:", data.message);
+                setError(data.message || "Login failed through google. Please try later.");
+                window.scrollTo(0, 0);
+            }
+        } catch(err) {
+            console.log("[❌ Error] Failed to login (through google)", err);
+            setError("Unable to login through google. Please try again later.");
+            window.scrollTo(0, 0);
+        }
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -71,9 +133,13 @@ export default function Login({ data }) {
 
     return (
         <main>
-            <div className="form-container login">
+            <div className="form-container">
                 <h2>Login</h2>
                 {error && <div className="error-msg">{error}</div>}
+
+                <div className="google_signin"></div>
+                
+                <hr />
                 <form onSubmit={handleSubmit}>
                     <label>Username:</label>
                     <input

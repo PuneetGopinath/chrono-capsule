@@ -8,10 +8,55 @@ const { v4, validate: uuidValidate } = require("uuid");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+const { OAuth2Client } = require("google-auth-library");
+
 const { User } = require("../models");
 
 const sendConfirmation = require("../utils/sendConfirmation");
 const { sanitize, usernameRegex } = require("../utils/sanitize");
+
+const client = new OAuth2Client();
+
+const verify = async (credential) => {
+    try {
+        const ticket = await client.verifyIdToken({
+            idToken: credential,
+            audience: process.env.VITE_GOOGLE_CLIENT_ID
+        });
+
+        return ticket.getPayload() ?? null;
+    } catch (err) {
+        if (process.env.DEBUG) console.log("[AUTH] Google token verification failed:", err.message);
+        return null;
+    }
+};
+
+const reg = async (username, email, password, method = "local", verified = false) => {
+    let token = null, expiresAt = null;
+    if (!verified) {
+        token = v4();
+        expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours from now
+    }
+
+    const pwd = method === "local" ? { password } : { googleId: password };
+
+    const user = await User.create({
+        username,
+        email,
+        ...pwd,
+        verified,
+        verification: {
+            token,
+            expiresAt
+        },
+    }); // Password will be hashed automatically by the pre-save hook
+
+    if (token) {
+        await sendConfirmation(user.username, user.email, token);
+    }
+
+    return user;
+};
 
 exports.register = async (req, res) => {
     if (!req.body) {
@@ -54,18 +99,7 @@ exports.register = async (req, res) => {
         return res.status(400).json({ message: "Email is too long" });
     }
 
-    const token = v4();
-    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours from now
-
-    const user = await User.create({
-        ...sanitized,
-        verification: {
-            token,
-            expiresAt
-        }
-    }); // Password will be hashed automatically by the pre-save hook
-
-    await sendConfirmation(user.username, user.email, token);
+    const user = await reg(sanitized.username, sanitized.email, sanitized.password);
 
     if (process.env.DEBUG) console.log("User registered:", user.username);
     return res.status(201).json({
@@ -79,7 +113,38 @@ exports.login = async (req, res) => {
     if (!req.body) {
         return res.status(400).json({ message: "Request body is required" });
     }
+    const signIn = req.body.signIn || "local";
+
+    if (signIn === "google") {
+        if (!req.body?.credential) {
+            return res.status(400).json({ message: "Google credential is required" });
+        }
+        const payload = await verify(req.body.credential);
+        if (!payload) {
+            return res.status(401).json({ message: "Invalid Google credential" });
+        }
+        let user = await User.findOne({ email: payload.email });
+        if (!user)
+            user = await User.findOne({ googleId: payload.sub });
+        
+        if (user && !user.googleId) {
+            user.googleId = payload.sub;
+            await user.save();
+        }
+        // If user doesn't exist, register them
+        if (!user) {
+            const username = sanitize(payload.email.split("@")[0], "username");
+            user = await reg(username, payload.email, payload.sub, "google", payload.email_verified); // For now, password is set to the unique id of a google account
+        }
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { algorithm: "HS256", expiresIn: "7d" });
+        if (process.env.DEBUG) console.log("User logged in through google:", user.username);
+        return res.status(200).json({ message: "Google sign-in successful", token });
+    }
     const { username = null, password = null } = req.body;
+
+    if (!username || !password) {
+        return res.status(400).json({ message: "Username and password are required." });
+    }
 
     const sanitized = {
         username: sanitize(username, "username"),
@@ -91,11 +156,11 @@ exports.login = async (req, res) => {
     if (user) {
         isMatch = await bcrypt.compare(sanitized.password, user.password);
     }
-    if (!user || !isMatch) return res.status(401).json({ message: "Invalid credentials"});
+    if (!user || !isMatch) return res.status(401).json({ message: "Invalid credentials" });
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { algorithm: "HS256", expiresIn: "7d" });
-    if (process.env.DEBUG) console.log("User logged in:", user.username, "\nJWT Token:", token);
-    return res.status(200).json({ message: "Login successful", token});
+    if (process.env.DEBUG) console.log("User logged in:", user.username);
+    return res.status(200).json({ message: "Login successful", token });
 };
 
 exports.verify = async (req, res) => {

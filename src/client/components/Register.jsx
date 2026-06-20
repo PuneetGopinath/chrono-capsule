@@ -4,19 +4,18 @@
  * License: MIT (see LICENSE)
 */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
 import LoggedIn from "./LoggedIn";
+
+import loadGoogleScript from "../utils/loadGoogleScript";
 
 // Redundant regexes copied from sanitize.js
 const usernameRegex = /[^A-Za-z0-9\._\-@]/g;
 
 export default function Register({ data }) {
     const { loggedIn, setLoggedIn } = data;
-    if (loggedIn) {
-        return <LoggedIn text="To register a new account, you have to logout" setLoggedIn={setLoggedIn} />;
-    }
 
     const navigate = useNavigate();
 
@@ -32,6 +31,35 @@ export default function Register({ data }) {
         else
             setShowConfirmPwd(!showConfirmPwd);
     };
+
+    useEffect(() => {
+        loadGoogleScript()
+            .then(() => {
+                const container = document.querySelector(".google_signup");
+                if (!container || !window.google) return;
+
+                google.accounts.id.initialize({
+                    client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+                    callback: googleSignUp
+                });
+
+                google.accounts.id.renderButton(
+                    container,
+                    { theme: "outline", size: "large", width: container.offsetWidth, text: "signup_with" }
+                );
+
+                console.log("[Info] Google Sign-Up button rendered");
+                google.accounts.id.prompt(); // One Tap dialog
+            })
+            .catch((err) => {
+                console.error("[ERROR] Failed to load GIS script:", err);
+                setError("If google sign up is required, please try again later.");
+            });
+    }, []);
+    
+    if (loggedIn) {
+        return <LoggedIn text="To register a new account, you have to logout" setLoggedIn={setLoggedIn} />;
+    }
 
     const login = async (username, password) => {
         try {
@@ -55,6 +83,41 @@ export default function Register({ data }) {
         }
     };
 
+    const googleSignUp = async (user) => {
+        const credential = user.credential;
+
+        try {
+            const res = await fetch("/api/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                    // "Referrer-Policy": "no-referrer-when-downgrade" ONLY IF LOCALHOST
+                },
+                body: JSON.stringify({
+                    credential,
+                    signIn: "google"
+                })
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                alert("Registered through google successfully!");
+                console.log("[✅ Success] Registration through google successfully!");
+                localStorage.setItem("token", data.token);
+                setLoggedIn(true);
+                navigate("/"); // Redirect to home page
+            } else {
+                console.log("[❌ Error] Registration failed through google:", data.message);
+                setError(data.message || "Registration failed through google. Please try later.");
+                window.scrollTo(0, 0);
+            }
+        } catch(err) {
+            console.log("[❌ Error] Failed to register (through google)", err);
+            setError("Unable to login through google. Please try again later.");
+            window.scrollTo(0, 0);
+        }
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -93,7 +156,7 @@ export default function Register({ data }) {
                 navigate("/"); // Redirect to home page
             } else {
                 console.log("[❌ Error] Register failed:", data.message);
-                setError(data.message || "Registration failed. Please check your credentials.");
+                setError(data.message || "Registration failed. Please try again later.");
                 window.scrollTo(0, 0);
             }
         } catch (err) {
@@ -107,9 +170,11 @@ export default function Register({ data }) {
 
     return (
         <main>
-            <div className="form-container login">
+            <div className="form-container">
                 <h2>Register</h2>
                 {error && <div className="error-msg">{error}</div>}
+                <div className="google_signup"></div>
+                <hr />
                 <form onSubmit={handleSubmit}>
                     <label>Username:</label>
                     <input
