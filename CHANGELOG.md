@@ -2,9 +2,13 @@
 
 Note that the displayed date is in the format `dd-mm-yyyy`
 
-## [v1.1.1]
+## [v1.2.0]
 
 > **Released:** `unreleased`
+
+### New Features
+
+- Implement the Google OAuth for users to sign in/sign up with google [#74]
 
 ### Chores
 
@@ -12,6 +16,7 @@ Note that the displayed date is in the format `dd-mm-yyyy`
 - bump vite from 7.1.1 to 7.1.12 [#61]
 - bump postcss from 8.5.6 to 8.5.15 [#66]
 - update dependencies as per latest react documentation [#71]
+- added google-auth-library package for google oauth [#74]
 
 ## [v1.1.0]
 
@@ -125,6 +130,7 @@ No changes to code were made after the beta release — this version simply mark
 - Bump nodemailer from 7.0.3 to 7.0.4 [#6](https://github.com/PuneetGopinath/chrono-capsule/pull/6)
 
 
+[#74]: https://github.com/PuneetGopinath/chrono-capsule/pull/74
 [#71]: https://github.com/PuneetGopinath/chrono-capsule/pull/71
 [#66]: https://github.com/PuneetGopinath/chrono-capsule/pull/66
 [#61]: https://github.com/PuneetGopinath/chrono-capsule/pull/61
