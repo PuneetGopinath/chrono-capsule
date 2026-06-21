@@ -1,20 +1,20 @@
 /**
- * © 2025 Puneet Gopinath. All rights reserved.
- * Filename: src/client/components/Register.jsx
+ * © 2025-26 Puneet Gopinath. All rights reserved.
+ * Filename: src/client/components/SignUp.jsx
  * License: MIT (see LICENSE)
 */
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
-import LoggedIn from "./LoggedIn";
+import LoggedIn from "../LoggedIn";
 
-import loadGoogleScript from "../utils/loadGoogleScript";
+import loadGoogleScript from "../../utils/loadGoogleScript";
 
 // Redundant regexes copied from sanitize.js
 const usernameRegex = /[^A-Za-z0-9\._\-@]/g;
 
-export default function Register({ data }) {
+export default function SignUp({ data }) {
     const { loggedIn, setLoggedIn } = data;
 
     const navigate = useNavigate();
@@ -61,7 +61,7 @@ export default function Register({ data }) {
         return <LoggedIn text="To register a new account, you have to logout" setLoggedIn={setLoggedIn} />;
     }
 
-    const login = async (username, password) => {
+    const signin = async (username, password) => {
         try {
             const res = await fetch("/api/auth/login", {
                 method: "POST",
@@ -74,12 +74,12 @@ export default function Register({ data }) {
             if (res.ok) {
                 localStorage.setItem("token", data.token);
                 setLoggedIn(true);
-                console.log("[✅ Success] Logged in successfully!");
+                console.log("[✅ Success] Signed in successfully!");
             } else {
-                console.log("[❌ Error] Login failed:", data.message);
+                console.log("[❌ Error] Sign in failed:", data.message);
             }
         } catch (err) {
-            console.log("[❌ Error] Failed to login", err);
+            console.log("[❌ Error] Failed to sign in", err);
         }
     };
 
@@ -102,19 +102,19 @@ export default function Register({ data }) {
             const data = await res.json();
 
             if (res.ok) {
-                alert("Registered through google successfully!");
-                console.log("[✅ Success] Registration through google successfully!");
+                alert("Signed up through google successfully!");
+                console.log("[✅ Success] Signed up through google successfully!");
                 localStorage.setItem("token", data.token);
                 setLoggedIn(true);
                 navigate("/"); // Redirect to home page
             } else {
-                console.log("[❌ Error] Registration failed through google:", data.message);
-                setError(data.message || "Registration failed through google. Please try later.");
+                console.log("[❌ Error] Signed up failed through google:", data.message);
+                setError(data.message || "Signed up failed through google. Please try later.");
                 window.scrollTo(0, 0);
             }
         } catch(err) {
-            console.log("[❌ Error] Failed to register (through google)", err);
-            setError("Unable to login through google. Please try again later.");
+            console.log("[❌ Error] Failed to sign up (through google)", err);
+            setError("Unable to sign up through google. Please try again later.");
             window.scrollTo(0, 0);
         }
     };
@@ -150,18 +150,18 @@ export default function Register({ data }) {
             const data = await res.json();
 
             if (res.ok) {
-                alert("Registered successfully!");
-                console.log("[✅ Success] Registered successfully!");
-                await login(obj.username, obj.password);
+                alert("Signed up successfully!");
+                console.log("[✅ Success] Signed up successfully!");
+                await signin(obj.username, obj.password);
                 navigate("/"); // Redirect to home page
             } else {
-                console.log("[❌ Error] Register failed:", data.message);
-                setError(data.message || "Registration failed. Please try again later.");
+                console.log("[❌ Error] Sign up failed:", data.message);
+                setError(data.message || "Sign up failed. Please try again later.");
                 window.scrollTo(0, 0);
             }
         } catch (err) {
-            console.log("[❌ Error] Failed to register", err);
-            setError("An error occurred while trying to register. Please try again later.");
+            console.log("[❌ Error] Failed to sign up", err);
+            setError("An error occurred while trying to sign up. Please try again later.");
             window.scrollTo(0, 0);
         } finally {
             setSubmitting(false);
@@ -171,7 +171,7 @@ export default function Register({ data }) {
     return (
         <main>
             <div className="form-container">
-                <h2>Register</h2>
+                <h2>Sign Up</h2>
                 {error && <div className="error-msg">{error}</div>}
                 <div className="google_signup"></div>
                 <hr />
@@ -220,7 +220,7 @@ export default function Register({ data }) {
                         <span className="view-button" id="confirmPassword" title="Show/Hide Confirm Password" onClick={toggleVisibility}>👁</span>
                     </div>
 
-                    <button type="submit" disabled={submitting}>Register</button>
+                    <button type="submit" disabled={submitting}>Sign Up</button>
                 </form>
             </div>
         </main>
