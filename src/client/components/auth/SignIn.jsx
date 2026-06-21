@@ -1,17 +1,17 @@
 /**
- * © 2025 Puneet Gopinath. All rights reserved.
- * Filename: src/client/components/Login.jsx
+ * © 2025-26 Puneet Gopinath. All rights reserved.
+ * Filename: src/client/components/SignIn.jsx
  * License: MIT (see LICENSE)
 */
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
-import LoggedIn from "./LoggedIn";
+import LoggedIn from "../LoggedIn";
 
-import loadGoogleScript from "../utils/loadGoogleScript";
+import loadGoogleScript from "../../utils/loadGoogleScript";
 
-export default function Login({ data }) {
+export default function SignIn({ data }) {
     const navigate = useNavigate();
 
     const [ submitting, setSubmitting ] = useState(false);
@@ -112,19 +112,19 @@ export default function Login({ data }) {
             const data = await res.json();
 
             if (res.ok) {
-                alert("Logged in successfully!");
-                console.log("[✅ Success] Logged in successfully!");
+                alert("Signed in successfully!");
+                console.log("[✅ Success] Signed in successfully!");
                 localStorage.setItem("token", data.token);
                 setLoggedIn(true);
                 navigate("/"); // Redirect to home page
             } else {
-                console.log("[❌ Error] Login failed:", data.message);
-                setError(data.message || "Login failed. Please check your credentials.");
+                console.log("[❌ Error] Sign in failed:", data.message);
+                setError(data.message || "Sign in failed. Please check your credentials.");
                 window.scrollTo(0, 0);
             }
         } catch (err) {
-            console.log("[❌ Error] Failed to login", err);
-            setError("An error occured while trying to log in. Please try again later.");
+            console.log("[❌ Error] Failed to Sign in", err);
+            setError("An error occured while trying to sign in. Please try again later.");
             window.scrollTo(0, 0);
         } finally {
             setSubmitting(false);
@@ -134,7 +134,7 @@ export default function Login({ data }) {
     return (
         <main>
             <div className="form-container">
-                <h2>Login</h2>
+                <h2>Sign In</h2>
                 {error && <div className="error-msg">{error}</div>}
 
                 <div className="google_signin"></div>
@@ -163,7 +163,7 @@ export default function Login({ data }) {
                         <span className="view-button" title="Show/Hide Password" onClick={toggleVisibility}>👁</span>
                     </div>
 
-                    <button type="submit" disabled={submitting}>Login</button>
+                    <button type="submit" disabled={submitting}>Sign In</button>
                 </form>
             </div>
         </main>
