@@ -1,5 +1,5 @@
 /**
- * © 2025 Puneet Gopinath. All rights reserved.
+ * © 2025-26 Puneet Gopinath. All rights reserved.
  * Filename: src/client/components/Footer.jsx
  * License: MIT (see LICENSE)
 */
