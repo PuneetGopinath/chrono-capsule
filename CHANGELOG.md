@@ -17,6 +17,9 @@ Note that the displayed date is in the format `dd-mm-yyyy`
 - bump postcss from 8.5.6 to 8.5.15 [#66]
 - update dependencies as per latest react documentation [#71]
 - added google-auth-library package for google oauth [#74]
+- bump shell-quote from 1.8.3 to 1.8.4 [#75]
+- bump vite from 7.3.5 to 8.0.16 [#79]
+- bump node-cron from 4.1.1 to 4.4.1 [#20]
 
 ## [v1.1.0]
 
@@ -130,6 +133,8 @@ No changes to code were made after the beta release — this version simply mark
 - Bump nodemailer from 7.0.3 to 7.0.4 [#6](https://github.com/PuneetGopinath/chrono-capsule/pull/6)
 
 
+[#79]: https://github.com/PuneetGopinath/chrono-capsule/pull/79
+[#75]: https://github.com/PuneetGopinath/chrono-capsule/pull/75
 [#74]: https://github.com/PuneetGopinath/chrono-capsule/pull/74
 [#71]: https://github.com/PuneetGopinath/chrono-capsule/pull/71
 [#66]: https://github.com/PuneetGopinath/chrono-capsule/pull/66
@@ -146,6 +151,7 @@ No changes to code were made after the beta release — this version simply mark
 [#26]: https://github.com/PuneetGopinath/chrono-capsule/pull/26
 [#24]: https://github.com/PuneetGopinath/chrono-capsule/pull/24
 [#23]: https://github.com/PuneetGopinath/chrono-capsule/pull/23
+[#20]: https://github.com/PuneetGopinath/chrono-capsule/pull/20
 [#18]: https://github.com/PuneetGopinath/chrono-capsule/pull/18
 [#16]: https://github.com/PuneetGopinath/chrono-capsule/pull/16
 [#14]: https://github.com/PuneetGopinath/chrono-capsule/pull/14
