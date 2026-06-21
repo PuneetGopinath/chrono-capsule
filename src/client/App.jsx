@@ -12,8 +12,8 @@ import Footer from "./components/Footer";
 
 import Home from "./components/Home";
 import About from "./components/About";
-import Register from "./components/Register";
-import Login from "./components/Login";
+import SignUp from "./components/auth/SignUp";
+import SignIn from "./components/auth/SignIn";
 import Terms from "./components/Terms";
 import Privacy from "./components/Privacy";
 import Verify from "./components/Verify";
@@ -22,7 +22,7 @@ import CapsuleForm from "./components/dashboard/CapsuleForm";
 import CapsuleView from "./components/dashboard/CapsuleView";
 
 export default function App() {
-    const [ loggedIn, setLoggedIn ] = useState(!!localStorage.getItem("token"));
+    const [ signedIn, setSignedIn ] = useState(!!localStorage.getItem("token"));
 
     const savedTheme = () => localStorage.getItem("theme");
     useEffect(() => {
@@ -38,7 +38,7 @@ export default function App() {
 
         const lastCheck = localStorage.getItem("LastCheck");
 
-        if (loggedIn && lastCheck < Date.now() - 5 * 60 * 60 * 1000) { // Last check should be more than 5 hours ago
+        if (signedIn && lastCheck < Date.now() - 5 * 60 * 60 * 1000) { // Last check should be more than 5 hours ago
             fetch(`/api/auth/status?token=${encodeURIComponent(localStorage.getItem("token"))}`, {
                 method: "GET",
                 headers: {
@@ -63,17 +63,17 @@ export default function App() {
     return (
         <>
             <BrowserRouter>
-                <Header savedTheme={savedTheme} data={{ loggedIn, setLoggedIn }} />
+                <Header savedTheme={savedTheme} data={{ signedIn, setSignedIn }} />
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
-                    <Route path="/register" element={<Register data={{ loggedIn, setLoggedIn }} />} />
-                    <Route path="/login" element={<Login data={{ loggedIn, setLoggedIn }} />} />
-                    <Route path="/dashboard/create" element={<CapsuleForm data={{ loggedIn }} />} />
-                    <Route path="/dashboard/view" element={<CapsuleView data={{ loggedIn }} />} />
+                    <Route path="/register" element={<SignUp data={{ signedIn, setSignedIn }} />} />
+                    <Route path="/login" element={<SignIn data={{ signedIn, setSignedIn }} />} />
+                    <Route path="/dashboard/create" element={<CapsuleForm data={{ signedIn }} />} />
+                    <Route path="/dashboard/view" element={<CapsuleView data={{ signedIn }} />} />
                     <Route path="/terms" element={<Terms />} />
                     <Route path="/privacy" element={<Privacy />} />
-                    <Route path="/verify/:token" element={<Verify data={{ loggedIn }} />} />
+                    <Route path="/verify/:token" element={<Verify data={{ signedIn }} />} />
                     <Route path="*" element={<h1>404 Not Found</h1>} />
                 </Routes>
                 <Footer />
