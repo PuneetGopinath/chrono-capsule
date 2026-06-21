@@ -4,24 +4,13 @@
  * License: MIT (see LICENSE)
 */
 
-import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import "../home.css";
+
+import "../styles/home.css";
 
 export default function Home() {
     const loggedin = !!localStorage.getItem("token");
     const navigate = useNavigate();
-    useEffect(() => {
-        const link = document.createElement("link");
-        link.rel = "stylesheet";
-        link.href = "/home.css";
-
-        document.head.appendChild(link);
-
-        return () => {
-            document.head.removeChild(link); // Clean up the link when the component unmounts
-        };
-    }, []);
 
     return (
         <main>
