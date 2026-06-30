@@ -37,7 +37,7 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.6.0",
+    "@vitejs/plugin-react": "^6.0.3",
     "concurrently": "^9.2.0",
     "eslint": "^10.5.0",
     "nodemon": "^3.1.10",
