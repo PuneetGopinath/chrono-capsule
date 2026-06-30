@@ -20,6 +20,8 @@ Note that the displayed date is in the format `dd-mm-yyyy`
 - bump shell-quote from 1.8.3 to 1.8.4 [#75]
 - bump vite from 7.3.5 to 8.0.16 [#79]
 - bump node-cron from 4.1.1 to 4.4.1 [#20]
+- bump eslint from 9.33.0 to 10.5.0 [#59]
+- bump @vitejs/plugin-react from 4.6.0 to 6.0.3
 
 ## [v1.1.0]
 
@@ -139,6 +141,7 @@ No changes to code were made after the beta release — this version simply mark
 [#71]: https://github.com/PuneetGopinath/chrono-capsule/pull/71
 [#66]: https://github.com/PuneetGopinath/chrono-capsule/pull/66
 [#61]: https://github.com/PuneetGopinath/chrono-capsule/pull/61
+[#59]: https://github.com/PuneetGopinath/chrono-capsule/pull/59
 [#41]: https://github.com/PuneetGopinath/chrono-capsule/pull/41
 [#39]: https://github.com/PuneetGopinath/chrono-capsule/pull/39
 [#38]: https://github.com/PuneetGopinath/chrono-capsule/pull/38
