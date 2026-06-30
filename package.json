@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/server/index.js",
     "dev": "npx nodemon src/server/index.js --watch src -e js,jsx,json,css",
-    "dev-frontend": "vite",
+    "dev-client": "vite",
     "build": "vite build",
     "format": "npx prettier --write src",
     "lint": "npx eslint src",
