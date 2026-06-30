@@ -5,6 +5,7 @@ import reactHooks from "eslint-plugin-react-hooks";
 
 export default defineConfig({
     basePath: "./src",
+    files: ["**/*.{js,jsx}"],
     languageOptions: {
         ecmaVersion: "latest",
         sourceType: "module",
@@ -34,9 +35,6 @@ export default defineConfig({
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
 
-        "@eslint-react/jsx-uses-react": "off",
-        "@eslint-react/jsx-uses-vars": "error",
-        "@eslint-react/react-in-jsx-scope": "off",
         "@eslint-react/naming-convention/component-name": "error",
         "@eslint-react/no-unstable-nested-components": "error"
     }
